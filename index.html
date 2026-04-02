@@ -82,14 +82,14 @@
   <a href="#" class="nav__logo">ungephiltert<span>.</span></a>
   <div class="nav__links">
     <a href="#reels">Arbeiten</a>
-    <a href="#ueber">Über mich</a>
+    <a href="#philipp">Über mich</a>
     <a href="#kontakt" class="nav__cta">Schreib mir</a>
   </div>
   <button class="nav__burger" id="burger" aria-label="Menü"><span></span><span></span><span></span></button>
 </nav>
 <div class="mobile-menu" id="mobileMenu">
   <a href="#reels">Arbeiten</a>
-  <a href="#ueber">Über mich</a>
+  <a href="#philipp">Über mich</a>
   <a href="#kontakt">Kontakt</a>
 </div>
 
@@ -99,8 +99,6 @@
 .hero-ticker {
   position: relative; width: 100%; min-height: clamp(500px, 70vh, 850px); overflow: hidden;
   background: #141210;
-  background-image:
-    radial-gradient(ellipse 600px 500px at 30% 40%, rgba(232,101,43,.04) 0%, transparent 60%);
 }
 .hero-ticker__bg {
   position: absolute; top: 0; left: 48%; width: 52%; height: 100%; z-index: 1; overflow: hidden;
@@ -212,13 +210,13 @@
     <img src="img/philipp-freigestellt.png" alt="Philipp">
   </div>
   <div class="hero-ticker__content">
-    <span class="hero-ticker__label">Video Content Creator</span>
+    <span class="hero-ticker__label">Creator</span>
     <h2 class="hero-ticker__title">Ich bin<br>Philipp<em>.</em></h2>
-    <p class="hero-ticker__text">Ich mache Videos. Auf Events, mit Leuten, hinter den Kulissen. Hier siehst du, was dabei rauskommt.</p>
+    <p class="hero-ticker__text">Ich mach Videos. Für mich, für andere, auf Events oder einfach so. Alles was mich interessiert, halt ich fest.</p>
     <ul class="hero-ticker__bullets">
-      <li>Events &amp; Interviews</li>
-      <li>Social Media Content</li>
-      <li>Creator &amp; Firmen begleiten</li>
+      <li>Reels, Vlogs &amp; Kurzvideos</li>
+      <li>Event Content &amp; Interviews</li>
+      <li>Persönlicher Content &amp; Travel</li>
     </ul>
     <div class="hero-ticker__actions">
       <a href="#reels" class="hero-ticker__cta">Videos ansehen</a>
@@ -233,21 +231,16 @@
 /* --- Gemeinsame Card Styles --- */
 .reel-card {
   flex-shrink:0; width:220px; position:relative;
-  border-radius:16px; overflow:hidden;
+  border-radius:16px; overflow:hidden; clip-path:inset(0 round 16px);
   border:1px solid rgba(0,0,0,.06);
   transition:transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s, border-color .35s;
 }
-.reel-card::before {
-  content:''; position:absolute; top:0; left:0; right:0; height:3px;
-  background:#E8652B; z-index:5; border-radius:3px 3px 0 0;
-  transform:scaleX(0); transform-origin:left; transition:transform .4s cubic-bezier(.22,1,.36,1);
-}
-.reel-card:hover::before { transform:scaleX(1); }
 .reel-card:hover {
-  transform:translateY(-10px) scale(1.03);
-  box-shadow: 0 20px 50px rgba(0,0,0,.15); border-color:rgba(232,101,43,.25);
+  transform:translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 50px rgba(0,0,0,.12);
 }
-.reel-card__thumb { position:relative; width:100%; aspect-ratio:9/16; overflow:hidden; }
+.reel-card__thumb { position:relative; width:100%; aspect-ratio:9/16; overflow:hidden; z-index:1; }
+.reel-card__thumb video { position:absolute !important; top:0 !important; left:0 !important; width:100% !important; height:100% !important; object-fit:cover !important; z-index:4; }
 .reel-card__thumb img { width:100%; height:100%; object-fit:cover; transition:transform .5s cubic-bezier(.22,1,.36,1); }
 .reel-card:hover .reel-card__thumb img { transform:scale(1.06); }
 .reel-card__play {
@@ -267,54 +260,31 @@
 .reel-card__name { font-size:14px; font-weight:700; margin-bottom:3px; }
 .reel-card__desc { font-size:12px; color:#888; }
 
-/* Fullscreen Overlay */
-.reel-overlay { position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,.94); backdrop-filter:blur(16px); display:none; align-items:center; justify-content:center; flex-direction:column; }
-.reel-overlay.open { display:flex; }
-.reel-overlay__close { position:absolute; top:24px; right:24px; width:46px; height:46px; border-radius:50%; background:rgba(255,255,255,.08); border:none; color:white; font-size:22px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .2s; }
-.reel-overlay__close:hover { background:rgba(255,255,255,.15); }
-.reel-overlay__video { width:100%; max-width:380px; aspect-ratio:9/16; border-radius:18px; overflow:hidden; background:#111; box-shadow:0 20px 60px rgba(0,0,0,.5); }
-.reel-overlay__video video, .reel-overlay__video img { width:100%; height:100%; object-fit:cover; }
-.reel-overlay__info { text-align:center; margin-top:20px; color:rgba(255,255,255,.7); }
-.reel-overlay__info h3 { font-size:18px; font-weight:700; color:white; margin-bottom:4px; }
-.reel-overlay__info span { font-size:14px; }
-.reel-overlay__nav { position:absolute; top:50%; transform:translateY(-50%); width:50px; height:50px; border-radius:50%; background:rgba(255,255,255,.08); border:none; color:white; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .2s; }
-.reel-overlay__nav:hover { background:rgba(232,101,43,.5); }
-.reel-overlay__nav--prev { left:24px; }
-.reel-overlay__nav--next { right:24px; }
-.reel-overlay__nav svg { width:22px; height:22px; fill:none; stroke:white; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; }
-.reel-overlay__fallback { display:inline-flex; align-items:center; gap:8px; margin-top:16px; padding:12px 28px; background:#E8652B; color:white; border-radius:50px; font-size:14px; font-weight:700; transition:transform .2s, box-shadow .2s; }
-.reel-overlay__fallback:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(232,101,43,.35); }
 
 /* --- Events Sektion --- */
 .events-section {
-  background: #faf9f7; padding: 60px 0 50px; overflow: hidden; color: #1a1a1a;
+  background: #141210; padding: 100px 0 90px; overflow: hidden; color: #fff;
   position: relative;
 }
+/* Subtiler Glow-Effekt im Hintergrund */
 .events-section::before {
-  content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
-  background:
-    /* Grosser warmer Glow rechts */
-    radial-gradient(ellipse 500px 500px at 90% 30%, rgba(232,101,43,.04) 0%, transparent 60%),
-    /* Kleiner Glow links unten */
-    radial-gradient(circle 200px at 5% 85%, rgba(232,101,43,.025) 0%, transparent 50%),
-    /* Subtile Kreise — abstraktes Kamera-Aperture-Motiv */
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280' fill='none'%3E%3Ccircle cx='140' cy='140' r='100' stroke='%23E8652B' stroke-width='.6' opacity='.4'/%3E%3Ccircle cx='140' cy='140' r='60' stroke='%23E8652B' stroke-width='.4' opacity='.3'/%3E%3Ccircle cx='140' cy='140' r='25' stroke='%23E8652B' stroke-width='.4' stroke-dasharray='5 3' opacity='.2'/%3E%3C/svg%3E");
-  background-position: center, center, 92% 20%;
-  background-size: cover, cover, 280px;
-  background-repeat: no-repeat;
-  opacity: .8;
+  content:''; position:absolute; top:0; left:0; width:100%; height:100%;
+  background: radial-gradient(ellipse at 20% 30%, rgba(232,101,43,.06) 0%, transparent 50%),
+              radial-gradient(ellipse at 80% 70%, rgba(232,101,43,.04) 0%, transparent 40%);
+  pointer-events:none; z-index:0;
 }
 .events-section__inner { max-width: 1200px; margin: 0 auto; padding: 0 5%; position: relative; z-index: 1; }
-.events-section__header { margin-bottom: 40px; }
+.events-section__header { margin-bottom: 56px; text-align:center; }
 .events-section__label {
   display:inline-block; font-size:11px; font-weight:700;
-  text-transform:uppercase; letter-spacing:.14em; color:#E8652B; margin-bottom:10px;
+  text-transform:uppercase; letter-spacing:.14em; color:#E8652B; margin-bottom:14px;
+  padding:6px 14px; background:rgba(232,101,43,.1); border-radius:50px;
 }
 .events-section__title {
-  font-size:clamp(28px, 4vw, 42px); font-weight:800; line-height:1.1;
-  letter-spacing:-.03em; margin-bottom:8px;
+  font-size:clamp(32px, 5vw, 52px); font-weight:800; line-height:1.1;
+  letter-spacing:-.03em; margin-bottom:12px; color:#fff;
 }
-.events-section__sub { font-size:16px; color:#666; max-width:450px; line-height:1.6; }
+.events-section__sub { font-size:17px; color:rgba(255,255,255,.55); max-width:500px; line-height:1.7; margin:0 auto; }
 
 /* Slider mit Pfeilen links/rechts */
 .slider-wrap { position: relative; }
@@ -333,25 +303,44 @@
   transition:all .25s cubic-bezier(.22,1,.36,1); color:#1a1a1a; z-index:5;
   box-shadow:0 4px 16px rgba(0,0,0,.06);
 }
-.slider-nav:hover { background:#E8652B; border-color:#E8652B; color:white; transform:translateY(-50%) scale(1.1); box-shadow:0 6px 20px rgba(232,101,43,.25); }
+.slider-nav:hover { background:#1a1a1a; border-color:#1a1a1a; color:white; transform:translateY(-50%) scale(1.1); box-shadow:0 6px 20px rgba(0,0,0,.12); }
 .slider-nav--prev { left:0; }
 .slider-nav--next { right:0; }
 .slider-nav svg { width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
 
-/* Event Cards */
+/* Event Cards — dunkles Theme */
 .events-section .reel-card {
-  background:#fff; box-shadow:0 4px 20px rgba(0,0,0,.04);
+  background:rgba(255,255,255,.04); box-shadow:0 4px 20px rgba(0,0,0,.2);
+  border-color:rgba(255,255,255,.06);
+}
+.events-section .reel-card:hover {
+  box-shadow:0 20px 50px rgba(232,101,43,.12);
+  border-color:rgba(232,101,43,.15);
+}
+.events-section .reel-card__name { color:#fff; }
+.events-section .reel-card__desc { color:rgba(255,255,255,.45); }
+.events-section .slider-nav {
+  background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.1); color:#fff;
+}
+.events-section .slider-nav:hover {
+  background:#E8652B; border-color:#E8652B; color:#fff;
 }
 
 /* --- Personal Brand Sektion — Bento Grid Layout --- */
 .personal-section {
-  background: #f5f0ea; padding: 60px 0 70px; overflow: hidden; color: #1a1a1a;
+  background: #f5f3ef; padding: 100px 0 90px; overflow: hidden; color: #1a1a1a;
   position: relative;
 }
-/* Subtile diagonale Linien */
+/* Warmer Hintergrund — dezente Glows fuer Tiefe */
 .personal-section::before {
-  content:''; position:absolute; inset:0; z-index:0; pointer-events:none; opacity:.025;
-  background-image: repeating-linear-gradient(-45deg, transparent, transparent 60px, #E8652B 60px, #E8652B 61px);
+  content:''; position:absolute; top:0; right:0; width:60%; height:100%;
+  z-index:0; pointer-events:none;
+  background: radial-gradient(ellipse at 75% 30%, rgba(232,101,43,.07) 0%, transparent 55%);
+}
+.personal-section::after {
+  content:''; position:absolute; bottom:0; left:0; width:40%; height:70%;
+  z-index:0; pointer-events:none;
+  background: radial-gradient(ellipse at 15% 85%, rgba(232,101,43,.05) 0%, transparent 45%);
 }
 .personal-section__inner { max-width: 1100px; margin: 0 auto; padding: 0 5%; position: relative; z-index: 1; }
 .personal-section__header { margin-bottom: 48px; max-width:500px; }
@@ -365,35 +354,43 @@
 }
 .personal-section__sub { font-size:16px; color:#777; line-height:1.6; }
 
-/* Bento Grid — unterschiedliche Groessen */
+/* Video Grid — 4x2 */
 .bento {
   display:grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: auto auto;
-  gap:16px;
+  gap:24px;
+  padding: 0;
 }
+
 .bento__item {
-  position:relative; border-radius:16px; overflow:hidden;
-  cursor:pointer; transition:transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s;
+  position:relative; border-radius:16px; overflow:visible;
+  aspect-ratio: 9/16;
+  cursor:pointer; transition:transform .45s cubic-bezier(.22,1,.36,1), box-shadow .45s;
 }
+/* Hover */
 .bento__item:hover {
-  transform:translateY(-8px) scale(1.02);
-  box-shadow:0 20px 50px rgba(0,0,0,.12);
+  transform: translateY(-6px);
+  box-shadow:0 16px 40px rgba(0,0,0,.12);
+}
+/* Offset-Rahmen — seitlich rausgucken */
+.bento__item::after {
+  content:''; position:absolute; inset:-8px; border:2px solid rgba(232,101,43,.18);
+  border-radius:20px; z-index:-1; pointer-events:none;
+  transition: border-color .35s, transform .35s;
+}
+.bento__item:hover::after { border-color: rgba(232,101,43,.4); transform: scale(1.02); }
+.bento__item-inner {
+  width:100%; height:100%; border-radius:16px; overflow:hidden; position:relative;
 }
 .bento__item img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .5s cubic-bezier(.22,1,.36,1); }
 .bento__item:hover img { transform:scale(1.06); }
-/* Grosses Featured Item: 2 Spalten breit */
-.bento__item--lg { grid-column: span 2; grid-row: span 2; }
-.bento__item--lg { aspect-ratio: 9/14; }
-.bento__item--lg img { min-height:auto; max-height:none; height:100%; }
-.bento__item:not(.bento__item--lg) { aspect-ratio: 9/16; }
-.bento__item:not(.bento__item--lg) img { height:100%; }
 /* Info Overlay */
 .bento__info {
   position:absolute; bottom:0; left:0; right:0;
   padding:16px 18px;
   background:linear-gradient(transparent, rgba(0,0,0,.7));
   display:flex; flex-direction:column; gap:2px;
+  z-index:2;
 }
 .bento__tag {
   font-size:10px; font-weight:700; text-transform:uppercase;
@@ -407,16 +404,11 @@
   display:flex; align-items:center; justify-content:center;
   opacity:0; transition:opacity .3s, transform .3s;
   box-shadow:0 4px 20px rgba(232,101,43,.3);
+  z-index:3;
 }
 .bento__item:hover .bento__play { opacity:1; transform:translate(-50%,-50%) scale(1.1); }
 .bento__play svg { width:20px; height:20px; fill:white; margin-left:3px; }
-/* Offset Border Accent hinter dem grossen Item */
-.bento__item--lg::after {
-  content:''; position:absolute; width:90%; height:90%;
-  bottom:-12px; left:-12px; border:2px solid rgba(232,101,43,.2);
-  border-radius:16px; z-index:-1; transform:rotate(-1.5deg);
-  pointer-events:none;
-}
+/* Offset Border entfernt — clean grid */
 /* Instagram CTA */
 .personal-section__cta { margin-top:40px; text-align:center; }
 .personal-section__cta a {
@@ -432,9 +424,23 @@
 }
 .personal-section__cta svg { width:18px; height:18px; }
 
-@media (max-width:900px) {
-  .bento { grid-template-columns: repeat(2, 1fr); }
-  .bento__item--lg { grid-column: span 2; grid-row: span 1; aspect-ratio: 16/9; }
+@media (max-width:1000px) {
+  .bento { grid-template-columns: repeat(3, 1fr); gap:20px; }
+}
+@media (max-width:700px) {
+  .bento {
+    display:flex; overflow-x:auto; scroll-snap-type:x mandatory;
+    gap:14px; padding:16px 5%;
+    -webkit-overflow-scrolling:touch; scrollbar-width:none;
+  }
+  .bento::-webkit-scrollbar { display:none; }
+  .bento__item {
+    flex-shrink:0; width:55vw; max-width:220px;
+    transform:none !important; scroll-snap-align:start;
+  }
+  .bento__item::after { display:none; }
+  .bento__item:nth-child(odd):hover,
+  .bento__item:nth-child(even):hover { transform:none !important; box-shadow:none; }
 }
 @media (max-width:768px) {
   .events-section { padding:60px 0 50px; }
@@ -443,7 +449,6 @@
   .slider-track-wrap { margin:0 -8px; }
   .slider-nav { display:none; }
   .bento { grid-template-columns: 1fr 1fr; gap:10px; }
-  .bento__item:not(.bento__item--lg) { aspect-ratio: 9/16; }
 }
 </style>
 
@@ -451,36 +456,67 @@
 <section class="personal-section" id="personal">
   <div class="personal-section__inner">
     <div class="personal-section__header anim">
-      <span class="personal-section__label">Hinter der Kamera</span>
-      <h2 class="personal-section__title">Meine persönlichen Videos</h2>
-      <p class="personal-section__sub">Reisen, Vlogs, Gedanken — was ich mache, wenn ich nicht für andere filme.</p>
+      <span class="personal-section__label">Persönlich</span>
+      <h2 class="personal-section__title">Mein Content</h2>
+      <p class="personal-section__sub">Reisen, Vlogs, Gedanken. Was mich grad interessiert.</p>
     </div>
 
     <div class="bento">
-      <div class="bento__item bento__item--lg anim" data-video="videos/personal-vorstellung.mp4">
-        <img src="thumbnails/personal-vorstellung.jpg" alt="Philipp — Vorstellung">
-        <div class="bento__play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
-        <div class="bento__info"><span class="bento__tag">Personal</span><span class="bento__title">Vorstellung</span></div>
+      <div class="bento__item anim" data-video="videos/personal-vorstellung.mp4">
+        <div class="bento__item-inner">
+          <img src="thumbnails/personal-vorstellung.jpg" alt="Vorstellung">
+          <div class="bento__play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+          <div class="bento__info"><span class="bento__title">Vorstellung</span></div>
+        </div>
       </div>
-      <div class="bento__item anim" data-delay="1" data-video="videos/personal-porsche-sophia.mp4">
-        <img src="thumbnails/personal-porsche-sophia.jpg" alt="Porsche Event">
-        <div class="bento__play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
-        <div class="bento__info"><span class="bento__tag">Event</span><span class="bento__title">Porsche mit Sophia</span></div>
+      <div class="bento__item anim" data-video="videos/personal-porsche-sophia.mp4">
+        <div class="bento__item-inner">
+          <img src="thumbnails/personal-porsche-sophia.jpg" alt="Vlog bei Porsche">
+          <div class="bento__play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+          <div class="bento__info"><span class="bento__title">Vlog bei Porsche</span></div>
+        </div>
       </div>
-      <div class="bento__item anim" data-delay="2" data-video="videos/personal-asien-reise.mp4">
-        <img src="thumbnails/personal-asien-reise.jpg" alt="Asien Reise">
-        <div class="bento__play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
-        <div class="bento__info"><span class="bento__tag">Reise</span><span class="bento__title">Asien Reise</span></div>
+      <div class="bento__item anim" data-video="videos/personal-instagram-reel.mp4">
+        <div class="bento__item-inner">
+          <img src="thumbnails/personal-instagram-reel.jpg" alt="Instagram Reel">
+          <div class="bento__play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+          <div class="bento__info"><span class="bento__title">Instagram Reel</span></div>
+        </div>
       </div>
-      <div class="bento__item anim" data-delay="1" data-video="videos/personal-turtles.mp4">
-        <img src="thumbnails/personal-turtles.jpg" alt="Turtles">
-        <div class="bento__play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
-        <div class="bento__info"><span class="bento__tag">Reise</span><span class="bento__title">Turtles</span></div>
+      <div class="bento__item anim" data-video="videos/personal-reel-2.mp4">
+        <div class="bento__item-inner">
+          <img src="thumbnails/personal-reel-2.jpg" alt="Behind the Scenes">
+          <div class="bento__play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+          <div class="bento__info"><span class="bento__title">Behind the Scenes</span></div>
+        </div>
       </div>
-      <div class="bento__item anim" data-delay="2" data-video="videos/personal-zusammenschnitt.mp4">
-        <img src="thumbnails/personal-zusammenschnitt.jpg" alt="Zusammenschnitt">
-        <div class="bento__play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
-        <div class="bento__info"><span class="bento__tag">Recap</span><span class="bento__title">Zusammenschnitt</span></div>
+      <div class="bento__item anim" data-video="videos/personal-reel-3.mp4">
+        <div class="bento__item-inner">
+          <img src="thumbnails/personal-reel-3.jpg" alt="Selbstversuch">
+          <div class="bento__play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+          <div class="bento__info"><span class="bento__title">Selbstversuch</span></div>
+        </div>
+      </div>
+      <div class="bento__item anim" data-video="videos/event-ungeskriptet.mp4">
+        <div class="bento__item-inner">
+          <img src="thumbnails/event-ungeskriptet.jpg" alt="Ungeskriptet">
+          <div class="bento__play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+          <div class="bento__info"><span class="bento__title">Ungeskriptet</span></div>
+        </div>
+      </div>
+      <div class="bento__item anim" data-video="videos/personal-zusammenschnitt.mp4">
+        <div class="bento__item-inner">
+          <img src="thumbnails/personal-zusammenschnitt.jpg" alt="Zusammenschnitt">
+          <div class="bento__play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+          <div class="bento__info"><span class="bento__title">Zusammenschnitt</span></div>
+        </div>
+      </div>
+      <div class="bento__item anim" data-video="videos/personal-asien-reise-2.mp4">
+        <div class="bento__item-inner">
+          <img src="thumbnails/personal-asien-reise-2.jpg" alt="Asien Reise">
+          <div class="bento__play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+          <div class="bento__info"><span class="bento__title">Asien Reise</span></div>
+        </div>
       </div>
     </div>
 
@@ -493,28 +529,316 @@
   </div>
 </section>
 
-<!-- Events: Seine Dienstleistung — auf Events gehen, Leute interviewen -->
+<!-- ═══════════════ ÜBER PHILIPP — Organischer Cutout ═══════════════ -->
+<style>
+.about {
+  background: #141210; padding: 100px 5% 110px; position: relative; overflow: hidden; color: #fff;
+}
+/* Dezente Glow-Akzente */
+.about::before {
+  content:''; position:absolute; top:-20%; left:-10%; width:50%; height:80%;
+  background: radial-gradient(ellipse, rgba(232,101,43,.06) 0%, transparent 60%);
+  pointer-events:none; z-index:0;
+}
+.about__inner {
+  max-width: 1100px; margin: 0 auto; position:relative; z-index:1;
+  display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: center;
+}
+/* --- Text links --- */
+.about__text {}
+.about__label {
+  display:inline-block; font-size:11px; font-weight:700;
+  text-transform:uppercase; letter-spacing:.14em; color:#E8652B; margin-bottom:16px;
+  padding:6px 14px; background:rgba(232,101,43,.1); border-radius:50px;
+}
+.about__title {
+  font-size:clamp(32px, 4.5vw, 50px); font-weight:800; line-height:1.08;
+  letter-spacing:-.03em; margin-bottom:20px; color:#fff;
+}
+.about__title em { color:#E8652B; font-style:normal; }
+.about__desc {
+  font-size:16px; color:rgba(255,255,255,.55); line-height:1.8; margin-bottom:20px;
+}
+.about__facts {
+  display:flex; gap:36px; margin-top:32px; padding-top:24px;
+  border-top:1px solid rgba(255,255,255,.08);
+}
+.about__fact-nr {
+  font-size:clamp(28px, 3vw, 38px); font-weight:800; color:#E8652B; line-height:1;
+}
+.about__fact-label { font-size:13px; color:rgba(255,255,255,.4); margin-top:4px; }
+
+/* --- Bild rechts: Organischer Kreis-Cutout --- */
+.about__visual {
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
+/* Grosser Halbkreis-Hintergrund */
+.about__circle {
+  position: relative;
+  width: clamp(320px, 28vw, 420px);
+  height: clamp(320px, 28vw, 420px);
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(232,101,43,.12) 0%, rgba(232,101,43,.04) 100%);
+  border: 1px solid rgba(232,101,43,.1);
+  flex-shrink: 0;
+}
+/* Dezenter aeusserer Ring */
+.about__circle::before {
+  content:''; position:absolute; inset:-16px;
+  border-radius:50%; border:1px solid rgba(232,101,43,.06);
+  pointer-events:none;
+}
+/* Kleiner Akzent-Kreis oben rechts */
+.about__circle::after {
+  content:''; position:absolute; top:-8px; right:12px;
+  width:60px; height:60px; border-radius:50%;
+  background:rgba(232,101,43,.08); border:1px solid rgba(232,101,43,.1);
+  pointer-events:none;
+}
+/* Philipp ragt ueber den Kreis hinaus */
+.about__person {
+  position: absolute;
+  bottom: 0; left: 50%; transform: translateX(-50%);
+  height: 115%; width: auto;
+  pointer-events: none;
+  filter: drop-shadow(0 8px 30px rgba(0,0,0,.4));
+  z-index: 2;
+}
+/* Dekorative Dots neben dem Kreis */
+.about__dots {
+  position:absolute; top:20px; left:-30px;
+  display:grid; grid-template-columns:repeat(3,8px); gap:10px;
+  opacity:.15;
+}
+.about__dots span {
+  width:8px; height:8px; border-radius:50%; background:#E8652B;
+}
+
+@media (max-width:900px) {
+  .about__inner { grid-template-columns:1fr; text-align:center; }
+  .about__visual { justify-content:center; margin-top:20px; }
+  .about__circle { width:280px; height:280px; }
+  .about__person { height:110%; }
+  .about__facts { justify-content:center; }
+  .about__dots { display:none; }
+}
+</style>
+
+<section class="about" id="philipp">
+  <div class="about__inner">
+    <div class="about__text">
+      <span class="about__label anim">Über mich</span>
+      <h2 class="about__title anim" data-delay="1">Ich bin Philipp<em>.</em></h2>
+      <p class="about__desc anim" data-delay="2">Ich mach Videos seit ich denken kann. Angefangen mit dem Handy, mittlerweile auf Events, Reisen und überall wo was passiert. Kein Studio, kein großes Setup. Einfach draufhalten und Momente festhalten.</p>
+      <p class="about__desc anim" data-delay="3">Nebenbei dreh ich auch eigenen Content. Vlogs, Reels, was mich halt grad beschäftigt. Alles ungefiltert, alles echt.</p>
+      <div class="about__facts anim" data-delay="4">
+        <div>
+          <div class="about__fact-nr">6M+</div>
+          <div class="about__fact-label">Views auf Instagram</div>
+        </div>
+        <div>
+          <div class="about__fact-nr">96</div>
+          <div class="about__fact-label">Videos produziert</div>
+        </div>
+        <div>
+          <div class="about__fact-nr">3.8M</div>
+          <div class="about__fact-label">Views auf einem Reel</div>
+        </div>
+      </div>
+    </div>
+    <div class="about__visual anim" data-anim="fade-right">
+      <div class="about__circle">
+        <img src="img/philipp-freigestellt.png" alt="Philipp" class="about__person">
+      </div>
+      <div class="about__dots">
+        <span></span><span></span><span></span>
+        <span></span><span></span><span></span>
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════ SO LÄUFT DAS — Vertikale Steps ═══════════════ -->
+<style>
+.process {
+  background: #f5f3ef; padding: 100px 5%; position: relative; overflow: hidden;
+}
+.process__inner { max-width: 1000px; margin: 0 auto; }
+.process__header { text-align: center; margin-bottom: 72px; }
+.process__label {
+  display:inline-block; font-size:11px; font-weight:700;
+  text-transform:uppercase; letter-spacing:.14em; color:#E8652B; margin-bottom:14px;
+  padding:6px 14px; background:rgba(232,101,43,.08); border-radius:50px;
+}
+.process__title {
+  font-size:clamp(32px, 5vw, 50px); font-weight:800; line-height:1.1;
+  letter-spacing:-.03em; color:#1a1a1a;
+}
+.process__title em { color:#E8652B; font-style:normal; }
+
+/* Steps — abwechselnd Bild links/rechts */
+.process__steps { display:flex; flex-direction:column; gap:80px; }
+.process__step {
+  display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center;
+}
+.process__step:nth-child(even) { direction:rtl; }
+.process__step:nth-child(even) > * { direction:ltr; }
+
+/* Step Nummer + Bild */
+.process__step-visual { position:relative; }
+.process__step-nr {
+  position:absolute; top:-24px; left:-12px;
+  font-size:120px; font-weight:900; line-height:1;
+  color:rgba(232,101,43,.07); letter-spacing:-.05em;
+  pointer-events:none; z-index:0;
+}
+.process__step:nth-child(even) .process__step-nr { left:auto; right:-12px; }
+.process__step-img {
+  border-radius:20px; overflow:hidden; position:relative; z-index:1;
+  box-shadow:0 12px 40px rgba(0,0,0,.08);
+}
+.process__step-img img { width:100%; aspect-ratio:3/4; object-fit:cover; object-position:center 15%; display:block; }
+
+/* Step Text */
+.process__step-text { position:relative; z-index:1; }
+.process__step-tag {
+  display:inline-block; font-size:11px; font-weight:700;
+  text-transform:uppercase; letter-spacing:.12em; color:#E8652B; margin-bottom:12px;
+}
+.process__step-text h3 {
+  font-size:clamp(22px, 2.5vw, 32px); font-weight:800;
+  line-height:1.2; margin-bottom:14px; color:#1a1a1a;
+}
+.process__step-text h3::after {
+  content:''; display:block; width:36px; height:2px;
+  background:#E8652B; border-radius:2px; margin-top:12px;
+}
+.process__step-text p { font-size:16px; color:#666; line-height:1.75; }
+
+/* Ergebnis: gestapelte Phones */
+.process__phones {
+  display:flex; gap:16px; justify-content:center; align-items:flex-end;
+  padding:20px 0;
+}
+.process__phone {
+  border-radius:18px; overflow:hidden; position:relative;
+  border:3px solid rgba(0,0,0,.06);
+  box-shadow:0 10px 30px rgba(0,0,0,.1);
+}
+.process__phone:nth-child(1) { width:130px; height:235px; transform:rotate(-4deg) translateY(8px); }
+.process__phone:nth-child(2) { width:155px; height:280px; border-color:rgba(232,101,43,.2); z-index:2; box-shadow:0 14px 40px rgba(232,101,43,.1); }
+.process__phone:nth-child(3) { width:130px; height:235px; transform:rotate(4deg) translateY(8px); }
+.process__phone img { width:100%; height:100%; object-fit:cover; }
+.process__phone-label {
+  position:absolute; bottom:0; left:0; right:0;
+  padding:6px; text-align:center;
+  background:linear-gradient(transparent, rgba(0,0,0,.6));
+  font-size:10px; font-weight:700; text-transform:uppercase;
+  letter-spacing:.08em; color:#fff;
+}
+
+@media (max-width:768px) {
+  .process__step { grid-template-columns:1fr; gap:24px; }
+  .process__step:nth-child(even) { direction:ltr; }
+  .process__step-nr { font-size:80px; }
+  .process__phones { gap:10px; }
+  .process__phone:nth-child(1), .process__phone:nth-child(3) { width:80px; height:145px; }
+  .process__phone:nth-child(2) { width:95px; height:172px; }
+}
+</style>
+
+<section class="process" id="prozess">
+  <div class="process__inner">
+    <div class="process__header">
+      <span class="process__label anim">So läuft das</span>
+      <h2 class="process__title anim" data-delay="1">Vom Event zum fertigen <em>Video.</em></h2>
+    </div>
+
+    <div class="process__steps">
+      <!-- Step 1 — Bild links, Text rechts -->
+      <div class="process__step anim">
+        <div class="process__step-visual">
+          <div class="process__step-nr">01</div>
+          <div class="process__step-img">
+            <img src="img/porsche-interview.png" alt="Porsche Interview" style="object-position:center 20%;">
+          </div>
+        </div>
+        <div class="process__step-text">
+          <span class="process__step-tag">Vor Ort</span>
+          <h3>Ich bin mitten drin</h3>
+          <p>Ich misch mich unter die Leute, lauf mit, komm ins Gespräch. So fang ich die echte Stimmung von deinem Event ein.</p>
+        </div>
+      </div>
+
+      <!-- Step 2 — Text links, Bild rechts (automatisch durch nth-child even) -->
+      <div class="process__step anim">
+        <div class="process__step-visual">
+          <div class="process__step-nr">02</div>
+          <div class="process__step-img">
+            <img src="https://onecdn.io/media/f8f52a02-0b6e-4031-a39e-9c92e418e420/full" alt="Interview-Situation">
+          </div>
+        </div>
+        <div class="process__step-text">
+          <span class="process__step-tag">Interviews</span>
+          <h3>Echte Gespräche, echte Momente</h3>
+          <p>Ich geh auf die Leute zu und lass sie einfach erzählen. Spontan, locker, ohne Skript. Das sind die Momente, die bei den Zuschauern hängen bleiben.</p>
+        </div>
+      </div>
+
+      <!-- Step 3 — Phones links, Text rechts -->
+      <div class="process__step anim">
+        <div class="process__step-visual">
+          <div class="process__step-nr">03</div>
+          <div class="process__phones">
+            <div class="process__phone">
+              <img src="https://onecdn.io/media/aae66445-f3d5-47b2-a15d-73b97115a88a/full" alt="Story">
+              <div class="process__phone-label">Story</div>
+            </div>
+            <div class="process__phone">
+              <img src="https://onecdn.io/media/8bf465b2-f385-4eb6-86f1-bacdfdf2abae/full" alt="Reel">
+              <div class="process__phone-label">Reel</div>
+            </div>
+            <div class="process__phone">
+              <img src="https://onecdn.io/media/eae8a006-85e8-4620-86e6-c8af7c049f23/full" alt="Post">
+              <div class="process__phone-label">Post</div>
+            </div>
+          </div>
+        </div>
+        <div class="process__step-text">
+          <span class="process__step-tag">Fertig</span>
+          <h3>Du kriegst fertige Videos</h3>
+          <p>Richtiges Format, geschnitten, mit Musik. Story, Reel oder Post. Du musst nur noch hochladen. Ich mach den Rest.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════ EVENTS ═══════════════ -->
 <section class="events-section" id="reels">
   <div class="events-section__inner">
     <div class="events-section__header">
-      <span class="events-section__label anim">Live dabei</span>
-      <h2 class="events-section__title anim" data-delay="1">Events &amp; Aufträge</h2>
-      <p class="events-section__sub anim" data-delay="2">Messestand, Firmenevent oder Clubnacht — ich komm vorbei, misch mich drunter und fang die Stimmung ein.</p>
+      <span class="events-section__label anim">Events</span>
+      <h2 class="events-section__title anim" data-delay="1">Wo ich unterwegs war</h2>
+      <p class="events-section__sub anim" data-delay="2">Messe, Firmenevent, Clubnacht. Ich komm vorbei, misch mich unter die Leute und film was passiert.</p>
     </div>
     <div class="slider-wrap">
       <button class="slider-nav slider-nav--prev" id="reelsPrev"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
       <button class="slider-nav slider-nav--next" id="reelsNext"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
     <div class="slider-track-wrap">
       <div class="slider-track" id="reelsTrack">
-        <div class="reel-card" data-video="videos/event-frank-rosin.mp4"><div class="reel-card__thumb"><img src="thumbnails/event-frank-rosin.jpg" alt="Frank Rosin"><div class="reel-card__play"><div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div></div><div class="reel-card__info"><div class="reel-card__name">Frank Rosin</div><div class="reel-card__desc">Interview auf dem Event</div></div></div>
-        <div class="reel-card" data-video="videos/event-cocktail-angels.mp4"><div class="reel-card__thumb"><img src="thumbnails/event-cocktail-angels.jpg" alt="Cocktail Angels"><div class="reel-card__play"><div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div></div><div class="reel-card__info"><div class="reel-card__name">Cocktail Angels</div><div class="reel-card__desc">Event-Stimmung</div></div></div>
-        <div class="reel-card" data-video="videos/event-dj-begleitung.mp4"><div class="reel-card__thumb"><img src="thumbnails/event-dj-begleitung.jpg" alt="DJ Begleitung"><div class="reel-card__play"><div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div></div><div class="reel-card__info"><div class="reel-card__name">DJ-Begleitung</div><div class="reel-card__desc">Highlights vom Abend</div></div></div>
         <div class="reel-card" data-video="videos/event-sparkasse.mp4"><div class="reel-card__thumb"><img src="thumbnails/event-sparkasse.jpg" alt="Sparkasse"><div class="reel-card__play"><div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div></div><div class="reel-card__info"><div class="reel-card__name">Sparkasse</div><div class="reel-card__desc">Firmenevent</div></div></div>
-        <div class="reel-card" data-video="videos/event-ungeskriptet.mp4"><div class="reel-card__thumb"><img src="thumbnails/event-ungeskriptet.jpg" alt="Ungeskriptet"><div class="reel-card__play"><div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div></div><div class="reel-card__info"><div class="reel-card__name">Ungeskriptet</div><div class="reel-card__desc">Spontane Interviews</div></div></div>
-        <div class="reel-card" data-video="videos/event-kollegah.mp4"><div class="reel-card__thumb"><img src="thumbnails/event-kollegah.jpg" alt="Kollegah"><div class="reel-card__play"><div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div></div><div class="reel-card__info"><div class="reel-card__name">Kollegah</div><div class="reel-card__desc">Interview auf dem Event</div></div></div>
+        <div class="reel-card" data-video="videos/event-dj-begleitung.mp4"><div class="reel-card__thumb"><img src="thumbnails/event-dj-begleitung.jpg" alt="DJ Begleitung"><div class="reel-card__play"><div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div></div><div class="reel-card__info"><div class="reel-card__name">DJ-Begleitung</div><div class="reel-card__desc">Den ganzen Abend begleitet</div></div></div>
+        <div class="reel-card" data-video="videos/event-frank-rosin.mp4"><div class="reel-card__thumb"><img src="thumbnails/event-frank-rosin.jpg" alt="Frank Rosin"><div class="reel-card__play"><div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div></div><div class="reel-card__info"><div class="reel-card__name">Frank Rosin</div><div class="reel-card__desc">Interview auf dem Event</div></div></div>
         <div class="reel-card" data-video="videos/event-fdp.mp4"><div class="reel-card__thumb"><img src="thumbnails/event-fdp.jpg" alt="FDP Event"><div class="reel-card__play"><div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div></div><div class="reel-card__info"><div class="reel-card__name">FDP</div><div class="reel-card__desc">Politisches Event</div></div></div>
+        <div class="reel-card" data-video="videos/event-dj-auftritt.mp4"><div class="reel-card__thumb"><img src="thumbnails/event-dj-auftritt.jpg" alt="DJ Auftritt"><div class="reel-card__play"><div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div></div><div class="reel-card__info"><div class="reel-card__name">DJ Auftritt</div><div class="reel-card__desc">Highlights vom Abend</div></div></div>
+        <div class="reel-card" data-video="videos/event-cocktail-angels.mp4"><div class="reel-card__thumb"><img src="thumbnails/event-cocktail-angels.jpg" alt="Cocktail Angels"><div class="reel-card__play"><div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div></div><div class="reel-card__info"><div class="reel-card__name">Cocktail Angels</div><div class="reel-card__desc">Event-Stimmung</div></div></div>
+        <div class="reel-card" data-video="videos/event-kollegah.mp4"><div class="reel-card__thumb"><img src="thumbnails/event-kollegah.jpg" alt="Kollegah"><div class="reel-card__play"><div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div></div><div class="reel-card__info"><div class="reel-card__name">Kollegah</div><div class="reel-card__desc">Interview auf dem Event</div></div></div>
         <div class="reel-card" data-video="videos/event-sebastian-leeges.mp4"><div class="reel-card__thumb"><img src="thumbnails/event-sebastian-leeges.jpg" alt="Sebastian Leeges"><div class="reel-card__play"><div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div></div><div class="reel-card__info"><div class="reel-card__name">Sebastian Leeges</div><div class="reel-card__desc">Interview</div></div></div>
-        <div class="reel-card" data-video="videos/event-dj-auftritt.mp4"><div class="reel-card__thumb"><img src="thumbnails/event-dj-auftritt.jpg" alt="DJ Auftritt"><div class="reel-card__play"><div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div></div><div class="reel-card__info"><div class="reel-card__name">DJ — Auftritt</div><div class="reel-card__desc">Den ganzen Abend begleitet</div></div></div>
         <div class="reel-card" data-video="videos/event-brainboost-testreel.mp4"><div class="reel-card__thumb"><img src="thumbnails/event-brainboost-testreel.jpg" alt="Brainboost Testreel"><div class="reel-card__play"><div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div></div><div class="reel-card__info"><div class="reel-card__name">Brainboost</div><div class="reel-card__desc">Testreel für Kunden</div></div></div>
       </div>
     </div>
@@ -522,299 +846,11 @@
   </div>
 </section>
 
-<!-- ═══════════════ SO ARBEITE ICH — Horizontal Scroll ═══════════════ -->
-<style>
-.hscroll {
-  position: relative;
-  background: #141210;
-  background-image:
-    radial-gradient(ellipse 800px 600px at 75% 20%, rgba(232,101,43,.06) 0%, transparent 60%),
-    radial-gradient(ellipse 500px 500px at 15% 70%, rgba(232,101,43,.04) 0%, transparent 50%),
-    radial-gradient(ellipse 300px 300px at 50% 50%, rgba(255,200,150,.02) 0%, transparent 40%);
-  color: #fff;
-}
-.hscroll__sticky {
-  position: sticky; top: 0;
-  height: 100vh;
-  display: flex; align-items: center;
-  overflow: clip;
-}
-.hscroll__track {
-  display: flex; gap: 0;
-  will-change: transform;
-}
-.hscroll__panel {
-  flex-shrink: 0; width: 100vw; height: 100vh;
-  display: flex; align-items: center; justify-content: center;
-  padding: 0 8%;
-  position: relative;
-}
-
-/* === Hintergrund-Texturen fuer die dunklen Panels === */
-.hscroll::before {
-  content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  z-index: 0; pointer-events: none; opacity: 0;
-  transition: opacity .5s;
-  background:
-    /* Abstrakte Lichtflecken — wie Buehnenbeleuchtung / Lens Flares */
-    radial-gradient(ellipse 600px 500px at 85% 15%, rgba(232,101,43,.08) 0%, transparent 60%),
-    radial-gradient(ellipse 400px 400px at 10% 80%, rgba(232,101,43,.05) 0%, transparent 50%),
-    radial-gradient(ellipse 300px 300px at 50% 40%, rgba(100,140,220,.04) 0%, transparent 50%),
-    radial-gradient(circle 150px at 70% 70%, rgba(232,101,43,.03) 0%, transparent 60%),
-    /* Subtiler Gradient-Sweep */
-    linear-gradient(160deg, rgba(232,101,43,.03) 0%, transparent 25%, transparent 75%, rgba(100,140,220,.02) 100%),
-    /* Feine diagonale Linien — abstraktes Muster */
-    repeating-linear-gradient(
-      -30deg,
-      transparent,
-      transparent 80px,
-      rgba(255,255,255,.008) 80px,
-      rgba(255,255,255,.008) 81px
-    );
-}
-.hscroll.in-view::before { opacity: 1; }
-/* Animierter Glow der langsam pulsiert */
-.hscroll::after {
-  content: ''; position: fixed; top: 20%; right: -10%;
-  width: 500px; height: 500px; border-radius: 50%;
-  background: rgba(232,101,43,.04); filter: blur(120px);
-  z-index: 0; pointer-events: none; opacity: 0;
-  animation: glow-drift 12s ease-in-out infinite;
-}
-.hscroll.in-view::after { opacity: 1; }
-@keyframes glow-drift {
-  0%, 100% { transform: translate(0, 0); }
-  50% { transform: translate(-80px, 40px); }
-}
-
-/* Intro Panel */
-.hscroll__intro { flex-direction: column; text-align: center; position: relative; z-index: 1; }
-.hscroll__intro-label {
-  display: inline-block; font-size: 12px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: .14em;
-  color: #E8652B; margin-bottom: 20px;
-  padding: 6px 16px; background: rgba(232,101,43,.1); border-radius: 50px;
-}
-.hscroll__intro h2 {
-  font-size: clamp(32px, 5vw, 56px); font-weight: 800;
-  line-height: 1.1; letter-spacing: -.03em; margin-bottom: 16px;
-}
-.hscroll__intro h2 em { color: #E8652B; font-style: normal; }
-.hscroll__intro p { font-size: 17px; color: rgba(255,255,255,.7); max-width: 500px; margin: 0 auto; line-height: 1.7; }
-
-/* Content Panels */
-.hscroll__content {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
-  align-items: center; max-width: 1100px; width: 100%;
-  position: relative; z-index: 1;
-}
-.hscroll__visual { position: relative; }
-.hscroll__visual-frame {
-  border-radius: 20px; overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0,0,0,.4);
-  aspect-ratio: 3/4; position: relative;
-}
-.hscroll__visual-frame img { width: 100%; height: 100%; object-fit: cover; }
-/* Offset Border Frame — versetzter orangener Rahmen hinter dem Bild */
-.hscroll__visual::after {
-  content: ''; position: absolute;
-  width: 85%; height: 85%;
-  border: 2px solid rgba(232,101,43,.35);
-  border-radius: 20px; z-index: -1;
-  pointer-events: none;
-}
-/* Panel 2: Rahmen unten-links, leicht gedreht */
-.hscroll__panel:nth-child(2) .hscroll__visual::after {
-  bottom: -18px; left: -18px;
-  transform: rotate(-2deg);
-}
-/* Panel 3: Rahmen oben-rechts, andere Drehung */
-.hscroll__panel:nth-child(3) .hscroll__visual::after {
-  top: -18px; right: -18px; left: auto; bottom: auto;
-  transform: rotate(2.5deg);
-}
-.hscroll__nr {
-  position: absolute; top: -20px; left: -20px;
-  font-size: 160px; font-weight: 900; line-height: 1;
-  color: rgba(232,101,43,.08); letter-spacing: -.05em;
-  pointer-events: none; z-index: 0;
-}
-/* Dezente Akzent-Elemente in den Panels */
-.hscroll__panel:nth-child(2)::before {
-  content: ''; position: absolute; top: 15%; right: 8%;
-  width: 120px; height: 120px; border: 1.5px solid rgba(232,101,43,.08);
-  border-radius: 50%; pointer-events: none;
-}
-.hscroll__panel:nth-child(3)::after {
-  content: ''; position: absolute; bottom: 18%; left: 6%;
-  width: 80px; height: 2px; background: rgba(232,101,43,.12);
-  border-radius: 2px; transform: rotate(-20deg); pointer-events: none;
-}
-.hscroll__panel:nth-child(4)::before {
-  content: ''; position: absolute; top: 20%; left: 5%;
-  width: 8px; height: 8px; border-radius: 50%;
-  background: rgba(232,101,43,.15); pointer-events: none;
-  box-shadow: 0 0 30px rgba(232,101,43,.1);
-}
-.hscroll__text { position: relative; z-index: 1; }
-.hscroll__tag {
-  display: inline-block; font-size: 11px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: .12em; color: #E8652B; margin-bottom: 12px;
-}
-.hscroll__text h3 {
-  font-size: clamp(24px, 3vw, 36px); font-weight: 800;
-  line-height: 1.15; margin-bottom: 16px;
-}
-.hscroll__text p { font-size: 16px; color: rgba(255,255,255,.75); line-height: 1.75; }
-.hscroll__text h3 { position: relative; }
-.hscroll__text h3::after {
-  content: ''; display: block; width: 40px; height: 2px;
-  background: #E8652B; border-radius: 2px; margin-top: 12px;
-}
-
-/* Ergebnis-Panel: echte gestapelte Phone-Frames */
-.hscroll__phones {
-  display: flex; gap: 16px; justify-content: center; align-items: flex-end;
-  height: 100%; padding: 40px 0;
-}
-.hscroll__phone {
-  border-radius: 20px; overflow: hidden; position: relative;
-  border: 3px solid rgba(255,255,255,.08);
-  box-shadow: 0 12px 40px rgba(0,0,0,.4);
-  transition: transform .4s cubic-bezier(.22,1,.36,1);
-}
-.hscroll__phone:nth-child(1) { width: 110px; height: 200px; transform: rotate(-4deg) translateY(10px); }
-.hscroll__phone:nth-child(2) { width: 130px; height: 235px; border-color: rgba(232,101,43,.3); z-index: 2; box-shadow: 0 16px 50px rgba(232,101,43,.15); }
-/* Dezenter Akzent-Punkt neben den Phones */
-.hscroll__phones::before {
-  content: ''; position: absolute; top: 15%; left: 8%;
-  width: 12px; height: 12px; border-radius: 50%;
-  background: #E8652B; opacity: .25;
-  box-shadow: 0 0 20px rgba(232,101,43,.3);
-}
-.hscroll__phones::after {
-  content: ''; position: absolute; bottom: 20%; right: 10%;
-  width: 40px; height: 2px; background: rgba(232,101,43,.2);
-  border-radius: 2px; transform: rotate(-15deg);
-}
-.hscroll__phone:nth-child(3) { width: 110px; height: 200px; transform: rotate(4deg) translateY(10px); }
-.hscroll__phone img { width: 100%; height: 100%; object-fit: cover; }
-.hscroll__phone-label {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  padding: 8px; text-align: center;
-  background: linear-gradient(transparent, rgba(0,0,0,.7));
-  font-size: 11px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: .08em; color: rgba(255,255,255,.8);
-}
-
-/* Progress Bar */
-.hscroll__progress {
-  position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
-  width: 200px; height: 3px; background: rgba(255,255,255,.08); border-radius: 3px; z-index: 10;
-}
-.hscroll__progress-bar { height: 100%; background: #E8652B; border-radius: 3px; width: 0; }
-.hscroll__hint {
-  position: absolute; bottom: 60px; right: 5%;
-  display: flex; align-items: center; gap: 8px;
-  font-size: 13px; color: rgba(255,255,255,.25); font-weight: 600;
-  animation: hint-pulse 2s ease-in-out infinite; z-index: 10;
-}
-@keyframes hint-pulse {
-  0%, 100% { opacity: .25; transform: translateX(0); }
-  50% { opacity: .5; transform: translateX(6px); }
-}
-
-@media (max-width: 768px) {
-  .hscroll__content { grid-template-columns: 1fr; gap: 24px; padding: 0 24px; }
-  .hscroll__visual-frame { aspect-ratio: 4/3; max-height: 250px; }
-  .hscroll__nr { font-size: 80px; }
-  .hscroll__phones { gap: 10px; }
-  .hscroll__phone:nth-child(1), .hscroll__phone:nth-child(3) { width: 80px; height: 145px; }
-  .hscroll__phone:nth-child(2) { width: 95px; height: 172px; }
-}
-</style>
-
-<section class="hscroll" id="ueber" style="height: 400vh;">
-  <div class="hscroll__sticky">
-    <div class="hscroll__track" id="hscrollTrack">
-
-      <!-- Panel 1: Intro -->
-      <div class="hscroll__panel hscroll__intro">
-        <span class="hscroll__intro-label">So arbeite ich</span>
-        <h2>Vom Event<br>zum fertigen <em>Video</em>.</h2>
-        <p>Drei Schritte, ein Ergebnis: Videos, die deine Reichweite vergrößern und bei deiner Zielgruppe hängen bleiben.</p>
-      </div>
-
-      <!-- Panel 2: Vor Ort -->
-      <div class="hscroll__panel">
-        <div class="hscroll__content">
-          <div class="hscroll__visual">
-            <div class="hscroll__nr">01</div>
-            <div class="hscroll__visual-frame">
-              <img src="https://onecdn.io/media/38f6e8cb-4797-400e-a09c-82081b64c8a9/full" alt="Event-Situation">
-            </div>
-          </div>
-          <div class="hscroll__text">
-            <span class="hscroll__tag">Vor Ort</span>
-            <h3>Mittendrin statt daneben</h3>
-            <p>Ich steh nicht am Rand mit Stativ. Ich bin da, wo die Energie ist — zwischen den Leuten, mitten im Geschehen. Die Gäste sehen sich im Video wieder und teilen es von sich aus weiter.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Panel 3: Gespräche -->
-      <div class="hscroll__panel">
-        <div class="hscroll__content">
-          <div class="hscroll__text">
-            <span class="hscroll__tag">Echte Reaktionen</span>
-            <h3>Echte Stimmen, echte Emotionen</h3>
-            <p>Ich bring die Leute vor der Kamera zum Reden — spontan, echt, ohne Skript. Genau das macht den Unterschied: Zuschauer spüren, ob ein Moment real ist. Und echte Momente werden geteilt, geliked und erinnert.</p>
-          </div>
-          <div class="hscroll__visual">
-            <div class="hscroll__nr">02</div>
-            <div class="hscroll__visual-frame">
-              <img src="https://onecdn.io/media/f8f52a02-0b6e-4031-a39e-9c92e418e420/full" alt="Interview-Situation">
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Panel 4: Ergebnis — echte Bilder statt Phone-Wireframes -->
-      <div class="hscroll__panel">
-        <div class="hscroll__content">
-          <div class="hscroll__phones">
-            <div class="hscroll__phone">
-              <img src="https://onecdn.io/media/aae66445-f3d5-47b2-a15d-73b97115a88a/full" alt="Story">
-              <div class="hscroll__phone-label">Story</div>
-            </div>
-            <div class="hscroll__phone">
-              <img src="https://onecdn.io/media/8bf465b2-f385-4eb6-86f1-bacdfdf2abae/full" alt="Reel">
-              <div class="hscroll__phone-label">Reel</div>
-            </div>
-            <div class="hscroll__phone">
-              <img src="https://onecdn.io/media/eae8a006-85e8-4620-86e6-c8af7c049f23/full" alt="Post">
-              <div class="hscroll__phone-label">Post</div>
-            </div>
-          </div>
-          <div class="hscroll__text">
-            <span class="hscroll__tag">Fertig geschnitten</span>
-            <h3>Fertige Videos, sofort einsetzbar</h3>
-            <p>Du bekommst fertig geschnittene Videos im richtigen Format — optimiert für Story, Reel oder Post. Schnelle Hooks, saubere Schnitte, passende Musik. Du musst nur noch auf Teilen drücken.</p>
-          </div>
-        </div>
-      </div>
-
-    </div>
-    <div class="hscroll__progress"><div class="hscroll__progress-bar" id="hscrollProgress"></div></div>
-    <div class="hscroll__hint">Weiter scrollen <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
-  </div>
-</section>
-
 
 <!-- ═══════════════ ZITAT — Fullwidth ═══════════════ -->
 <style>
 .quote-section {
-  padding: 60px 5%; background: #faf9f7; position: relative; overflow: hidden;
+  padding: 100px 5%; background: #f5f3ef; position: relative; overflow: hidden; color: #1a1a1a;
 }
 .quote-section__inner {
   max-width: 800px; margin: 0 auto; text-align: center; position: relative; z-index: 1;
@@ -823,79 +859,60 @@
   font-size: 120px; font-weight: 900; color: rgba(232,101,43,.06);
   line-height: 1; margin-bottom: -40px; display: block;
 }
-/* Dezente Akzent-Linie unter dem Zitat */
 .quote-section__inner::after {
-  content: ''; display: block; width: 60px; height: 3px;
-  background: linear-gradient(90deg, #E8652B, rgba(232,101,43,.2));
-  border-radius: 3px; margin: 28px auto 0;
+  content: ''; display: block; width: 40px; height: 2px;
+  background: rgba(0,0,0,.08);
+  border-radius: 2px; margin: 28px auto 0;
 }
 .quote-section__text {
   font-size: clamp(24px, 3.5vw, 40px); font-weight: 800;
-  line-height: 1.3; letter-spacing: -.02em; margin-bottom: 20px;
+  line-height: 1.3; letter-spacing: -.02em; margin-bottom: 20px; color: #1a1a1a;
 }
 .quote-section__text em { color: #E8652B; font-style: normal; }
-.quote-section__author { font-size: 15px; color: #E8652B; font-weight: 700; }
+.quote-section__author { font-size: 15px; color: rgba(0,0,0,.35); font-weight: 600; }
 </style>
 
 <section class="quote-section">
   <div class="quote-section__inner anim" data-anim="scale-in">
     <span class="quote-section__mark">"</span>
-    <p class="quote-section__text">Ein gutes Video zeigt nicht nur,<br>was passiert ist — <em>es lässt dich dabei sein.</em></p>
-    <span class="quote-section__author">— Philipp</span>
+    <p class="quote-section__text">Philipp war auf unserem Event, hat sich einfach drunter gemischt und die Videos waren <em>drei Tage später fertig.</em> Unkompliziert.</p>
+    <span class="quote-section__author">— Kundenstimme (hier echten Namen einsetzen)</span>
   </div>
 </section>
 
 
 <!-- ═══════════════ PODCAST ═══════════════ -->
 <style>
-.pod { background: #faf9f7; padding: 40px 5% 80px; }
+.pod { background: #f5f3ef; padding: 60px 5% 80px; }
 .pod__card {
   max-width: 1000px; margin: 0 auto;
   display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: center;
-  background: #f0ece4; border-radius: 22px; padding: 48px 44px;
-  position: relative; overflow: hidden;
+  background: #141210; border-radius: 22px; padding: 48px 44px;
+  position: relative; overflow: hidden; color:#fff;
 }
-.pod__card::before {
-  content:''; position:absolute; left:0; top:10%; bottom:10%; width:4px;
-  background:linear-gradient(180deg, #E8652B, rgba(232,101,43,.1));
-  border-radius:0 4px 4px 0;
-}
-.pod h2 { font-size: 28px; font-weight: 800; margin-bottom: 12px; }
-.pod p { font-size: 15px; color: #555; line-height: 1.7; margin-bottom: 20px; }
+.pod h2 { font-size: 28px; font-weight: 800; margin-bottom: 12px; color:#fff; }
+.pod p { font-size: 15px; color: rgba(255,255,255,.55); line-height: 1.7; margin-bottom: 20px; }
 .pod__links { display: flex; gap: 10px; flex-wrap: wrap; }
 .pod__link {
   display: inline-flex; align-items: center; gap: 8px;
-  padding: 10px 18px; background: #fff; border-radius: 50px;
-  font-size: 14px; font-weight: 600;
-  border: 1px solid rgba(0,0,0,.06); transition: border-color .2s, transform .2s;
+  padding: 10px 18px; background: rgba(255,255,255,.06); border-radius: 50px;
+  font-size: 14px; font-weight: 600; color:#fff;
+  border: 1px solid rgba(255,255,255,.08); transition: border-color .2s, transform .2s;
 }
-.pod__link:hover { border-color: #E8652B; transform: translateY(-2px); }
+.pod__link:hover { border-color: rgba(232,101,43,.3); transform: translateY(-2px); }
 .pod__link svg { width: 18px; height: 18px; }
 .pod__link--spotify svg { color: #1DB954; }
 .pod__visual { border-radius: 16px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,.06); position: relative; }
 .pod__visual img { width: 100%; aspect-ratio: 4/5; object-fit: cover; }
-/* Corner Brackets — Ecken-Markierung (wie Kamera-Viewfinder) */
-.pod__visual::before, .pod__visual::after {
-  content: ''; position: absolute; width: 40px; height: 40px;
-  border-color: #E8652B; border-style: solid; border-width: 0;
-  z-index: 2; pointer-events: none; opacity: .4;
-}
-.pod__visual::before {
-  top: -10px; left: -10px;
-  border-top-width: 2px; border-left-width: 2px;
-}
-.pod__visual::after {
-  bottom: -10px; right: -10px;
-  border-bottom-width: 2px; border-right-width: 2px;
-}
+/* Viewfinder-Brackets entfernt */
 @media (max-width: 768px) { .pod__card { grid-template-columns: 1fr; padding: 32px 24px; } }
 </style>
 
 <section class="pod anim" data-anim="scale-in">
   <div class="pod__card">
     <div>
-      <h2>Podcast</h2>
-      <p>Ein paar Folgen hab ich aufgenommen. Wer reinhören will, hier entlang. Ist gerade nicht mein Hauptfokus, aber wer weiß was kommt.</p>
+      <h2>Mein Podcast</h2>
+      <p>Echte Gespräche, ehrliche Meinungen, kein Skript. Reinhören lohnt sich. Neue Folgen auf Spotify und YouTube.</p>
       <div class="pod__links">
         <a href="https://open.spotify.com/show/2oy3STHJ32W3dPG2nFrafn" target="_blank" rel="noopener" class="pod__link pod__link--spotify">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
@@ -917,23 +934,14 @@
 <!-- ═══════════════ KONTAKT ═══════════════ -->
 <style>
 .contact {
-  padding: 60px 5% 100px; background: #faf9f7; position: relative; overflow: hidden;
+  padding: 80px 5% 100px; background: #141210; position: relative; overflow: hidden;
 }
 .contact__inner { max-width: 650px; margin: 0 auto; position: relative; z-index: 1; }
 .contact__card {
-  background: #141210;
-  background-image: radial-gradient(ellipse 400px 300px at 50% 0%, rgba(232,101,43,.06) 0%, transparent 60%);
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.06);
   border-radius: 24px; padding: 56px 48px;
   position: relative; overflow: hidden; color: #fff; text-align: center;
-}
-.contact__card::before {
-  content:''; position:absolute; top:0; left:0; right:0; height:4px;
-  background:linear-gradient(90deg, transparent, #E8652B, transparent);
-}
-.contact__card::after {
-  content:''; position:absolute; top:-60px; left:50%; transform:translateX(-50%);
-  width:200px; height:200px; border-radius:50%;
-  background:rgba(232,101,43,.08); filter:blur(60px); pointer-events:none;
 }
 .contact h2 {
   font-size:clamp(32px, 5vw, 48px); font-weight:800;
@@ -961,8 +969,8 @@
 <section class="contact" id="kontakt">
   <div class="contact__inner anim" data-anim="scale-in">
     <div class="contact__card">
-      <h2>Lass uns reden<em>.</em></h2>
-      <p>Du planst ein Event, brauchst Content oder willst wissen, was ich für dich tun kann? Füll kurz das Formular aus — ich meld mich innerhalb von 24 Stunden bei dir.</p>
+      <h2>Schreib mir<em>.</em></h2>
+      <p>Event geplant, Video gebraucht, oder einfach ne Frage? Schreib mir kurz, ich meld mich.</p>
       <div class="contact__btns">
         <a href="kontakt.html" class="contact__btn contact__btn--orange">Projekt anfragen</a>
       </div>
@@ -974,24 +982,24 @@
 <!-- ═══════════════ FOOTER ═══════════════ -->
 <style>
 .site-footer {
-  background:#faf9f7; padding:32px 5%; color:#999; font-size:14px;
-  border-top:1px solid rgba(0,0,0,.06);
+  background:#141210; padding:32px 5%; color:rgba(255,255,255,.35); font-size:14px;
+  border-top:1px solid rgba(255,255,255,.06);
 }
 .site-footer__inner {
   max-width:1100px; margin:0 auto;
   display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;
 }
-.site-footer__logo { font-size:16px; font-weight:800; color:#1a1a1a; }
+.site-footer__logo { font-size:16px; font-weight:800; color:#fff; }
 .site-footer__logo span { color:#E8652B; }
 .site-footer__links { display:flex; gap:20px; align-items:center; }
-.site-footer__links a:hover { color:#E8652B; }
+.site-footer__links a:hover { color:#fff; }
 .site-footer__socials { gap:16px; }
 .site-footer__socials a {
   display:flex; align-items:center; justify-content:center;
-  width:36px; height:36px; border-radius:50%; background:rgba(0,0,0,.04);
-  transition:background .2s, color .2s, transform .2s;
+  width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,.06);
+  color:rgba(255,255,255,.5); transition:background .2s, color .2s, transform .2s;
 }
-.site-footer__socials a:hover { background:rgba(232,101,43,.1); color:#E8652B; transform:translateY(-2px); }
+.site-footer__socials a:hover { background:rgba(232,101,43,.15); color:#E8652B; transform:translateY(-2px); }
 @media (max-width:768px) { .site-footer__inner { flex-direction:column; text-align:center; } }
 </style>
 
@@ -1016,14 +1024,6 @@
   </div>
 </footer>
 
-<!-- Fullscreen Overlay fuer Reels -->
-<div class="reel-overlay" id="reelOverlay">
-  <button class="reel-overlay__close" id="reelClose">&#10005;</button>
-  <button class="reel-overlay__nav reel-overlay__nav--prev" id="overlayPrev"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
-  <button class="reel-overlay__nav reel-overlay__nav--next" id="overlayNext"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
-  <div class="reel-overlay__video" id="overlayVideo"></div>
-  <div class="reel-overlay__info" id="overlayInfo"></div>
-</div>
 
 
 <!-- ═══════════════ JAVASCRIPT ═══════════════ -->
@@ -1057,39 +1057,6 @@
     });
   }, { threshold: 0.15 });
   document.querySelectorAll('.anim').forEach(function(el){ observer.observe(el); });
-
-  // === HORIZONTAL SCROLL ===
-  var hscrollSection = document.querySelector('.hscroll');
-  var hscrollTrack = document.getElementById('hscrollTrack');
-  var hscrollProgress = document.getElementById('hscrollProgress');
-
-  if(hscrollSection && hscrollTrack) {
-    var panels = hscrollTrack.querySelectorAll('.hscroll__panel');
-    var panelCount = panels.length;
-
-    // Hintergrund-Textur sichtbar wenn in View
-    var hscrollObs = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        hscrollSection.classList.toggle('in-view', e.isIntersecting);
-      });
-    }, { threshold: 0 });
-    hscrollObs.observe(hscrollSection);
-
-    window.addEventListener('scroll', function(){
-      var rect = hscrollSection.getBoundingClientRect();
-      var sectionHeight = hscrollSection.offsetHeight;
-      var viewH = window.innerHeight;
-      var scrollable = sectionHeight - viewH;
-
-      if(rect.top <= 0 && rect.bottom >= viewH) {
-        var progress = Math.abs(rect.top) / scrollable;
-        progress = Math.max(0, Math.min(1, progress));
-        var maxShift = (panelCount - 1) * window.innerWidth;
-        hscrollTrack.style.transform = 'translateX(' + (-progress * maxShift) + 'px)';
-        if(hscrollProgress) hscrollProgress.style.width = (progress * 100) + '%';
-      }
-    }, {passive: true});
-  }
 
   // === SLIDER SETUP (fuer beide Sektionen) ===
   function setupSlider(trackId, prevId, nextId) {
@@ -1132,55 +1099,65 @@
   var eventsSlider = setupSlider('reelsTrack', 'reelsPrev', 'reelsNext');
 
   // === OVERLAY — Nativer Video Player ===
-  var allClickables = Array.from(document.querySelectorAll('[data-video]'));
-  var overlay = document.getElementById('reelOverlay');
-  var overlayVideo = document.getElementById('overlayVideo');
-  var overlayInfo = document.getElementById('overlayInfo');
-  var currentIdx = 0;
+  // === INLINE VIDEO — Bento Items spielen direkt in der Karte ab ===
+  var bentoItems = Array.from(document.querySelectorAll('.bento__item[data-video]'));
+  bentoItems.forEach(function(card){
+    card.addEventListener('click', function(e){
+      e.preventDefault();
+      var inner = card.querySelector('.bento__item-inner');
+      var existingVid = inner.querySelector('video');
+      if(existingVid) {
+        // Zweiter Klick: Video stoppen, Thumbnail wieder zeigen
+        existingVid.pause();
+        existingVid.remove();
+        inner.querySelector('img').style.display = '';
+        var play = inner.querySelector('.bento__play');
+        if(play) play.style.display = '';
+        var info = inner.querySelector('.bento__info');
+        if(info) info.style.display = '';
+        return;
+      }
+      // Video direkt in der Karte abspielen
+      var vid = document.createElement('video');
+      vid.src = card.dataset.video;
+      vid.autoplay = true;
+      vid.playsInline = true;
+      vid.controls = true;
+      vid.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:16px;z-index:4;';
+      inner.querySelector('img').style.display = 'none';
+      var play = inner.querySelector('.bento__play');
+      if(play) play.style.display = 'none';
+      var info = inner.querySelector('.bento__info');
+      if(info) info.style.display = 'none';
+      inner.appendChild(vid);
+    });
+  });
 
-  function openOv(i){
-    var c = allClickables[i]; if(!c) return; currentIdx = i;
-    var videoSrc = c.dataset.video;
-    var name = c.querySelector('.reel-card__name, .bento__title');
-    var desc = c.querySelector('.reel-card__desc, .bento__tag');
-    var nameText = name ? name.textContent : '';
-    var descText = desc ? desc.textContent : '';
-    overlayVideo.innerHTML = '<video src="'+videoSrc+'" controls autoplay playsinline style="width:100%;height:100%;object-fit:contain;border-radius:18px;"></video>';
-    overlayInfo.innerHTML = '<h3>'+nameText+'</h3><span>'+descText+'</span>';
-    overlay.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeOv(){
-    overlay.classList.remove('open');
-    var vid = overlayVideo.querySelector('video');
-    if(vid) vid.pause();
-    overlayVideo.innerHTML = '';
-    document.body.style.overflow = '';
-  }
-  allClickables.forEach(function(c){
-    c.addEventListener('click', function(e){
+  // === INLINE VIDEO — Event-Karten spielen direkt in der Karte ab ===
+  var eventCards = Array.from(document.querySelectorAll('.reel-card[data-video]'));
+  eventCards.forEach(function(card){
+    card.addEventListener('click', function(e){
       if(eventsSlider && eventsSlider.dragMoved()) {
         eventsSlider.resetDrag();
         return;
       }
       e.preventDefault();
-      var vi = allClickables.indexOf(c);
-      if(vi > -1) openOv(vi);
+      var existingVid = card.querySelector('video.reel-inline-vid');
+      if(existingVid) {
+        existingVid.pause();
+        existingVid.remove();
+        return;
+      }
+      // Video ueber die gesamte Card legen
+      var vid = document.createElement('video');
+      vid.className = 'reel-inline-vid';
+      vid.src = card.dataset.video;
+      vid.autoplay = true;
+      vid.playsInline = true;
+      vid.controls = true;
+      vid.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:10;border-radius:16px;';
+      card.appendChild(vid);
     });
-  });
-  document.getElementById('reelClose').addEventListener('click', closeOv);
-  overlay.addEventListener('click', function(e){ if(e.target === overlay) closeOv(); });
-  document.getElementById('overlayPrev').addEventListener('click', function(){
-    closeOv(); openOv((currentIdx - 1 + allClickables.length) % allClickables.length);
-  });
-  document.getElementById('overlayNext').addEventListener('click', function(){
-    closeOv(); openOv((currentIdx + 1) % allClickables.length);
-  });
-  document.addEventListener('keydown', function(e){
-    if(!overlay.classList.contains('open')) return;
-    if(e.key === 'Escape') closeOv();
-    if(e.key === 'ArrowLeft') document.getElementById('overlayPrev').click();
-    if(e.key === 'ArrowRight') document.getElementById('overlayNext').click();
   });
 
   // Smooth scroll
