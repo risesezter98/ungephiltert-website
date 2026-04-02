@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projekt anfragen — ungephiltert.</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #faf9f7; color: #1a1a1a; min-height: 100vh;
+      display: flex; flex-direction: column;
+    }
+
+    /* Nav */
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 5%; max-width: 1200px; margin: 0 auto; width: 100%;
+    }
+    .nav__logo { font-size: 20px; font-weight: 800; color: #1a1a1a; text-decoration: none; }
+    .nav__logo span { color: #E8652B; }
+    .nav__back {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 14px; font-weight: 600; color: #888; text-decoration: none;
+      transition: color .2s;
+    }
+    .nav__back:hover { color: #E8652B; }
+    .nav__back svg { width: 16px; height: 16px; }
+
+    /* Main */
+    .main {
+      flex: 1; display: flex; align-items: center; justify-content: center;
+      padding: 40px 5% 80px;
+    }
+    .form-wrap {
+      width: 100%; max-width: 640px;
+    }
+
+    /* Header */
+    .form-header { margin-bottom: 40px; }
+    .form-header__label {
+      display: inline-block; font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .14em;
+      color: #E8652B; margin-bottom: 12px;
+      padding: 5px 14px; background: rgba(232,101,43,.08); border-radius: 50px;
+    }
+    .form-header h1 {
+      font-size: clamp(28px, 4vw, 40px); font-weight: 800;
+      line-height: 1.15; letter-spacing: -.03em; margin-bottom: 12px;
+    }
+    .form-header h1 em { color: #E8652B; font-style: normal; }
+    .form-header p { font-size: 16px; color: #777; line-height: 1.6; }
+
+    /* Steps */
+    .form-steps {
+      display: flex; gap: 8px; margin-bottom: 36px;
+    }
+    .form-step {
+      flex: 1; height: 4px; border-radius: 4px; background: rgba(0,0,0,.06);
+      transition: background .3s;
+    }
+    .form-step.active { background: #E8652B; }
+    .form-step.done { background: rgba(232,101,43,.3); }
+
+    /* Form Cards */
+    .form-card {
+      background: #fff; border-radius: 20px; padding: 36px 32px;
+      box-shadow: 0 4px 24px rgba(0,0,0,.04);
+      border: 1px solid rgba(0,0,0,.04);
+      display: none;
+    }
+    .form-card.active { display: block; }
+    .form-card__title {
+      font-size: 18px; font-weight: 700; margin-bottom: 6px;
+    }
+    .form-card__sub { font-size: 14px; color: #888; margin-bottom: 24px; }
+
+    /* Auswahl-Chips */
+    .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; }
+    .chip {
+      padding: 12px 22px; border-radius: 50px;
+      border: 1.5px solid rgba(0,0,0,.08); background: #fff;
+      font-size: 14px; font-weight: 600; color: #555;
+      cursor: pointer; transition: all .2s; user-select: none;
+    }
+    .chip:hover { border-color: rgba(232,101,43,.3); color: #1a1a1a; }
+    .chip.selected { background: #E8652B; border-color: #E8652B; color: #fff; }
+
+    /* Inputs */
+    .field { margin-bottom: 18px; }
+    .field label {
+      display: block; font-size: 13px; font-weight: 600; color: #555;
+      margin-bottom: 6px;
+    }
+    .field input, .field textarea, .field select {
+      width: 100%; padding: 14px 16px; border-radius: 12px;
+      border: 1.5px solid rgba(0,0,0,.08); background: #faf9f7;
+      font-size: 15px; font-family: inherit; color: #1a1a1a;
+      transition: border-color .2s, box-shadow .2s; outline: none;
+    }
+    .field input:focus, .field textarea:focus, .field select:focus {
+      border-color: #E8652B;
+      box-shadow: 0 0 0 3px rgba(232,101,43,.08);
+    }
+    .field textarea { resize: vertical; min-height: 100px; }
+    .field input::placeholder, .field textarea::placeholder { color: #bbb; }
+
+    /* Buttons */
+    .form-actions { display: flex; gap: 12px; margin-top: 28px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 14px 32px; border-radius: 50px; font-size: 15px; font-weight: 700;
+      border: none; cursor: pointer; transition: all .3s; font-family: inherit;
+    }
+    .btn--primary {
+      background: #E8652B; color: #fff; flex: 1;
+      box-shadow: 0 4px 16px rgba(232,101,43,.2);
+    }
+    .btn--primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(232,101,43,.3); }
+    .btn--secondary {
+      background: transparent; color: #888; border: 1.5px solid rgba(0,0,0,.08);
+    }
+    .btn--secondary:hover { border-color: rgba(0,0,0,.2); color: #1a1a1a; }
+    .btn svg { width: 16px; height: 16px; }
+
+    /* Success */
+    .success {
+      text-align: center; padding: 60px 20px;
+      display: none;
+    }
+    .success.active { display: block; }
+    .success__icon {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: rgba(232,101,43,.1); color: #E8652B;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px; font-size: 28px;
+    }
+    .success h2 { font-size: 24px; font-weight: 800; margin-bottom: 8px; }
+    .success h2 em { color: #E8652B; font-style: normal; }
+    .success p { color: #777; font-size: 15px; line-height: 1.6; }
+    .success .btn { margin-top: 24px; }
+
+    /* Footer */
+    .foot {
+      padding: 20px 5%; text-align: center; font-size: 13px; color: #bbb;
+    }
+
+    @media (max-width: 600px) {
+      .form-card { padding: 24px 20px; }
+      .chips { gap: 8px; }
+      .chip { padding: 10px 16px; font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav__logo">ungephiltert<span>.</span></a>
+  <a href="index.html" class="nav__back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+    Zurück
+  </a>
+</nav>
+
+<main class="main">
+  <div class="form-wrap">
+    <div class="form-header">
+      <span class="form-header__label">Projekt anfragen</span>
+      <h1>Was hast du <em>vor</em>?</h1>
+      <p>Drei kurze Schritte, damit ich weiß worum es geht. Dauert keine 2 Minuten.</p>
+    </div>
+
+    <div class="form-steps">
+      <div class="form-step active" id="step1"></div>
+      <div class="form-step" id="step2"></div>
+      <div class="form-step" id="step3"></div>
+    </div>
+
+    <!-- Step 1: Was brauchst du? -->
+    <div class="form-card active" id="card1">
+      <div class="form-card__title">Worum geht es?</div>
+      <div class="form-card__sub">Wähl aus, was am besten passt. Mehrfachauswahl möglich.</div>
+      <div class="chips" id="typeChips">
+        <div class="chip" data-value="event">Event filmen</div>
+        <div class="chip" data-value="interview">Interviews / Gespräche</div>
+        <div class="chip" data-value="content">Social Media Content</div>
+        <div class="chip" data-value="begleitung">Creator / Firma begleiten</div>
+        <div class="chip" data-value="recap">Recap / Aftermovie</div>
+        <div class="chip" data-value="sonstiges">Was anderes</div>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn--primary" onclick="nextStep(2)">Weiter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></button>
+      </div>
+    </div>
+
+    <!-- Step 2: Details -->
+    <div class="form-card" id="card2">
+      <div class="form-card__title">Ein paar Details</div>
+      <div class="form-card__sub">Je mehr ich weiß, desto besser kann ich dir helfen.</div>
+      <div class="field">
+        <label>Wann ungefähr?</label>
+        <input type="text" placeholder="z.B. 15. Mai 2026, nächsten Monat, noch unklar...">
+      </div>
+      <div class="field">
+        <label>Wo findet es statt?</label>
+        <input type="text" placeholder="z.B. Frankfurt, Marburg, Online...">
+      </div>
+      <div class="field">
+        <label>Erzähl kurz, worum es geht</label>
+        <textarea placeholder="Was ist das Event? Wer ist die Zielgruppe? Was soll rauskommen?"></textarea>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn--secondary" onclick="nextStep(1)">Zurück</button>
+        <button class="btn btn--primary" onclick="nextStep(3)">Weiter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></button>
+      </div>
+    </div>
+
+    <!-- Step 3: Kontakt -->
+    <div class="form-card" id="card3">
+      <div class="form-card__title">Wie kann ich dich erreichen?</div>
+      <div class="form-card__sub">Ich meld mich innerhalb von 24 Stunden bei dir.</div>
+      <div class="field">
+        <label>Dein Name</label>
+        <input type="text" placeholder="Vor- und Nachname" required>
+      </div>
+      <div class="field">
+        <label>E-Mail</label>
+        <input type="email" placeholder="name@beispiel.de" required>
+      </div>
+      <div class="field">
+        <label>Telefon / WhatsApp (optional)</label>
+        <input type="tel" placeholder="+49 ...">
+      </div>
+      <div class="field">
+        <label>Wie bist du auf mich aufmerksam geworden?</label>
+        <select>
+          <option value="" disabled selected>Auswählen...</option>
+          <option>Instagram</option>
+          <option>Empfehlung</option>
+          <option>Google</option>
+          <option>Hab dich auf einem Event gesehen</option>
+          <option>Sonstiges</option>
+        </select>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn--secondary" onclick="nextStep(2)">Zurück</button>
+        <button class="btn btn--primary" onclick="submitForm()">Absenden</button>
+      </div>
+    </div>
+
+    <!-- Success -->
+    <div class="success" id="successCard">
+      <div class="success__icon">✓</div>
+      <h2>Läuft<em>.</em></h2>
+      <p>Deine Anfrage ist raus. Ich schau mir das an und meld mich bei dir — meistens innerhalb von ein paar Stunden.</p>
+      <a href="index.html" class="btn btn--primary">Zurück zur Seite</a>
+    </div>
+  </div>
+</main>
+
+<footer class="foot">
+  ungephiltert. — Philipp
+</footer>
+
+<script>
+(function(){
+  // Chip Selection
+  document.querySelectorAll('.chip').forEach(function(chip){
+    chip.addEventListener('click', function(){
+      chip.classList.toggle('selected');
+    });
+  });
+
+  // Step Navigation
+  window.nextStep = function(step) {
+    document.querySelectorAll('.form-card').forEach(function(c){ c.classList.remove('active'); });
+    document.getElementById('card' + step).classList.add('active');
+    document.querySelectorAll('.form-step').forEach(function(s, i){
+      s.classList.remove('active', 'done');
+      if (i < step - 1) s.classList.add('done');
+      if (i === step - 1) s.classList.add('active');
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Submit
+  window.submitForm = function() {
+    document.querySelectorAll('.form-card').forEach(function(c){ c.classList.remove('active'); });
+    document.querySelectorAll('.form-step').forEach(function(s){ s.classList.add('done'); });
+    document.getElementById('successCard').classList.add('active');
+  };
+})();
+</script>
+
+</body>
+</html>

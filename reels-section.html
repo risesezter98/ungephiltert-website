@@ -1,0 +1,714 @@
+<!-- ═══════════════════════════════════════════
+  UNGEPHILTERT — REELS SHOWCASE SEKTION
+  Vertikaler Video-Slider, swipebar, Fullscreen
+  Für Cloudflare Pages / Standalone
+═══════════════════════════════════════════ -->
+
+<style>
+/* === REELS SECTION === */
+.reels-section {
+  background: #0c0f1a;
+  padding: 80px 0 100px;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #fff;
+}
+
+.reels-section__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 5%;
+}
+
+.reels-section__header {
+  margin-bottom: 48px;
+}
+
+.reels-section__label {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #E8652B;
+  margin-bottom: 12px;
+}
+
+.reels-section__title {
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin-bottom: 12px;
+}
+
+.reels-section__sub {
+  font-size: 16px;
+  color: #6b7280;
+  max-width: 500px;
+}
+
+/* === TAB NAVIGATION === */
+.reels-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.reels-tab {
+  padding: 10px 22px;
+  border-radius: 50px;
+  border: 1px solid rgba(255,255,255,.1);
+  background: transparent;
+  color: #8a92a1;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .25s ease;
+  font-family: inherit;
+}
+
+.reels-tab:hover {
+  border-color: rgba(232,101,43,.4);
+  color: #fff;
+}
+
+.reels-tab.active {
+  background: #E8652B;
+  border-color: #E8652B;
+  color: #fff;
+}
+
+/* === SLIDER CONTAINER === */
+.reels-slider {
+  position: relative;
+}
+
+.reels-track-wrap {
+  overflow: hidden;
+  border-radius: 16px;
+  margin: 0 -8px;
+}
+
+.reels-track {
+  display: flex;
+  gap: 16px;
+  padding: 8px;
+  transition: transform .4s cubic-bezier(.22, 1, .36, 1);
+  cursor: grab;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.reels-track.dragging {
+  cursor: grabbing;
+  transition: none;
+}
+
+/* === EINZELNE REEL CARD === */
+.reel-card {
+  flex-shrink: 0;
+  width: 220px;
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #151b2e;
+  transition: transform .35s cubic-bezier(.22, 1, .36, 1), box-shadow .35s;
+}
+
+.reel-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 16px 40px rgba(232,101,43,.15);
+}
+
+/* Thumbnail */
+.reel-card__thumb {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 9/16;
+  overflow: hidden;
+}
+
+.reel-card__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .5s cubic-bezier(.22, 1, .36, 1);
+}
+
+.reel-card:hover .reel-card__thumb img {
+  transform: scale(1.06);
+}
+
+/* Play Overlay */
+.reel-card__play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,.2);
+  opacity: 0;
+  transition: opacity .3s;
+  cursor: pointer;
+}
+
+.reel-card:hover .reel-card__play {
+  opacity: 1;
+}
+
+.reel-card__play-icon {
+  width: 56px;
+  height: 56px;
+  background: rgba(232,101,43,.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+  transition: transform .2s;
+}
+
+.reel-card:hover .reel-card__play-icon {
+  transform: scale(1.1);
+}
+
+.reel-card__play-icon svg {
+  width: 22px;
+  height: 22px;
+  fill: white;
+  margin-left: 3px;
+}
+
+/* Info unter dem Thumbnail */
+.reel-card__info {
+  padding: 12px 14px;
+}
+
+.reel-card__name {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.reel-card__desc {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* === SLIDER NAVIGATION ARROWS === */
+.reels-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(232,101,43,.9);
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  transition: background .2s, transform .2s;
+  backdrop-filter: blur(4px);
+}
+
+.reels-nav:hover {
+  background: #E8652B;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.reels-nav--prev { left: -16px; }
+.reels-nav--next { right: -16px; }
+
+.reels-nav svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: white;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* === FULLSCREEN OVERLAY (Video Player) === */
+.reel-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0,0,0,.92);
+  backdrop-filter: blur(12px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.reel-overlay.open {
+  display: flex;
+}
+
+.reel-overlay__close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.1);
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .2s;
+}
+
+.reel-overlay__close:hover {
+  background: rgba(255,255,255,.2);
+}
+
+.reel-overlay__video {
+  width: 100%;
+  max-width: 380px;
+  aspect-ratio: 9/16;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #000;
+}
+
+.reel-overlay__video video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.reel-overlay__info {
+  text-align: center;
+  margin-top: 16px;
+  color: rgba(255,255,255,.7);
+}
+
+.reel-overlay__info h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 4px;
+}
+
+.reel-overlay__info span {
+  font-size: 14px;
+}
+
+/* Navigation im Overlay */
+.reel-overlay__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.1);
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .2s;
+}
+
+.reel-overlay__nav:hover {
+  background: rgba(232,101,43,.6);
+}
+
+.reel-overlay__nav--prev { left: 24px; }
+.reel-overlay__nav--next { right: 24px; }
+
+.reel-overlay__nav svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: white;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Fallback: Instagram Link wenn kein Video vorhanden */
+.reel-overlay__fallback {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 12px 24px;
+  background: #E8652B;
+  color: white;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform .2s, box-shadow .2s;
+}
+
+.reel-overlay__fallback:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(232,101,43,.35);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .reels-section { padding: 60px 0 70px; }
+  .reel-card { width: 170px; }
+  .reels-nav { display: none; }
+  .reel-overlay__nav { display: none; }
+}
+</style>
+
+<section class="reels-section">
+  <div class="reels-section__inner">
+
+    <div class="reels-section__header">
+      <span class="reels-section__label">Arbeiten</span>
+      <h2 class="reels-section__title">Events &amp; Projekte</h2>
+      <p class="reels-section__sub">Hier war ich unterwegs. Klick auf ein Video und schau's dir direkt an.</p>
+    </div>
+
+    <!-- Tab Filter -->
+    <div class="reels-tabs">
+      <button class="reels-tab active" data-filter="all">Alle</button>
+      <button class="reels-tab" data-filter="events">Events</button>
+      <button class="reels-tab" data-filter="personal">Persönlich</button>
+      <button class="reels-tab" data-filter="podcast">Podcast</button>
+    </div>
+
+    <!-- Slider -->
+    <div class="reels-slider">
+      <button class="reels-nav reels-nav--prev" id="reelsPrev">
+        <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button class="reels-nav reels-nav--next" id="reelsNext">
+        <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+
+      <div class="reels-track-wrap">
+        <div class="reels-track" id="reelsTrack">
+
+          <!-- EVENT REELS -->
+          <div class="reel-card" data-category="events" data-ig="https://www.instagram.com/reel/DL5MCjtMQKb/" data-video="">
+            <div class="reel-card__thumb">
+              <img src="https://onecdn.io/media/38f6e8cb-4797-400e-a09c-82081b64c8a9/full" alt="Frank Rosin Interview">
+              <div class="reel-card__play">
+                <div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+              </div>
+            </div>
+            <div class="reel-card__info">
+              <div class="reel-card__name">Frank Rosin</div>
+              <div class="reel-card__desc">Interview auf dem Event</div>
+            </div>
+          </div>
+
+          <div class="reel-card" data-category="events" data-ig="https://www.instagram.com/reel/DNkfJY-MLik/" data-video="">
+            <div class="reel-card__thumb">
+              <img src="https://onecdn.io/media/f8f52a02-0b6e-4031-a39e-9c92e418e420/full" alt="Cocktail Angels">
+              <div class="reel-card__play">
+                <div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+              </div>
+            </div>
+            <div class="reel-card__info">
+              <div class="reel-card__name">Cocktail Angels</div>
+              <div class="reel-card__desc">Event-Stimmung einfangen</div>
+            </div>
+          </div>
+
+          <div class="reel-card" data-category="events" data-ig="https://www.instagram.com/reel/DQmjEZnjdNh/" data-video="">
+            <div class="reel-card__thumb">
+              <img src="https://onecdn.io/media/aae66445-f3d5-47b2-a15d-73b97115a88a/full" alt="DJ Begleitung">
+              <div class="reel-card__play">
+                <div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+              </div>
+            </div>
+            <div class="reel-card__info">
+              <div class="reel-card__name">DJ-Begleitung</div>
+              <div class="reel-card__desc">Highlights vom Abend</div>
+            </div>
+          </div>
+
+          <div class="reel-card" data-category="events" data-ig="https://www.instagram.com/reel/DOEY8k1jQ24/" data-video="">
+            <div class="reel-card__thumb">
+              <img src="https://onecdn.io/media/99a417a6-4050-4044-a4c1-ce405243434c/full" alt="Sparkasse Event">
+              <div class="reel-card__play">
+                <div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+              </div>
+            </div>
+            <div class="reel-card__info">
+              <div class="reel-card__name">Sparkasse</div>
+              <div class="reel-card__desc">Firmenevent</div>
+            </div>
+          </div>
+
+          <div class="reel-card" data-category="events" data-ig="https://www.instagram.com/reel/DRSPNe4jNcZ/" data-video="">
+            <div class="reel-card__thumb">
+              <img src="https://onecdn.io/media/8bf465b2-f385-4eb6-86f1-bacdfdf2abae/full" alt="Ungeskriptet">
+              <div class="reel-card__play">
+                <div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+              </div>
+            </div>
+            <div class="reel-card__info">
+              <div class="reel-card__name">Ungeskriptet</div>
+              <div class="reel-card__desc">Spontane Interviews</div>
+            </div>
+          </div>
+
+          <div class="reel-card" data-category="events" data-ig="https://www.instagram.com/reel/DIeTekuseZn/" data-video="">
+            <div class="reel-card__thumb">
+              <img src="https://onecdn.io/media/15fd79ab-ac0f-44fa-b6d2-6bacb137ba1d/full" alt="Kollegah">
+              <div class="reel-card__play">
+                <div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+              </div>
+            </div>
+            <div class="reel-card__info">
+              <div class="reel-card__name">Kollegah</div>
+              <div class="reel-card__desc">Event-Begleitung</div>
+            </div>
+          </div>
+
+          <div class="reel-card" data-category="events" data-ig="https://www.instagram.com/reel/DMF_8raMV23/" data-video="">
+            <div class="reel-card__thumb">
+              <img src="https://onecdn.io/media/eae8a006-85e8-4620-86e6-c8af7c049f23/full" alt="Sebastian Leeges">
+              <div class="reel-card__play">
+                <div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+              </div>
+            </div>
+            <div class="reel-card__info">
+              <div class="reel-card__name">Sebastian Leeges</div>
+              <div class="reel-card__desc">Event-Dokumentation</div>
+            </div>
+          </div>
+
+          <!-- PERSOENLICH -->
+          <div class="reel-card" data-category="personal" data-ig="https://www.instagram.com/reel/DVtpDMggmLB/" data-video="">
+            <div class="reel-card__thumb">
+              <img src="https://onecdn.io/media/38f6e8cb-4797-400e-a09c-82081b64c8a9/full" alt="Porsche mit Sophia">
+              <div class="reel-card__play">
+                <div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+              </div>
+            </div>
+            <div class="reel-card__info">
+              <div class="reel-card__name">Porsche mit Sophia</div>
+              <div class="reel-card__desc">Persönlich</div>
+            </div>
+          </div>
+
+          <div class="reel-card" data-category="personal" data-ig="https://www.instagram.com/reel/DUtBfuvDJcm/" data-video="">
+            <div class="reel-card__thumb">
+              <img src="https://onecdn.io/media/f8f52a02-0b6e-4031-a39e-9c92e418e420/full" alt="Asien Reise">
+              <div class="reel-card__play">
+                <div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+              </div>
+            </div>
+            <div class="reel-card__info">
+              <div class="reel-card__name">Asien Reise</div>
+              <div class="reel-card__desc">Persönlich</div>
+            </div>
+          </div>
+
+          <!-- PODCAST -->
+          <div class="reel-card" data-category="podcast" data-ig="https://www.instagram.com/reel/DN6EpLiDGlk/" data-video="">
+            <div class="reel-card__thumb">
+              <img src="https://onecdn.io/media/99a417a6-4050-4044-a4c1-ce405243434c/full" alt="Podcast Clip">
+              <div class="reel-card__play">
+                <div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+              </div>
+            </div>
+            <div class="reel-card__info">
+              <div class="reel-card__name">Podcast</div>
+              <div class="reel-card__desc">Clip</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Fullscreen Overlay -->
+<div class="reel-overlay" id="reelOverlay">
+  <button class="reel-overlay__close" id="reelClose">✕</button>
+  <button class="reel-overlay__nav reel-overlay__nav--prev" id="overlayPrev">
+    <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <button class="reel-overlay__nav reel-overlay__nav--next" id="overlayNext">
+    <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
+
+  <div class="reel-overlay__video" id="overlayVideo"></div>
+  <div class="reel-overlay__info" id="overlayInfo"></div>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  const track = document.getElementById('reelsTrack');
+  const cards = Array.from(track.querySelectorAll('.reel-card'));
+  const overlay = document.getElementById('reelOverlay');
+  const overlayVideo = document.getElementById('overlayVideo');
+  const overlayInfo = document.getElementById('overlayInfo');
+  let currentOverlayIndex = 0;
+  let visibleCards = cards;
+
+  /* === TAB FILTER === */
+  document.querySelectorAll('.reels-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelector('.reels-tab.active').classList.remove('active');
+      tab.classList.add('active');
+      const filter = tab.dataset.filter;
+
+      cards.forEach(card => {
+        if (filter === 'all' || card.dataset.category === filter) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      visibleCards = cards.filter(c => c.style.display !== 'none');
+      track.style.transform = 'translateX(0)';
+    });
+  });
+
+  /* === SLIDER DRAG === */
+  let isDown = false, startX, scrollPos = 0, currentX = 0;
+
+  track.addEventListener('mousedown', e => {
+    isDown = true;
+    track.classList.add('dragging');
+    startX = e.pageX;
+  });
+  track.addEventListener('mouseleave', () => { isDown = false; track.classList.remove('dragging'); });
+  track.addEventListener('mouseup', () => {
+    isDown = false;
+    track.classList.remove('dragging');
+    scrollPos = currentX;
+  });
+  track.addEventListener('mousemove', e => {
+    if (!isDown) return;
+    e.preventDefault();
+    const diff = e.pageX - startX;
+    currentX = scrollPos + diff;
+    // Grenzen
+    const maxScroll = -(track.scrollWidth - track.parentElement.offsetWidth);
+    currentX = Math.max(maxScroll, Math.min(0, currentX));
+    track.style.transform = 'translateX(' + currentX + 'px)';
+  });
+
+  // Touch Support
+  track.addEventListener('touchstart', e => {
+    isDown = true;
+    startX = e.touches[0].pageX;
+  }, { passive: true });
+  track.addEventListener('touchend', () => {
+    isDown = false;
+    scrollPos = currentX;
+  });
+  track.addEventListener('touchmove', e => {
+    if (!isDown) return;
+    const diff = e.touches[0].pageX - startX;
+    currentX = scrollPos + diff;
+    const maxScroll = -(track.scrollWidth - track.parentElement.offsetWidth);
+    currentX = Math.max(maxScroll, Math.min(0, currentX));
+    track.style.transform = 'translateX(' + currentX + 'px)';
+  }, { passive: true });
+
+  /* === ARROW NAVIGATION === */
+  const scrollAmount = 240;
+  document.getElementById('reelsPrev').addEventListener('click', () => {
+    currentX = Math.min(0, currentX + scrollAmount);
+    scrollPos = currentX;
+    track.style.transform = 'translateX(' + currentX + 'px)';
+  });
+  document.getElementById('reelsNext').addEventListener('click', () => {
+    const maxScroll = -(track.scrollWidth - track.parentElement.offsetWidth);
+    currentX = Math.max(maxScroll, currentX - scrollAmount);
+    scrollPos = currentX;
+    track.style.transform = 'translateX(' + currentX + 'px)';
+  });
+
+  /* === FULLSCREEN OVERLAY === */
+  function openOverlay(index) {
+    const card = visibleCards[index];
+    if (!card) return;
+    currentOverlayIndex = index;
+
+    const videoSrc = card.dataset.video;
+    const igLink = card.dataset.ig;
+    const name = card.querySelector('.reel-card__name').textContent;
+    const desc = card.querySelector('.reel-card__desc').textContent;
+    const thumbSrc = card.querySelector('.reel-card__thumb img').src;
+
+    // Wenn ein eigenes Video vorhanden ist, abspielen
+    if (videoSrc) {
+      overlayVideo.innerHTML = '<video src="' + videoSrc + '" controls autoplay playsinline></video>';
+    } else {
+      // Fallback: Thumbnail + Link zu Instagram
+      overlayVideo.innerHTML = '<div style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#151b2e,#0c0f1a)">' +
+        '<img src="' + thumbSrc + '" style="width:100%;height:70%;object-fit:cover;border-radius:12px;opacity:.6" alt="">' +
+        '</div>';
+    }
+
+    overlayInfo.innerHTML = '<h3>' + name + '</h3><span>' + desc + '</span>' +
+      '<br><a href="' + igLink + '" target="_blank" rel="noopener" class="reel-overlay__fallback">Auf Instagram ansehen →</a>';
+
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeOverlay() {
+    overlay.classList.remove('open');
+    overlayVideo.innerHTML = '';
+    document.body.style.overflow = '';
+  }
+
+  // Card Click
+  cards.forEach(card => {
+    card.addEventListener('click', (e) => {
+      // Nicht oeffnen wenn gerade gedraggt wird
+      if (Math.abs(currentX - scrollPos) > 5) return;
+      const idx = visibleCards.indexOf(card);
+      if (idx !== -1) openOverlay(idx);
+    });
+  });
+
+  // Close
+  document.getElementById('reelClose').addEventListener('click', closeOverlay);
+  overlay.addEventListener('click', e => {
+    if (e.target === overlay) closeOverlay();
+  });
+
+  // Overlay Navigation
+  document.getElementById('overlayPrev').addEventListener('click', () => {
+    if (currentOverlayIndex > 0) openOverlay(currentOverlayIndex - 1);
+  });
+  document.getElementById('overlayNext').addEventListener('click', () => {
+    if (currentOverlayIndex < visibleCards.length - 1) openOverlay(currentOverlayIndex + 1);
+  });
+
+  // Keyboard
+  document.addEventListener('keydown', e => {
+    if (!overlay.classList.contains('open')) return;
+    if (e.key === 'Escape') closeOverlay();
+    if (e.key === 'ArrowLeft' && currentOverlayIndex > 0) openOverlay(currentOverlayIndex - 1);
+    if (e.key === 'ArrowRight' && currentOverlayIndex < visibleCards.length - 1) openOverlay(currentOverlayIndex + 1);
+  });
+
+})();
+</script>

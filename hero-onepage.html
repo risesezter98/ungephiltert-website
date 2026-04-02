@@ -1,0 +1,374 @@
+<!-- ═══════════════════════════════════════════
+  UNGEPHILTERT — HERO SEKTION
+  Ticker-Hintergrund mit Hochformat-Bildern
+  Für OnePage.io Custom Code Sektion
+  Alles in einem Block: HTML + CSS + JS
+═══════════════════════════════════════════ -->
+
+<style>
+/* === Container-Ausbruch für OnePage.io === */
+.hero-ticker {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  min-height: 600px;
+  overflow: hidden;
+  background: #0c0f1a;
+  /* Kein border-radius damit es edge-to-edge geht */
+}
+
+/* === TICKER HINTERGRUND — nur rechte Haelfte === */
+.hero-ticker__bg {
+  position: absolute;
+  top: 0;
+  left: 45%;
+  width: 55%;
+  height: 100%;
+  z-index: 1;
+  /* Rechts nicht abschneiden */
+  overflow: hidden;
+}
+
+.hero-ticker__rows {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 10px 0;
+  transform: rotate(-12deg) scale(1.4);
+  transform-origin: center center;
+}
+
+.ticker-row {
+  overflow: hidden;
+  width: 100%;
+}
+
+.ticker-track {
+  display: flex;
+  gap: 14px;
+  width: max-content;
+}
+
+/* === Bilder — HOCHFORMAT === */
+.ticker-img {
+  width: 160px;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 12px;
+  flex-shrink: 0;
+  opacity: 0.3;
+  transition: opacity .4s;
+}
+
+/* === Endlos-Scroll Animation === */
+.ticker-row--right .ticker-track {
+  animation: ticker-r 50s linear infinite;
+}
+.ticker-row--left .ticker-track {
+  animation: ticker-l 50s linear infinite;
+}
+
+@keyframes ticker-r {
+  0%   { transform: translateX(-50%); }
+  100% { transform: translateX(0%); }
+}
+@keyframes ticker-l {
+  0%   { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+/* === FADES === */
+.hero-ticker__bg::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(to right, #0c0f1a 10%, transparent 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+.hero-ticker__bg::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 10%;
+  height: 100%;
+  background: linear-gradient(to left, #0c0f1a 0%, transparent 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+/* Oben/Unten Fade */
+.hero-ticker__fade-top,
+.hero-ticker__fade-bottom {
+  position: absolute;
+  left: 0; right: 0;
+  height: 80px;
+  z-index: 2;
+  pointer-events: none;
+}
+.hero-ticker__fade-top {
+  top: 0;
+  background: linear-gradient(to bottom, #0c0f1a, transparent);
+}
+.hero-ticker__fade-bottom {
+  bottom: 0;
+  background: linear-gradient(to top, #0c0f1a, transparent);
+}
+
+/* === TEXT — mehr zur Mitte/zentrierter === */
+.hero-ticker__content {
+  position: relative;
+  z-index: 3;
+  max-width: 520px;
+  padding: 70px 50px 70px 18%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 600px;
+}
+
+.hero-ticker__label {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #E8652B;
+  margin-bottom: 16px;
+  opacity: 0.9;
+}
+
+.hero-ticker__title {
+  font-size: clamp(30px, 4.5vw, 48px);
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  margin-bottom: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+.hero-ticker__title span {
+  color: #E8652B;
+}
+
+.hero-ticker__text {
+  font-size: 16px;
+  color: #8a92a1;
+  line-height: 1.7;
+  margin-bottom: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* === Bullet Points === */
+.hero-ticker__bullets {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 32px;
+  padding: 0;
+}
+.hero-ticker__bullets li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  color: rgba(255,255,255,.85);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+.hero-ticker__bullets li::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #E8652B;
+  flex-shrink: 0;
+}
+
+/* === CTA === */
+.hero-ticker__cta {
+  display: inline-block;
+  padding: 16px 32px;
+  background: #E8652B;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 50px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  align-self: flex-start;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+.hero-ticker__cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(232, 101, 43, 0.35);
+}
+
+/* === PHILIPP BILD (Mitte/Vordergrund) === */
+.hero-ticker__person {
+  position: absolute;
+  z-index: 3;
+  bottom: 0;
+  right: 28%;
+  pointer-events: none;
+}
+.hero-ticker__person img {
+  height: 520px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 30px rgba(0,0,0,.5));
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .hero-ticker {
+    min-height: 550px;
+  }
+  .hero-ticker__content {
+    padding: 40px 24px;
+    max-width: 100%;
+    min-height: 550px;
+  }
+  .hero-ticker__bg::before {
+    width: 100%;
+    background: linear-gradient(to right, #0c0f1a 15%, rgba(12,15,26,0.75) 100%);
+  }
+  .ticker-img {
+    width: 120px;
+    height: 180px;
+    opacity: 0.15;
+  }
+  .hero-ticker__rows {
+    transform: rotate(-12deg) scale(1.5);
+  }
+  .hero-ticker__person {
+    right: -5%;
+    opacity: 0.4;
+  }
+  .hero-ticker__person img {
+    height: 400px;
+  }
+}
+</style>
+
+<div class="hero-ticker">
+
+  <!-- Fades oben/unten -->
+  <div class="hero-ticker__fade-top"></div>
+  <div class="hero-ticker__fade-bottom"></div>
+
+  <!-- Ticker Hintergrund -->
+  <div class="hero-ticker__bg">
+    <div class="hero-ticker__rows">
+
+      <!-- Reihe 1: Nach RECHTS -->
+      <div class="ticker-row ticker-row--right">
+        <div class="ticker-track">
+          <img src="https://onecdn.io/media/38f6e8cb-4797-400e-a09c-82081b64c8a9/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/f8f52a02-0b6e-4031-a39e-9c92e418e420/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/aae66445-f3d5-47b2-a15d-73b97115a88a/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/99a417a6-4050-4044-a4c1-ce405243434c/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/8bf465b2-f385-4eb6-86f1-bacdfdf2abae/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/15fd79ab-ac0f-44fa-b6d2-6bacb137ba1d/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/eae8a006-85e8-4620-86e6-c8af7c049f23/full" alt="" class="ticker-img">
+          <!-- Duplikate fuer nahtlose Schleife -->
+          <img src="https://onecdn.io/media/38f6e8cb-4797-400e-a09c-82081b64c8a9/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/f8f52a02-0b6e-4031-a39e-9c92e418e420/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/aae66445-f3d5-47b2-a15d-73b97115a88a/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/99a417a6-4050-4044-a4c1-ce405243434c/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/8bf465b2-f385-4eb6-86f1-bacdfdf2abae/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/15fd79ab-ac0f-44fa-b6d2-6bacb137ba1d/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/eae8a006-85e8-4620-86e6-c8af7c049f23/full" alt="" class="ticker-img">
+        </div>
+      </div>
+
+      <!-- Reihe 2: Nach LINKS -->
+      <div class="ticker-row ticker-row--left">
+        <div class="ticker-track">
+          <img src="https://onecdn.io/media/99a417a6-4050-4044-a4c1-ce405243434c/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/eae8a006-85e8-4620-86e6-c8af7c049f23/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/38f6e8cb-4797-400e-a09c-82081b64c8a9/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/8bf465b2-f385-4eb6-86f1-bacdfdf2abae/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/f8f52a02-0b6e-4031-a39e-9c92e418e420/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/15fd79ab-ac0f-44fa-b6d2-6bacb137ba1d/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/aae66445-f3d5-47b2-a15d-73b97115a88a/full" alt="" class="ticker-img">
+          <!-- Duplikate -->
+          <img src="https://onecdn.io/media/99a417a6-4050-4044-a4c1-ce405243434c/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/eae8a006-85e8-4620-86e6-c8af7c049f23/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/38f6e8cb-4797-400e-a09c-82081b64c8a9/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/8bf465b2-f385-4eb6-86f1-bacdfdf2abae/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/f8f52a02-0b6e-4031-a39e-9c92e418e420/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/15fd79ab-ac0f-44fa-b6d2-6bacb137ba1d/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/aae66445-f3d5-47b2-a15d-73b97115a88a/full" alt="" class="ticker-img">
+        </div>
+      </div>
+
+      <!-- Reihe 3: Nach RECHTS -->
+      <div class="ticker-row ticker-row--right">
+        <div class="ticker-track">
+          <img src="https://onecdn.io/media/15fd79ab-ac0f-44fa-b6d2-6bacb137ba1d/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/aae66445-f3d5-47b2-a15d-73b97115a88a/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/99a417a6-4050-4044-a4c1-ce405243434c/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/eae8a006-85e8-4620-86e6-c8af7c049f23/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/38f6e8cb-4797-400e-a09c-82081b64c8a9/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/f8f52a02-0b6e-4031-a39e-9c92e418e420/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/8bf465b2-f385-4eb6-86f1-bacdfdf2abae/full" alt="" class="ticker-img">
+          <!-- Duplikate -->
+          <img src="https://onecdn.io/media/15fd79ab-ac0f-44fa-b6d2-6bacb137ba1d/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/aae66445-f3d5-47b2-a15d-73b97115a88a/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/99a417a6-4050-4044-a4c1-ce405243434c/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/eae8a006-85e8-4620-86e6-c8af7c049f23/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/38f6e8cb-4797-400e-a09c-82081b64c8a9/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/f8f52a02-0b6e-4031-a39e-9c92e418e420/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/8bf465b2-f385-4eb6-86f1-bacdfdf2abae/full" alt="" class="ticker-img">
+        </div>
+      </div>
+
+      <!-- Reihe 4: Nach LINKS -->
+      <div class="ticker-row ticker-row--left">
+        <div class="ticker-track">
+          <img src="https://onecdn.io/media/f8f52a02-0b6e-4031-a39e-9c92e418e420/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/8bf465b2-f385-4eb6-86f1-bacdfdf2abae/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/15fd79ab-ac0f-44fa-b6d2-6bacb137ba1d/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/38f6e8cb-4797-400e-a09c-82081b64c8a9/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/aae66445-f3d5-47b2-a15d-73b97115a88a/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/eae8a006-85e8-4620-86e6-c8af7c049f23/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/99a417a6-4050-4044-a4c1-ce405243434c/full" alt="" class="ticker-img">
+          <!-- Duplikate -->
+          <img src="https://onecdn.io/media/f8f52a02-0b6e-4031-a39e-9c92e418e420/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/8bf465b2-f385-4eb6-86f1-bacdfdf2abae/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/15fd79ab-ac0f-44fa-b6d2-6bacb137ba1d/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/38f6e8cb-4797-400e-a09c-82081b64c8a9/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/aae66445-f3d5-47b2-a15d-73b97115a88a/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/eae8a006-85e8-4620-86e6-c8af7c049f23/full" alt="" class="ticker-img">
+          <img src="https://onecdn.io/media/99a417a6-4050-4044-a4c1-ce405243434c/full" alt="" class="ticker-img">
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Philipp im Vordergrund (Mitte) -->
+  <!-- TODO: Freigestelltes Bild von Philipp hier einfuegen -->
+  <!--
+  <div class="hero-ticker__person">
+    <img src="PHILIPP_FREIGESTELLT_URL_HIER" alt="Philipp">
+  </div>
+  -->
+
+  <!-- Text links -->
+  <div class="hero-ticker__content">
+    <span class="hero-ticker__label">Video Content Creator</span>
+    <h2 class="hero-ticker__title">Ich bin Philipp<span>.</span></h2>
+    <p class="hero-ticker__text">Ich mache Videos für mich selbst und fange Emotionen auf Events ein. Schau dir einfach an, was dabei rauskommt.</p>
+    <ul class="hero-ticker__bullets">
+      <li>Events &amp; Interviews</li>
+      <li>Social Media Content</li>
+      <li>Creator &amp; Firmen begleiten</li>
+    </ul>
+    <a href="#kontakt" class="hero-ticker__cta">Schreib mir</a>
+  </div>
+
+</div>
