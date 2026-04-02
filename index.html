@@ -40,12 +40,15 @@
 .nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 18px 5%; transition: all .4s cubic-bezier(.22,1,.36,1);
+  padding: 16px 5%; transition: all .4s cubic-bezier(.22,1,.36,1);
+  max-width: 1400px; margin: 0 auto;
 }
 .nav--scrolled {
-  padding: 12px 5%;
-  background: rgba(12,15,26,.92); backdrop-filter: blur(20px);
-  box-shadow: 0 4px 30px rgba(0,0,0,.2);
+  padding: 10px 5%;
+  background: rgba(20,18,16,.88); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 1px 0 rgba(232,101,43,.08), 0 4px 30px rgba(0,0,0,.15);
+  border-bottom: 1px solid rgba(255,255,255,.04);
+  left: 0; right: 0; max-width: 100%;
 }
 .nav__logo { font-size: 20px; font-weight: 800; color: #fff; letter-spacing: -.02em; }
 .nav__logo span { color: #E8652B; }
@@ -64,7 +67,7 @@
 .nav__burger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 .mobile-menu {
   display: none; position: fixed; inset: 0; z-index: 99;
-  background: #181535; flex-direction: column; align-items: center;
+  background: #141210; flex-direction: column; align-items: center;
   justify-content: center; gap: 32px;
 }
 .mobile-menu.open { display: flex; }
@@ -94,8 +97,10 @@
 <!-- ═══════════════ HERO — Ticker ═══════════════ -->
 <style>
 .hero-ticker {
-  position: relative; width: 100%; min-height: 80vh; overflow: hidden;
-  background: #181535;
+  position: relative; width: 100%; min-height: clamp(500px, 70vh, 850px); overflow: hidden;
+  background: #141210;
+  background-image:
+    radial-gradient(ellipse 600px 500px at 30% 40%, rgba(232,101,43,.04) 0%, transparent 60%);
 }
 .hero-ticker__bg {
   position: absolute; top: 0; left: 48%; width: 52%; height: 100%; z-index: 1; overflow: hidden;
@@ -110,30 +115,33 @@
   width: 160px; height: 240px; object-fit: cover;
   border-radius: 12px; flex-shrink: 0; opacity: 0.3;
 }
-.ticker-row--right .ticker-track { animation: ticker-r 50s linear infinite; }
-.ticker-row--left .ticker-track { animation: ticker-l 50s linear infinite; }
+.ticker-row--right .ticker-track { animation: ticker-r 80s linear infinite; }
+.ticker-row--left .ticker-track { animation: ticker-l 80s linear infinite; }
 @keyframes ticker-r { 0%{transform:translateX(-50%)} 100%{transform:translateX(0%)} }
 @keyframes ticker-l { 0%{transform:translateX(0%)} 100%{transform:translateX(-50%)} }
 .hero-ticker__bg::before {
   content:''; position:absolute; top:0; left:0; width:40%; height:100%;
-  background:linear-gradient(to right, #181535 10%, transparent 100%);
+  background:linear-gradient(to right, #141210 10%, transparent 100%);
   z-index:2; pointer-events:none;
 }
 .hero-ticker__bg::after {
   content:''; position:absolute; top:0; right:0; width:10%; height:100%;
-  background:linear-gradient(to left, #181535 0%, transparent 100%);
+  background:linear-gradient(to left, #141210 0%, transparent 100%);
   z-index:2; pointer-events:none;
 }
 .hero-ticker__fade-top, .hero-ticker__fade-bottom {
   position:absolute; left:0; right:0; height:120px; z-index:2; pointer-events:none;
 }
-.hero-ticker__fade-top { top:0; background:linear-gradient(to bottom, #181535, transparent); }
-.hero-ticker__fade-bottom { bottom:0; background:linear-gradient(to top, #181535, transparent); }
+.hero-ticker__fade-top { top:0; background:linear-gradient(to bottom, #141210, transparent); }
+.hero-ticker__fade-bottom { bottom:0; background:linear-gradient(to top, #141210, transparent); }
 .hero-ticker__content {
-  position:relative; z-index:3; width:48%;
-  padding:100px 20px 60px 22%;
-  display:flex; flex-direction:column; justify-content:center; min-height:80vh;
+  position:relative; z-index:3;
+  width:100%; max-width:1200px; margin:0 auto;
+  padding:160px 5% 60px;
+  display:flex; flex-direction:column; justify-content:center; min-height:min(80vh, 700px);
 }
+/* Text-Block darf maximal die Haelfte nutzen */
+.hero-ticker__content > * { max-width:480px; }
 .hero-ticker__label {
   display:inline-block; font-size:12px; font-weight:700;
   text-transform:uppercase; letter-spacing:.14em; color:#E8652B; margin-bottom:20px;
@@ -165,24 +173,15 @@
 .hero-ticker__cta:hover { transform:translateY(-2px); box-shadow:0 8px 25px rgba(232,101,43,.35); }
 .hero-ticker__cta--ghost { background:transparent; border:1px solid rgba(255,255,255,.15); }
 .hero-ticker__cta--ghost:hover { border-color:rgba(232,101,43,.6); }
-.hero-ticker__person { position:absolute; z-index:2; bottom:0; left:44%; pointer-events:none; }
-.hero-ticker__person img { height:70vh; width:auto; object-fit:contain; filter:drop-shadow(0 12px 40px rgba(0,0,0,.6)); }
-.hero-ticker__scroll { position:absolute; bottom:32px; left:50%; transform:translateX(-50%); z-index:4; }
-.hero-ticker__scroll-line {
-  width:2px; height:48px; background:rgba(255,255,255,.1); border-radius:2px;
-  position:relative; overflow:hidden;
-}
-.hero-ticker__scroll-line::after {
-  content:''; position:absolute; top:-100%; left:0; width:100%; height:50%;
-  background:#E8652B; animation:scroll-pulse 2s ease-in-out infinite;
-}
-@keyframes scroll-pulse { 0%{top:-50%} 100%{top:120%} }
+.hero-ticker__person { position:absolute; z-index:2; bottom:0; left:55%; transform:translateX(-15%); pointer-events:none; }
+.hero-ticker__person img { height:clamp(450px, 68vh, 750px); width:auto; object-fit:contain; filter:drop-shadow(0 12px 40px rgba(0,0,0,.6)); }
 
 @media (max-width:768px) {
   .hero-ticker { min-height: 75vh; }
   .hero-ticker__content { padding:80px 24px 50px; width:100%; min-height:75vh; }
+  .hero-ticker__content > * { max-width:100%; }
   .hero-ticker__bg { left:0; width:100%; }
-  .hero-ticker__bg::before { width:100%; background:linear-gradient(to right, #181535 20%, rgba(12,15,26,.8) 100%); }
+  .hero-ticker__bg::before { width:100%; background:linear-gradient(to right, #141210 20%, rgba(12,15,26,.8) 100%); }
   .ticker-img { width:120px; height:180px; opacity:.12; }
   .hero-ticker__rows { transform:rotate(-12deg) scale(1.5); }
   .hero-ticker__person { display:none; }
@@ -226,7 +225,6 @@
       <a href="#kontakt" class="hero-ticker__cta hero-ticker__cta--ghost">Kontakt</a>
     </div>
   </div>
-  <div class="hero-ticker__scroll"><div class="hero-ticker__scroll-line"></div></div>
 </div>
 
 
@@ -289,7 +287,7 @@
 
 /* --- Events Sektion --- */
 .events-section {
-  background: #faf9f7; padding: 80px 0 60px; overflow: hidden; color: #1a1a1a;
+  background: #faf9f7; padding: 60px 0 50px; overflow: hidden; color: #1a1a1a;
   position: relative;
 }
 .events-section::before {
@@ -347,19 +345,13 @@
 
 /* --- Personal Brand Sektion — Bento Grid Layout --- */
 .personal-section {
-  background: #f5f0ea; padding: 80px 0 90px; overflow: hidden; color: #1a1a1a;
+  background: #f5f0ea; padding: 60px 0 70px; overflow: hidden; color: #1a1a1a;
   position: relative;
 }
 /* Subtile diagonale Linien */
 .personal-section::before {
   content:''; position:absolute; inset:0; z-index:0; pointer-events:none; opacity:.025;
   background-image: repeating-linear-gradient(-45deg, transparent, transparent 60px, #E8652B 60px, #E8652B 61px);
-}
-/* Offset Border Frame als Deko */
-.personal-section::after {
-  content:''; position:absolute; top:60px; right:5%; z-index:0;
-  width:200px; height:260px; border:2px solid rgba(232,101,43,.12);
-  border-radius:16px; transform:rotate(3deg); pointer-events:none;
 }
 .personal-section__inner { max-width: 1100px; margin: 0 auto; padding: 0 5%; position: relative; z-index: 1; }
 .personal-section__header { margin-bottom: 48px; max-width:500px; }
@@ -392,8 +384,10 @@
 .bento__item:hover img { transform:scale(1.06); }
 /* Grosses Featured Item: 2 Spalten breit */
 .bento__item--lg { grid-column: span 2; grid-row: span 2; }
-.bento__item--lg img { min-height:420px; }
-.bento__item:not(.bento__item--lg) img { height:200px; }
+.bento__item--lg { aspect-ratio: 9/14; }
+.bento__item--lg img { min-height:auto; max-height:none; height:100%; }
+.bento__item:not(.bento__item--lg) { aspect-ratio: 9/16; }
+.bento__item:not(.bento__item--lg) img { height:100%; }
 /* Info Overlay */
 .bento__info {
   position:absolute; bottom:0; left:0; right:0;
@@ -440,8 +434,7 @@
 
 @media (max-width:900px) {
   .bento { grid-template-columns: repeat(2, 1fr); }
-  .bento__item--lg { grid-column: span 2; grid-row: span 1; }
-  .bento__item--lg img { min-height:280px; }
+  .bento__item--lg { grid-column: span 2; grid-row: span 1; aspect-ratio: 16/9; }
 }
 @media (max-width:768px) {
   .events-section { padding:60px 0 50px; }
@@ -450,9 +443,55 @@
   .slider-track-wrap { margin:0 -8px; }
   .slider-nav { display:none; }
   .bento { grid-template-columns: 1fr 1fr; gap:10px; }
-  .bento__item:not(.bento__item--lg) img { height:160px; }
+  .bento__item:not(.bento__item--lg) { aspect-ratio: 9/16; }
 }
 </style>
+
+<!-- ═══════════════ PERSONAL BRAND ═══════════════ -->
+<section class="personal-section" id="personal">
+  <div class="personal-section__inner">
+    <div class="personal-section__header anim">
+      <span class="personal-section__label">Hinter der Kamera</span>
+      <h2 class="personal-section__title">Meine persönlichen Videos</h2>
+      <p class="personal-section__sub">Reisen, Vlogs, Gedanken — was ich mache, wenn ich nicht für andere filme.</p>
+    </div>
+
+    <div class="bento">
+      <div class="bento__item bento__item--lg anim" data-video="videos/personal-vorstellung.mp4">
+        <img src="thumbnails/personal-vorstellung.jpg" alt="Philipp — Vorstellung">
+        <div class="bento__play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+        <div class="bento__info"><span class="bento__tag">Personal</span><span class="bento__title">Vorstellung</span></div>
+      </div>
+      <div class="bento__item anim" data-delay="1" data-video="videos/personal-porsche-sophia.mp4">
+        <img src="thumbnails/personal-porsche-sophia.jpg" alt="Porsche Event">
+        <div class="bento__play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+        <div class="bento__info"><span class="bento__tag">Event</span><span class="bento__title">Porsche mit Sophia</span></div>
+      </div>
+      <div class="bento__item anim" data-delay="2" data-video="videos/personal-asien-reise.mp4">
+        <img src="thumbnails/personal-asien-reise.jpg" alt="Asien Reise">
+        <div class="bento__play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+        <div class="bento__info"><span class="bento__tag">Reise</span><span class="bento__title">Asien Reise</span></div>
+      </div>
+      <div class="bento__item anim" data-delay="1" data-video="videos/personal-turtles.mp4">
+        <img src="thumbnails/personal-turtles.jpg" alt="Turtles">
+        <div class="bento__play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+        <div class="bento__info"><span class="bento__tag">Reise</span><span class="bento__title">Turtles</span></div>
+      </div>
+      <div class="bento__item anim" data-delay="2" data-video="videos/personal-zusammenschnitt.mp4">
+        <img src="thumbnails/personal-zusammenschnitt.jpg" alt="Zusammenschnitt">
+        <div class="bento__play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+        <div class="bento__info"><span class="bento__tag">Recap</span><span class="bento__title">Zusammenschnitt</span></div>
+      </div>
+    </div>
+
+    <div class="personal-section__cta anim">
+      <a href="https://www.instagram.com/ungphiltert/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        Mehr auf Instagram
+      </a>
+    </div>
+  </div>
+</section>
 
 <!-- Events: Seine Dienstleistung — auf Events gehen, Leute interviewen -->
 <section class="events-section" id="reels">
@@ -467,14 +506,16 @@
       <button class="slider-nav slider-nav--next" id="reelsNext"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
     <div class="slider-track-wrap">
       <div class="slider-track" id="reelsTrack">
-        <div class="reel-card" data-category="events" data-ig="https://www.instagram.com/reel/DL5MCjtMQKb/"><div class="reel-card__thumb"><img src="https://onecdn.io/media/38f6e8cb-4797-400e-a09c-82081b64c8a9/full" alt="Frank Rosin"><div class="reel-card__play"><div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div></div><div class="reel-card__info"><div class="reel-card__name">Frank Rosin</div><div class="reel-card__desc">Interview auf dem Event</div></div></div>
-        <div class="reel-card" data-category="events" data-ig="https://www.instagram.com/reel/DNkfJY-MLik/"><div class="reel-card__thumb"><img src="https://onecdn.io/media/f8f52a02-0b6e-4031-a39e-9c92e418e420/full" alt="Cocktail Angels"><div class="reel-card__play"><div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div></div><div class="reel-card__info"><div class="reel-card__name">Cocktail Angels</div><div class="reel-card__desc">Event-Stimmung</div></div></div>
-        <div class="reel-card" data-category="events" data-ig="https://www.instagram.com/reel/DQmjEZnjdNh/"><div class="reel-card__thumb"><img src="https://onecdn.io/media/aae66445-f3d5-47b2-a15d-73b97115a88a/full" alt="DJ Begleitung"><div class="reel-card__play"><div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div></div><div class="reel-card__info"><div class="reel-card__name">DJ-Begleitung</div><div class="reel-card__desc">Highlights vom Abend</div></div></div>
-        <div class="reel-card" data-category="events" data-ig="https://www.instagram.com/reel/DOEY8k1jQ24/"><div class="reel-card__thumb"><img src="https://onecdn.io/media/99a417a6-4050-4044-a4c1-ce405243434c/full" alt="Sparkasse"><div class="reel-card__play"><div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div></div><div class="reel-card__info"><div class="reel-card__name">Sparkasse</div><div class="reel-card__desc">Firmenevent</div></div></div>
-        <div class="reel-card" data-category="events" data-ig="https://www.instagram.com/reel/DRSPNe4jNcZ/"><div class="reel-card__thumb"><img src="https://onecdn.io/media/8bf465b2-f385-4eb6-86f1-bacdfdf2abae/full" alt="Ungeskriptet"><div class="reel-card__play"><div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div></div><div class="reel-card__info"><div class="reel-card__name">Ungeskriptet</div><div class="reel-card__desc">Spontane Interviews</div></div></div>
-        <div class="reel-card" data-category="events" data-ig="https://www.instagram.com/reel/DIeTekuseZn/"><div class="reel-card__thumb"><img src="https://onecdn.io/media/15fd79ab-ac0f-44fa-b6d2-6bacb137ba1d/full" alt="Kollegah"><div class="reel-card__play"><div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div></div><div class="reel-card__info"><div class="reel-card__name">Kollegah</div><div class="reel-card__desc">Event-Begleitung</div></div></div>
-        <div class="reel-card" data-category="events" data-ig="https://www.instagram.com/reel/DMF_8raMV23/"><div class="reel-card__thumb"><img src="https://onecdn.io/media/eae8a006-85e8-4620-86e6-c8af7c049f23/full" alt="Sebastian Leeges"><div class="reel-card__play"><div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div></div><div class="reel-card__info"><div class="reel-card__name">Sebastian Leeges</div><div class="reel-card__desc">Event-Dokumentation</div></div></div>
-        <div class="reel-card" data-category="events" data-ig="https://www.instagram.com/reel/DSIetftCJ6d/"><div class="reel-card__thumb"><img src="https://onecdn.io/media/38f6e8cb-4797-400e-a09c-82081b64c8a9/full" alt="DJ Auftritt"><div class="reel-card__play"><div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div></div><div class="reel-card__info"><div class="reel-card__name">DJ — Auftritt</div><div class="reel-card__desc">Den ganzen Abend begleitet</div></div></div>
+        <div class="reel-card" data-video="videos/event-frank-rosin.mp4"><div class="reel-card__thumb"><img src="thumbnails/event-frank-rosin.jpg" alt="Frank Rosin"><div class="reel-card__play"><div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div></div><div class="reel-card__info"><div class="reel-card__name">Frank Rosin</div><div class="reel-card__desc">Interview auf dem Event</div></div></div>
+        <div class="reel-card" data-video="videos/event-cocktail-angels.mp4"><div class="reel-card__thumb"><img src="thumbnails/event-cocktail-angels.jpg" alt="Cocktail Angels"><div class="reel-card__play"><div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div></div><div class="reel-card__info"><div class="reel-card__name">Cocktail Angels</div><div class="reel-card__desc">Event-Stimmung</div></div></div>
+        <div class="reel-card" data-video="videos/event-dj-begleitung.mp4"><div class="reel-card__thumb"><img src="thumbnails/event-dj-begleitung.jpg" alt="DJ Begleitung"><div class="reel-card__play"><div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div></div><div class="reel-card__info"><div class="reel-card__name">DJ-Begleitung</div><div class="reel-card__desc">Highlights vom Abend</div></div></div>
+        <div class="reel-card" data-video="videos/event-sparkasse.mp4"><div class="reel-card__thumb"><img src="thumbnails/event-sparkasse.jpg" alt="Sparkasse"><div class="reel-card__play"><div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div></div><div class="reel-card__info"><div class="reel-card__name">Sparkasse</div><div class="reel-card__desc">Firmenevent</div></div></div>
+        <div class="reel-card" data-video="videos/event-ungeskriptet.mp4"><div class="reel-card__thumb"><img src="thumbnails/event-ungeskriptet.jpg" alt="Ungeskriptet"><div class="reel-card__play"><div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div></div><div class="reel-card__info"><div class="reel-card__name">Ungeskriptet</div><div class="reel-card__desc">Spontane Interviews</div></div></div>
+        <div class="reel-card" data-video="videos/event-kollegah.mp4"><div class="reel-card__thumb"><img src="thumbnails/event-kollegah.jpg" alt="Kollegah"><div class="reel-card__play"><div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div></div><div class="reel-card__info"><div class="reel-card__name">Kollegah</div><div class="reel-card__desc">Interview auf dem Event</div></div></div>
+        <div class="reel-card" data-video="videos/event-fdp.mp4"><div class="reel-card__thumb"><img src="thumbnails/event-fdp.jpg" alt="FDP Event"><div class="reel-card__play"><div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div></div><div class="reel-card__info"><div class="reel-card__name">FDP</div><div class="reel-card__desc">Politisches Event</div></div></div>
+        <div class="reel-card" data-video="videos/event-sebastian-leeges.mp4"><div class="reel-card__thumb"><img src="thumbnails/event-sebastian-leeges.jpg" alt="Sebastian Leeges"><div class="reel-card__play"><div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div></div><div class="reel-card__info"><div class="reel-card__name">Sebastian Leeges</div><div class="reel-card__desc">Interview</div></div></div>
+        <div class="reel-card" data-video="videos/event-dj-auftritt.mp4"><div class="reel-card__thumb"><img src="thumbnails/event-dj-auftritt.jpg" alt="DJ Auftritt"><div class="reel-card__play"><div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div></div><div class="reel-card__info"><div class="reel-card__name">DJ — Auftritt</div><div class="reel-card__desc">Den ganzen Abend begleitet</div></div></div>
+        <div class="reel-card" data-video="videos/event-brainboost-testreel.mp4"><div class="reel-card__thumb"><img src="thumbnails/event-brainboost-testreel.jpg" alt="Brainboost Testreel"><div class="reel-card__play"><div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div></div><div class="reel-card__info"><div class="reel-card__name">Brainboost</div><div class="reel-card__desc">Testreel für Kunden</div></div></div>
       </div>
     </div>
     </div>
@@ -485,7 +526,11 @@
 <style>
 .hscroll {
   position: relative;
-  background: #181535;
+  background: #141210;
+  background-image:
+    radial-gradient(ellipse 800px 600px at 75% 20%, rgba(232,101,43,.06) 0%, transparent 60%),
+    radial-gradient(ellipse 500px 500px at 15% 70%, rgba(232,101,43,.04) 0%, transparent 50%),
+    radial-gradient(ellipse 300px 300px at 50% 50%, rgba(255,200,150,.02) 0%, transparent 40%);
   color: #fff;
 }
 .hscroll__sticky {
@@ -591,8 +636,25 @@
 .hscroll__nr {
   position: absolute; top: -20px; left: -20px;
   font-size: 160px; font-weight: 900; line-height: 1;
-  color: rgba(232,101,43,.06); letter-spacing: -.05em;
+  color: rgba(232,101,43,.08); letter-spacing: -.05em;
   pointer-events: none; z-index: 0;
+}
+/* Dezente Akzent-Elemente in den Panels */
+.hscroll__panel:nth-child(2)::before {
+  content: ''; position: absolute; top: 15%; right: 8%;
+  width: 120px; height: 120px; border: 1.5px solid rgba(232,101,43,.08);
+  border-radius: 50%; pointer-events: none;
+}
+.hscroll__panel:nth-child(3)::after {
+  content: ''; position: absolute; bottom: 18%; left: 6%;
+  width: 80px; height: 2px; background: rgba(232,101,43,.12);
+  border-radius: 2px; transform: rotate(-20deg); pointer-events: none;
+}
+.hscroll__panel:nth-child(4)::before {
+  content: ''; position: absolute; top: 20%; left: 5%;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(232,101,43,.15); pointer-events: none;
+  box-shadow: 0 0 30px rgba(232,101,43,.1);
 }
 .hscroll__text { position: relative; z-index: 1; }
 .hscroll__tag {
@@ -604,6 +666,11 @@
   line-height: 1.15; margin-bottom: 16px;
 }
 .hscroll__text p { font-size: 16px; color: rgba(255,255,255,.75); line-height: 1.75; }
+.hscroll__text h3 { position: relative; }
+.hscroll__text h3::after {
+  content: ''; display: block; width: 40px; height: 2px;
+  background: #E8652B; border-radius: 2px; margin-top: 12px;
+}
 
 /* Ergebnis-Panel: echte gestapelte Phone-Frames */
 .hscroll__phones {
@@ -690,7 +757,7 @@
           <div class="hscroll__text">
             <span class="hscroll__tag">Vor Ort</span>
             <h3>Mittendrin statt daneben</h3>
-            <p>Ich steh nicht am Rand mit Stativ. Ich bin da, wo die Energie ist — zwischen den Leuten, mitten im Geschehen. Die Gäste sehen sich im Video wieder und teilen es freiwillig. Das bringt dir organische Reichweite ohne einen Cent Werbebudget.</p>
+            <p>Ich steh nicht am Rand mit Stativ. Ich bin da, wo die Energie ist — zwischen den Leuten, mitten im Geschehen. Die Gäste sehen sich im Video wieder und teilen es von sich aus weiter.</p>
           </div>
         </div>
       </div>
@@ -747,7 +814,7 @@
 <!-- ═══════════════ ZITAT — Fullwidth ═══════════════ -->
 <style>
 .quote-section {
-  padding: 100px 5%; background: #faf9f7; position: relative; overflow: hidden;
+  padding: 60px 5%; background: #faf9f7; position: relative; overflow: hidden;
 }
 .quote-section__inner {
   max-width: 800px; margin: 0 auto; text-align: center; position: relative; z-index: 1;
@@ -775,53 +842,6 @@
     <span class="quote-section__mark">"</span>
     <p class="quote-section__text">Ein gutes Video zeigt nicht nur,<br>was passiert ist — <em>es lässt dich dabei sein.</em></p>
     <span class="quote-section__author">— Philipp</span>
-  </div>
-</section>
-
-
-<!-- ═══════════════ PERSONAL BRAND ═══════════════ -->
-<section class="personal-section" id="personal">
-  <div class="personal-section__inner">
-    <div class="personal-section__header anim">
-      <span class="personal-section__label">Mein eigenes Ding</span>
-      <h2 class="personal-section__title">Personal Brand</h2>
-      <p class="personal-section__sub">Vlogs, Reisen, persönliche Projekte — kein Auftraggeber, kein Briefing. Einfach Kamera an und los.</p>
-    </div>
-
-    <div class="bento">
-      <a href="https://www.instagram.com/reel/DVtpDMggmLB/" target="_blank" rel="noopener" class="bento__item bento__item--lg anim" data-ig="https://www.instagram.com/reel/DVtpDMggmLB/">
-        <img src="https://onecdn.io/media/38f6e8cb-4797-400e-a09c-82081b64c8a9/full" alt="Porsche mit Sophia">
-        <div class="bento__play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
-        <div class="bento__info"><span class="bento__tag">Vlog</span><span class="bento__title">Porsche mit Sophia</span></div>
-      </a>
-      <a href="https://www.instagram.com/reel/DUtBfuvDJcm/" target="_blank" rel="noopener" class="bento__item anim" data-delay="1" data-ig="https://www.instagram.com/reel/DUtBfuvDJcm/">
-        <img src="https://onecdn.io/media/f8f52a02-0b6e-4031-a39e-9c92e418e420/full" alt="Asien Reise">
-        <div class="bento__play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
-        <div class="bento__info"><span class="bento__tag">Reise</span><span class="bento__title">Asien Reise</span></div>
-      </a>
-      <a href="https://www.instagram.com/reel/DU55KWoDN5u/" target="_blank" rel="noopener" class="bento__item anim" data-delay="2" data-ig="https://www.instagram.com/reel/DU55KWoDN5u/">
-        <img src="https://onecdn.io/media/aae66445-f3d5-47b2-a15d-73b97115a88a/full" alt="Turtles">
-        <div class="bento__play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
-        <div class="bento__info"><span class="bento__tag">Reise</span><span class="bento__title">Turtles</span></div>
-      </a>
-      <a href="https://www.instagram.com/reel/DM5e0HlM9RX/" target="_blank" rel="noopener" class="bento__item anim" data-delay="1" data-ig="https://www.instagram.com/reel/DM5e0HlM9RX/">
-        <img src="https://onecdn.io/media/99a417a6-4050-4044-a4c1-ce405243434c/full" alt="Vorstellung">
-        <div class="bento__play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
-        <div class="bento__info"><span class="bento__tag">Personal</span><span class="bento__title">Vorstellung</span></div>
-      </a>
-      <a href="https://www.instagram.com/reel/DT0lQCrDFPT/" target="_blank" rel="noopener" class="bento__item anim" data-delay="2" data-ig="https://www.instagram.com/reel/DT0lQCrDFPT/">
-        <img src="https://onecdn.io/media/8bf465b2-f385-4eb6-86f1-bacdfdf2abae/full" alt="Zusammenschnitt">
-        <div class="bento__play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
-        <div class="bento__info"><span class="bento__tag">Recap</span><span class="bento__title">Zusammenschnitt</span></div>
-      </a>
-    </div>
-
-    <div class="personal-section__cta anim">
-      <a href="https://www.instagram.com/ungphiltert/" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-        Mehr auf Instagram
-      </a>
-    </div>
   </div>
 </section>
 
@@ -901,7 +921,9 @@
 }
 .contact__inner { max-width: 650px; margin: 0 auto; position: relative; z-index: 1; }
 .contact__card {
-  background: #181535; border-radius: 24px; padding: 56px 48px;
+  background: #141210;
+  background-image: radial-gradient(ellipse 400px 300px at 50% 0%, rgba(232,101,43,.06) 0%, transparent 60%);
+  border-radius: 24px; padding: 56px 48px;
   position: relative; overflow: hidden; color: #fff; text-align: center;
 }
 .contact__card::before {
@@ -988,8 +1010,8 @@
       </a>
     </div>
     <div class="site-footer__links">
-      <a href="#">Impressum</a>
-      <a href="#">Datenschutz</a>
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
     </div>
   </div>
 </footer>
@@ -1109,9 +1131,8 @@
 
   var eventsSlider = setupSlider('reelsTrack', 'reelsPrev', 'reelsNext');
 
-  // === OVERLAY ===
-  var allCards = Array.from(document.querySelectorAll('.reel-card'));
-  var allClickables = Array.from(document.querySelectorAll('[data-ig]'));
+  // === OVERLAY — Nativer Video Player ===
+  var allClickables = Array.from(document.querySelectorAll('[data-video]'));
   var overlay = document.getElementById('reelOverlay');
   var overlayVideo = document.getElementById('overlayVideo');
   var overlayInfo = document.getElementById('overlayInfo');
@@ -1119,18 +1140,20 @@
 
   function openOv(i){
     var c = allClickables[i]; if(!c) return; currentIdx = i;
-    var ig = c.dataset.ig;
+    var videoSrc = c.dataset.video;
     var name = c.querySelector('.reel-card__name, .bento__title');
     var desc = c.querySelector('.reel-card__desc, .bento__tag');
     var nameText = name ? name.textContent : '';
     var descText = desc ? desc.textContent : '';
-    overlayVideo.innerHTML = '<iframe src="'+ig+'embed/" style="width:100%;height:100%;border:none" allowfullscreen loading="lazy"></iframe>';
-    overlayInfo.innerHTML = '<h3>'+nameText+'</h3><span>'+descText+'</span><br><a href="'+ig+'" target="_blank" rel="noopener" class="reel-overlay__fallback">Auf Instagram ansehen</a>';
+    overlayVideo.innerHTML = '<video src="'+videoSrc+'" controls autoplay playsinline style="width:100%;height:100%;object-fit:contain;border-radius:18px;"></video>';
+    overlayInfo.innerHTML = '<h3>'+nameText+'</h3><span>'+descText+'</span>';
     overlay.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
   function closeOv(){
     overlay.classList.remove('open');
+    var vid = overlayVideo.querySelector('video');
+    if(vid) vid.pause();
     overlayVideo.innerHTML = '';
     document.body.style.overflow = '';
   }
@@ -1148,10 +1171,10 @@
   document.getElementById('reelClose').addEventListener('click', closeOv);
   overlay.addEventListener('click', function(e){ if(e.target === overlay) closeOv(); });
   document.getElementById('overlayPrev').addEventListener('click', function(){
-    openOv((currentIdx - 1 + allClickables.length) % allClickables.length);
+    closeOv(); openOv((currentIdx - 1 + allClickables.length) % allClickables.length);
   });
   document.getElementById('overlayNext').addEventListener('click', function(){
-    openOv((currentIdx + 1) % allClickables.length);
+    closeOv(); openOv((currentIdx + 1) % allClickables.length);
   });
   document.addEventListener('keydown', function(e){
     if(!overlay.classList.contains('open')) return;
