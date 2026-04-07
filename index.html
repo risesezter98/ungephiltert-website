@@ -266,12 +266,21 @@
   background: #141210; padding: 100px 0 90px; overflow: hidden; color: #fff;
   position: relative;
 }
-/* Subtiler Glow-Effekt im Hintergrund */
+/* Lebendiger Hintergrund mit Lichtakzenten */
 .events-section::before {
   content:''; position:absolute; top:0; left:0; width:100%; height:100%;
-  background: radial-gradient(ellipse at 20% 30%, rgba(232,101,43,.06) 0%, transparent 50%),
-              radial-gradient(ellipse at 80% 70%, rgba(232,101,43,.04) 0%, transparent 40%);
+  background:
+    radial-gradient(ellipse at 15% 20%, rgba(232,101,43,.1) 0%, transparent 45%),
+    radial-gradient(ellipse at 85% 80%, rgba(232,101,43,.08) 0%, transparent 40%),
+    radial-gradient(ellipse at 50% 50%, rgba(232,101,43,.03) 0%, transparent 70%),
+    radial-gradient(circle at 70% 15%, rgba(255,180,120,.04) 0%, transparent 30%),
+    radial-gradient(circle at 25% 85%, rgba(255,140,80,.04) 0%, transparent 25%);
   pointer-events:none; z-index:0;
+}
+.events-section::after {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg, transparent 10%, rgba(232,101,43,.15) 50%, transparent 90%);
+  z-index:1; pointer-events:none;
 }
 .events-section__inner { max-width: 100%; margin: 0 auto; padding: 0 2%; position: relative; z-index: 1; }
 .events-section__header { max-width:700px; margin-left:auto; margin-right:auto; }
@@ -307,8 +316,8 @@
   transition:all .25s cubic-bezier(.22,1,.36,1); color:#fff; z-index:10;
 }
 .carousel-nav:hover { background:#E8652B; border-color:#E8652B; color:#fff; transform:translateY(-50%) scale(1.1); }
-.carousel-nav--prev { left:calc(50% - 380px); }
-.carousel-nav--next { right:calc(50% - 380px); }
+.carousel-nav--prev { left:0; }
+.carousel-nav--next { right:0; }
 .carousel-nav svg { width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
 /* Dots Indikator */
 .carousel-dots {
@@ -453,8 +462,6 @@
   .personal-section { padding:60px 0 70px; }
   .carousel-wrap .reel-card { width:160px !important; }
   .carousel-nav { width:36px; height:36px; }
-  .carousel-nav--prev { left:4%; }
-  .carousel-nav--next { right:4%; }
   .bento { grid-template-columns: 1fr 1fr; gap:10px; }
 }
 </style>
@@ -1120,14 +1127,8 @@
         card.style.pointerEvents = absOffset === 0 ? 'auto' : 'none';
         card.style.transform = 'translateX(' + tx + 'px) translateZ(' + tz + 'px) rotateY(' + rotY + 'deg) scale(' + sc + ')';
         card.style.zIndex = (10 - absOffset);
-        // Aktive Karte leicht hervorheben
-        if(absOffset === 0) {
-          card.style.boxShadow = '0 20px 60px rgba(232,101,43,.2)';
-          card.style.borderColor = 'rgba(232,101,43,.25)';
-        } else {
-          card.style.boxShadow = '';
-          card.style.borderColor = '';
-        }
+        card.style.boxShadow = '';
+        card.style.borderColor = '';
       }
     });
 
@@ -1140,6 +1141,14 @@
     if(activeCard) {
       carouselTrack.style.height = activeCard.offsetHeight + 'px';
     }
+
+    // Pfeile direkt neben die aeusserste Karte setzen
+    var prevBtn = document.getElementById('carouselPrev');
+    var nextBtn = document.getElementById('carouselNext');
+    var outerEdge = visibleSide * spacing + cardW / 2 + 16;
+    var halfWrap = wrapWidth / 2;
+    prevBtn.style.left = Math.max(8, halfWrap - outerEdge) + 'px';
+    nextBtn.style.right = Math.max(8, halfWrap - outerEdge) + 'px';
   }
 
   // Endlos: nach dem letzten kommt der erste
