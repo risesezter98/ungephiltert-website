@@ -464,25 +464,8 @@
 @media (max-width:768px) {
   .events-section { padding:60px 0 50px; }
   .personal-section { padding:60px 0 70px; }
-  /* Mobile: 3D-Karussell wird horizontaler Scroll */
-  .carousel-wrap { perspective:none; overflow:visible; padding:20px 0; }
-  .carousel-track {
-    display:flex !important; position:static !important; height:auto !important;
-    overflow-x:auto; scroll-snap-type:x mandatory;
-    gap:14px; padding:8px 5%;
-    -webkit-overflow-scrolling:touch; scrollbar-width:none;
-    transform-style:flat;
-  }
-  .carousel-track::-webkit-scrollbar { display:none; }
-  .carousel-wrap .reel-card {
-    position:static !important; left:auto !important; margin-left:0 !important;
-    flex-shrink:0; width:52vw !important; max-width:200px;
-    opacity:1 !important; transform:none !important;
-    pointer-events:auto !important; scroll-snap-align:start;
-    box-shadow:none !important;
-  }
+  /* Mobile: 3D-Karussell bleibt, Pfeile weg */
   .carousel-nav { display:none; }
-  .carousel-dots { display:none; }
   .bento { grid-template-columns: 1fr 1fr; gap:10px; }
   /* Process-Bilder kleiner auf Mobile */
   .process__step-img img { aspect-ratio:3/4; max-height:300px; }
@@ -943,7 +926,11 @@
 .pod__visual { border-radius: 16px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,.06); position: relative; }
 .pod__visual img { width: 100%; aspect-ratio: 4/5; object-fit: cover; }
 /* Viewfinder-Brackets entfernt */
-@media (max-width: 768px) { .pod__card { grid-template-columns: 1fr; padding: 32px 24px; } }
+@media (max-width: 768px) {
+  .pod__card { grid-template-columns: 1fr; padding: 32px 24px; }
+  .pod__visual { max-width:60%; margin:0 auto; }
+  .pod__visual img { aspect-ratio:1/1; }
+}
 </style>
 
 <section class="pod anim" data-anim="scale-in">
@@ -1126,24 +1113,15 @@
   function updateCarousel(){
     var wrapWidth = document.getElementById('eventsCarousel').offsetWidth;
     var isMobile = wrapWidth < 769;
-
-    // Auf Mobile: Karten-Styles zuruecksetzen, CSS uebernimmt den Scroll
-    if(isMobile) {
-      carouselCards.forEach(function(card){
-        card.style.cssText = '';
-      });
-      carouselTrack.style.height = '';
-      return;
-    }
-
-    var cardW = Math.min(240, wrapWidth * 0.18);
-    var spacing = cardW * 1.05;
+    var cardW = isMobile ? Math.min(180, wrapWidth * 0.42) : Math.min(240, wrapWidth * 0.18);
+    var spacing = isMobile ? cardW * 0.85 : cardW * 1.05;
 
     carouselCards.forEach(function(card, i){
       var offset = circularOffset(i, currentIndex, totalCards);
       var absOffset = Math.abs(offset);
 
-      if(absOffset > visibleSide) {
+      var maxVisible = isMobile ? 2 : visibleSide;
+      if(absOffset > maxVisible) {
         // Versteckt — hinter der Buehne parken
         card.style.opacity = '0';
         card.style.pointerEvents = 'none';
@@ -1151,9 +1129,9 @@
         card.style.zIndex = '0';
       } else {
         var tx = offset * spacing;
-        var tz = -absOffset * 90;
-        var sc = 1 - absOffset * 0.08;
-        var rotY = offset * -18;
+        var tz = -absOffset * (isMobile ? 50 : 90);
+        var sc = 1 - absOffset * (isMobile ? 0.1 : 0.08);
+        var rotY = offset * (isMobile ? -12 : -18);
         var op = absOffset === 0 ? 1 : absOffset === 1 ? 0.75 : absOffset === 2 ? 0.45 : 0.25;
 
         card.style.width = cardW + 'px';
@@ -1195,15 +1173,28 @@
   document.getElementById('carouselPrev').addEventListener('click', function(){ goTo(currentIndex - 1);});
   document.getElementById('carouselNext').addEventListener('click', function(){ goTo(currentIndex + 1);});
 
-  // Touch/Swipe Support
-  var touchStartX = 0, touchDelta = 0;
-  carouselTrack.addEventListener('touchstart', function(e){ touchStartX = e.touches[0].clientX; carouselDragging = false; }, {passive:true});
-  carouselTrack.addEventListener('touchmove', function(e){ touchDelta = e.touches[0].clientX - touchStartX; if(Math.abs(touchDelta) > 10) carouselDragging = true; }, {passive:true});
-  carouselTrack.addEventListener('touchend', function(){
-    if(Math.abs(touchDelta) > 50) {
+  // Touch/Swipe — Tap vs Swipe klar trennen
+  var touchStartX = 0, touchStartY = 0, touchDelta = 0;
+  var carouselEl = document.getElementById('eventsCarousel');
+  carouselEl.addEventListener('touchstart', function(e){
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+    touchDelta = 0;
+    carouselDragging = false;
+  }, {passive:true});
+  carouselEl.addEventListener('touchmove', function(e){
+    var dx = e.touches[0].clientX - touchStartX;
+    var dy = e.touches[0].clientY - touchStartY;
+    // Nur horizontal: swipen. Vertikal: normaler Scroll
+    if(Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 15) {
+      carouselDragging = true;
+      touchDelta = dx;
+    }
+  }, {passive:true});
+  carouselEl.addEventListener('touchend', function(){
+    if(carouselDragging && Math.abs(touchDelta) > 40) {
       if(touchDelta < 0) goTo(currentIndex + 1);
       else goTo(currentIndex - 1);
-      startAutoplay();
     }
     touchDelta = 0;
   });
