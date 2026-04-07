@@ -307,8 +307,8 @@
   transition:all .25s cubic-bezier(.22,1,.36,1); color:#fff; z-index:10;
 }
 .carousel-nav:hover { background:#E8652B; border-color:#E8652B; color:#fff; transform:translateY(-50%) scale(1.1); }
-.carousel-nav--prev { left:2%; }
-.carousel-nav--next { right:2%; }
+.carousel-nav--prev { left:calc(50% - 380px); }
+.carousel-nav--next { right:calc(50% - 380px); }
 .carousel-nav svg { width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
 /* Dots Indikator */
 .carousel-dots {
@@ -453,8 +453,8 @@
   .personal-section { padding:60px 0 70px; }
   .carousel-wrap .reel-card { width:160px !important; }
   .carousel-nav { width:36px; height:36px; }
-  .carousel-nav--prev { left:2%; }
-  .carousel-nav--next { right:2%; }
+  .carousel-nav--prev { left:4%; }
+  .carousel-nav--next { right:4%; }
   .bento { grid-template-columns: 1fr 1fr; gap:10px; }
 }
 </style>
@@ -1071,7 +1071,6 @@
   var currentIndex = 0;
   var totalCards = carouselCards.length;
   var carouselDragging = false;
-  var autoplayTimer = null;
   // Wie viele Karten links und rechts sichtbar sein sollen
   var visibleSide = 3;
 
@@ -1079,7 +1078,7 @@
   carouselCards.forEach(function(_, i){
     var dot = document.createElement('button');
     dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-    dot.addEventListener('click', function(){ goTo(i); startAutoplay(); });
+    dot.addEventListener('click', function(){ goTo(i);});
     carouselDots.appendChild(dot);
   });
 
@@ -1149,14 +1148,8 @@
     updateCarousel();
   }
 
-  document.getElementById('carouselPrev').addEventListener('click', function(){ goTo(currentIndex - 1); startAutoplay(); });
-  document.getElementById('carouselNext').addEventListener('click', function(){ goTo(currentIndex + 1); startAutoplay(); });
-
-  // Autoplay — dreht sich langsam im Kreis
-  function startAutoplay(){
-    if(autoplayTimer) clearInterval(autoplayTimer);
-    autoplayTimer = setInterval(function(){ goTo(currentIndex + 1); }, 4000);
-  }
+  document.getElementById('carouselPrev').addEventListener('click', function(){ goTo(currentIndex - 1);});
+  document.getElementById('carouselNext').addEventListener('click', function(){ goTo(currentIndex + 1);});
 
   // Touch/Swipe Support
   var touchStartX = 0, touchDelta = 0;
@@ -1171,10 +1164,9 @@
     touchDelta = 0;
   });
 
-  // Initial + Resize + Autoplay starten
+  // Initial + Resize
   updateCarousel();
   window.addEventListener('resize', updateCarousel);
-  startAutoplay();
 
   // === OVERLAY — Nativer Video Player ===
   // === INLINE VIDEO — Bento Items spielen direkt in der Karte ab ===
