@@ -273,7 +273,8 @@
               radial-gradient(ellipse at 80% 70%, rgba(232,101,43,.04) 0%, transparent 40%);
   pointer-events:none; z-index:0;
 }
-.events-section__inner { max-width: 1200px; margin: 0 auto; padding: 0 5%; position: relative; z-index: 1; }
+.events-section__inner { max-width: 100%; margin: 0 auto; padding: 0 2%; position: relative; z-index: 1; }
+.events-section__header { max-width:700px; margin-left:auto; margin-right:auto; }
 .events-section__header { margin-bottom: 56px; text-align:center; }
 .events-section__label {
   display:inline-block; font-size:11px; font-weight:700;
@@ -287,7 +288,7 @@
 .events-section__sub { font-size:17px; color:rgba(255,255,255,.55); max-width:500px; line-height:1.7; margin:0 auto; }
 
 /* 3D Karussell */
-.carousel-wrap { position: relative; perspective: 1200px; overflow: visible; padding: 40px 0; }
+.carousel-wrap { position: relative; perspective: 1400px; overflow: hidden; padding: 60px 0 40px; }
 .carousel-track {
   position:relative; width:100%; display:flex; align-items:center; justify-content:center;
   transform-style:preserve-3d;
@@ -306,8 +307,8 @@
   transition:all .25s cubic-bezier(.22,1,.36,1); color:#fff; z-index:10;
 }
 .carousel-nav:hover { background:#E8652B; border-color:#E8652B; color:#fff; transform:translateY(-50%) scale(1.1); }
-.carousel-nav--prev { left:5%; }
-.carousel-nav--next { right:5%; }
+.carousel-nav--prev { left:2%; }
+.carousel-nav--next { right:2%; }
 .carousel-nav svg { width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
 /* Dots Indikator */
 .carousel-dots {
@@ -1063,43 +1064,56 @@
   }, { threshold: 0.15 });
   document.querySelectorAll('.anim').forEach(function(el){ observer.observe(el); });
 
-  // === 3D KARUSSELL ===
+  // === 3D KARUSSELL — Endlos-Loop ===
   var carouselTrack = document.getElementById('carouselTrack');
   var carouselCards = Array.from(carouselTrack.querySelectorAll('.reel-card'));
   var carouselDots = document.getElementById('carouselDots');
   var currentIndex = 0;
   var totalCards = carouselCards.length;
   var carouselDragging = false;
+  var autoplayTimer = null;
+  // Wie viele Karten links und rechts sichtbar sein sollen
+  var visibleSide = 3;
 
   // Dots erstellen
   carouselCards.forEach(function(_, i){
     var dot = document.createElement('button');
     dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-    dot.addEventListener('click', function(){ goTo(i); });
+    dot.addEventListener('click', function(){ goTo(i); startAutoplay(); });
     carouselDots.appendChild(dot);
   });
 
+  // Kuerzester Abstand im Kreis berechnen
+  function circularOffset(i, center, total){
+    var diff = i - center;
+    // Wrap-around: kuerzesten Weg nehmen
+    if(diff > total / 2) diff -= total;
+    if(diff < -total / 2) diff += total;
+    return diff;
+  }
+
   function updateCarousel(){
     var wrapWidth = document.getElementById('eventsCarousel').offsetWidth;
-    var cardW = Math.min(220, wrapWidth * 0.4);
     var isMobile = wrapWidth < 600;
+    var cardW = isMobile ? Math.min(170, wrapWidth * 0.38) : Math.min(240, wrapWidth * 0.18);
+    var spacing = isMobile ? cardW * 0.82 : cardW * 1.05;
 
     carouselCards.forEach(function(card, i){
-      var offset = i - currentIndex;
-      // Wie weit die Karte von der Mitte weg ist
+      var offset = circularOffset(i, currentIndex, totalCards);
       var absOffset = Math.abs(offset);
-      // Sichtbar: maximal 2 Karten links und rechts
-      if(absOffset > 2) {
+
+      if(absOffset > visibleSide) {
+        // Versteckt — hinter der Buehne parken
         card.style.opacity = '0';
         card.style.pointerEvents = 'none';
-        card.style.transform = 'translateX(' + (offset * 100) + 'px) translateZ(-400px) scale(.6)';
+        card.style.transform = 'translateX(' + (offset > 0 ? 600 : -600) + 'px) translateZ(-500px) scale(.5)';
         card.style.zIndex = '0';
       } else {
-        var tx = offset * (isMobile ? cardW * 0.75 : cardW * 0.9);
-        var tz = -absOffset * (isMobile ? 100 : 140);
-        var sc = 1 - absOffset * 0.12;
-        var rotY = offset * (isMobile ? -18 : -25);
-        var op = absOffset === 0 ? 1 : absOffset === 1 ? 0.7 : 0.4;
+        var tx = offset * spacing;
+        var tz = -absOffset * (isMobile ? 60 : 90);
+        var sc = 1 - absOffset * 0.08;
+        var rotY = offset * (isMobile ? -12 : -18);
+        var op = absOffset === 0 ? 1 : absOffset === 1 ? 0.75 : absOffset === 2 ? 0.45 : 0.25;
 
         card.style.width = cardW + 'px';
         card.style.marginLeft = -(cardW/2) + 'px';
@@ -1107,6 +1121,14 @@
         card.style.pointerEvents = absOffset === 0 ? 'auto' : 'none';
         card.style.transform = 'translateX(' + tx + 'px) translateZ(' + tz + 'px) rotateY(' + rotY + 'deg) scale(' + sc + ')';
         card.style.zIndex = (10 - absOffset);
+        // Aktive Karte leicht hervorheben
+        if(absOffset === 0) {
+          card.style.boxShadow = '0 20px 60px rgba(232,101,43,.2)';
+          card.style.borderColor = 'rgba(232,101,43,.25)';
+        } else {
+          card.style.boxShadow = '';
+          card.style.borderColor = '';
+        }
       }
     });
 
@@ -1114,20 +1136,27 @@
     var dots = carouselDots.querySelectorAll('.carousel-dot');
     dots.forEach(function(d, i){ d.classList.toggle('active', i === currentIndex); });
 
-    // Hoehe vom Wrap setzen (basierend auf aktiver Karte)
+    // Hoehe vom Wrap setzen
     var activeCard = carouselCards[currentIndex];
     if(activeCard) {
       carouselTrack.style.height = activeCard.offsetHeight + 'px';
     }
   }
 
+  // Endlos: nach dem letzten kommt der erste
   function goTo(i){
-    currentIndex = Math.max(0, Math.min(totalCards - 1, i));
+    currentIndex = ((i % totalCards) + totalCards) % totalCards;
     updateCarousel();
   }
 
-  document.getElementById('carouselPrev').addEventListener('click', function(){ goTo(currentIndex - 1); });
-  document.getElementById('carouselNext').addEventListener('click', function(){ goTo(currentIndex + 1); });
+  document.getElementById('carouselPrev').addEventListener('click', function(){ goTo(currentIndex - 1); startAutoplay(); });
+  document.getElementById('carouselNext').addEventListener('click', function(){ goTo(currentIndex + 1); startAutoplay(); });
+
+  // Autoplay — dreht sich langsam im Kreis
+  function startAutoplay(){
+    if(autoplayTimer) clearInterval(autoplayTimer);
+    autoplayTimer = setInterval(function(){ goTo(currentIndex + 1); }, 4000);
+  }
 
   // Touch/Swipe Support
   var touchStartX = 0, touchDelta = 0;
@@ -1137,13 +1166,15 @@
     if(Math.abs(touchDelta) > 50) {
       if(touchDelta < 0) goTo(currentIndex + 1);
       else goTo(currentIndex - 1);
+      startAutoplay();
     }
     touchDelta = 0;
   });
 
-  // Initial + Resize
+  // Initial + Resize + Autoplay starten
   updateCarousel();
   window.addEventListener('resize', updateCarousel);
+  startAutoplay();
 
   // === OVERLAY — Nativer Video Player ===
   // === INLINE VIDEO — Bento Items spielen direkt in der Karte ab ===
