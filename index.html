@@ -177,38 +177,38 @@
 @media (max-width:768px) {
   .hero-ticker { min-height:auto; position:relative; overflow:hidden; }
 
-  /* Ticker-Bilder: volle Breite, deutlich sichtbarer */
+  /* Oberer Bereich: Ticker + Philipp zusammen */
   .hero-ticker__bg {
-    position:relative; left:0; width:100%; height:55vh; min-height:380px;
+    position:absolute; top:0; left:0; width:100%; height:100%;
   }
   .hero-ticker__bg::before {
     width:100%;
     background:
-      linear-gradient(to bottom, rgba(20,18,16,.3) 0%, rgba(20,18,16,.5) 40%, #141210 100%);
+      radial-gradient(ellipse at 50% 40%, rgba(20,18,16,.3) 0%, rgba(20,18,16,.65) 60%),
+      linear-gradient(to bottom, rgba(20,18,16,.2) 0%, #141210 100%);
   }
   .hero-ticker__bg::after { display:none; }
-  .ticker-img { width:110px; height:165px; opacity:.45; border-radius:10px; }
+  .ticker-img { width:110px; height:165px; opacity:.4; border-radius:10px; }
   .hero-ticker__rows { transform:rotate(-8deg) scale(1.5); }
-  .hero-ticker__fade-top { height:60px; }
-  .hero-ticker__fade-bottom { display:none; }
+  .hero-ticker__fade-top { height:50px; }
+  .hero-ticker__fade-bottom { height:80px; }
 
-  /* Philipp: gross und zentral ueber den Ticker-Bildern */
+  /* Philipp: gross und zentral */
   .hero-ticker__person {
-    position:absolute; left:50%; bottom:0; transform:translateX(-50%);
-    display:block; z-index:3; pointer-events:none;
+    position:relative; z-index:3; pointer-events:none;
+    display:flex; justify-content:center;
+    margin-top:-20px;
   }
   .hero-ticker__person img {
-    height:65vh; min-height:360px; max-height:500px;
-    width:auto; object-fit:contain;
+    height:auto; width:75vw; max-width:320px;
     filter:drop-shadow(0 8px 40px rgba(0,0,0,.6));
   }
 
-  /* Text: unter dem Bild-Bereich, nicht ueberlappt */
+  /* Text: unter Philipp */
   .hero-ticker__content {
     position:relative; z-index:4;
-    padding:32px 24px 40px; width:100%; min-height:auto;
-    margin-top:-60px;
-    background:linear-gradient(to bottom, transparent 0%, #141210 30px);
+    padding:0 24px 40px; width:100%; min-height:auto;
+    margin-top:-30px;
   }
   .hero-ticker__content > * { max-width:100%; }
   .hero-ticker__title { font-size:clamp(32px, 8vw, 48px); }
