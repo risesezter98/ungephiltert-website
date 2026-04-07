@@ -175,14 +175,26 @@
 .hero-ticker__person img { height:clamp(450px, 68vh, 750px); width:auto; object-fit:contain; filter:drop-shadow(0 12px 40px rgba(0,0,0,.6)); }
 
 @media (max-width:768px) {
-  .hero-ticker { min-height: 75vh; }
-  .hero-ticker__content { padding:80px 24px 50px; width:100%; min-height:75vh; }
+  .hero-ticker { min-height: auto; display:flex; flex-direction:column; }
+  /* Ticker-Bilder als Hintergrund hinter allem, besser sichtbar */
+  .hero-ticker__bg { left:0; width:100%; opacity:1; }
+  .hero-ticker__bg::before { width:100%; background:linear-gradient(to bottom, #141210 5%, rgba(20,18,16,.75) 50%, #141210 95%); }
+  .ticker-img { width:100px; height:150px; opacity:.25; }
+  .hero-ticker__rows { transform:rotate(-12deg) scale(1.6); }
+  /* Text-Bereich */
+  .hero-ticker__content { padding:100px 24px 24px; width:100%; min-height:auto; }
   .hero-ticker__content > * { max-width:100%; }
-  .hero-ticker__bg { left:0; width:100%; }
-  .hero-ticker__bg::before { width:100%; background:linear-gradient(to right, #141210 20%, rgba(12,15,26,.8) 100%); }
-  .ticker-img { width:120px; height:180px; opacity:.12; }
-  .hero-ticker__rows { transform:rotate(-12deg) scale(1.5); }
-  .hero-ticker__person { display:none; }
+  /* Philipp als Bild unter dem Text zeigen */
+  .hero-ticker__person {
+    position:relative; left:auto; bottom:auto; transform:none;
+    display:flex; justify-content:center; z-index:3;
+    padding:0 20% 0;
+  }
+  .hero-ticker__person img {
+    height:auto; width:100%; max-width:280px;
+    filter:drop-shadow(0 8px 30px rgba(0,0,0,.5));
+  }
+  .hero-ticker__fade-bottom { z-index:4; }
   .hero-ticker__scroll { display:none; }
 }
 </style>
@@ -378,7 +390,7 @@
 }
 
 .bento__item {
-  position:relative; border-radius:16px; overflow:visible;
+  position:relative; border-radius:16px; overflow:hidden;
   aspect-ratio: 9/16;
   cursor:pointer; transition:transform .45s cubic-bezier(.22,1,.36,1), box-shadow .45s;
 }
@@ -387,13 +399,6 @@
   transform: translateY(-6px);
   box-shadow:0 16px 40px rgba(0,0,0,.12);
 }
-/* Offset-Rahmen — seitlich rausgucken */
-.bento__item::after {
-  content:''; position:absolute; inset:-8px; border:2px solid rgba(232,101,43,.18);
-  border-radius:20px; z-index:-1; pointer-events:none;
-  transition: border-color .35s, transform .35s;
-}
-.bento__item:hover::after { border-color: rgba(232,101,43,.4); transform: scale(1.02); }
 .bento__item-inner {
   width:100%; height:100%; border-radius:16px; overflow:hidden; position:relative;
 }
@@ -453,16 +458,34 @@
     flex-shrink:0; width:55vw; max-width:220px;
     transform:none !important; scroll-snap-align:start;
   }
-  .bento__item::after { display:none; }
   .bento__item:nth-child(odd):hover,
   .bento__item:nth-child(even):hover { transform:none !important; box-shadow:none; }
 }
 @media (max-width:768px) {
   .events-section { padding:60px 0 50px; }
   .personal-section { padding:60px 0 70px; }
-  .carousel-wrap .reel-card { width:160px !important; }
-  .carousel-nav { width:36px; height:36px; }
+  /* Mobile: 3D-Karussell wird horizontaler Scroll */
+  .carousel-wrap { perspective:none; overflow:visible; padding:20px 0; }
+  .carousel-track {
+    display:flex !important; position:static !important; height:auto !important;
+    overflow-x:auto; scroll-snap-type:x mandatory;
+    gap:14px; padding:8px 5%;
+    -webkit-overflow-scrolling:touch; scrollbar-width:none;
+    transform-style:flat;
+  }
+  .carousel-track::-webkit-scrollbar { display:none; }
+  .carousel-wrap .reel-card {
+    position:static !important; left:auto !important; margin-left:0 !important;
+    flex-shrink:0; width:52vw !important; max-width:200px;
+    opacity:1 !important; transform:none !important;
+    pointer-events:auto !important; scroll-snap-align:start;
+    box-shadow:none !important;
+  }
+  .carousel-nav { display:none; }
+  .carousel-dots { display:none; }
   .bento { grid-template-columns: 1fr 1fr; gap:10px; }
+  /* Process-Bilder kleiner auf Mobile */
+  .process__step-img img { aspect-ratio:3/4; max-height:300px; }
 }
 </style>
 
@@ -758,6 +781,8 @@
   .process__step { grid-template-columns:1fr; gap:24px; }
   .process__step:nth-child(even) { direction:ltr; }
   .process__step-nr { font-size:80px; }
+  .process__step-img { max-width:70%; margin:0 auto; }
+  .process__step-img img { aspect-ratio:3/4; max-height:320px; width:100%; }
   .process__phones { gap:10px; }
   .process__phone:nth-child(1), .process__phone:nth-child(3) { width:80px; height:145px; }
   .process__phone:nth-child(2) { width:95px; height:172px; }
@@ -1100,9 +1125,19 @@
 
   function updateCarousel(){
     var wrapWidth = document.getElementById('eventsCarousel').offsetWidth;
-    var isMobile = wrapWidth < 600;
-    var cardW = isMobile ? Math.min(170, wrapWidth * 0.38) : Math.min(240, wrapWidth * 0.18);
-    var spacing = isMobile ? cardW * 0.82 : cardW * 1.05;
+    var isMobile = wrapWidth < 769;
+
+    // Auf Mobile: Karten-Styles zuruecksetzen, CSS uebernimmt den Scroll
+    if(isMobile) {
+      carouselCards.forEach(function(card){
+        card.style.cssText = '';
+      });
+      carouselTrack.style.height = '';
+      return;
+    }
+
+    var cardW = Math.min(240, wrapWidth * 0.18);
+    var spacing = cardW * 1.05;
 
     carouselCards.forEach(function(card, i){
       var offset = circularOffset(i, currentIndex, totalCards);
@@ -1112,13 +1147,13 @@
         // Versteckt — hinter der Buehne parken
         card.style.opacity = '0';
         card.style.pointerEvents = 'none';
-        card.style.transform = 'translateX(' + (offset > 0 ? 600 : -600) + 'px) translateZ(-500px) scale(.5)';
+        card.style.transform = 'translateX(' + (offset > 0 ? 800 : -800) + 'px) translateZ(-500px) scale(.5)';
         card.style.zIndex = '0';
       } else {
         var tx = offset * spacing;
-        var tz = -absOffset * (isMobile ? 60 : 90);
+        var tz = -absOffset * 90;
         var sc = 1 - absOffset * 0.08;
-        var rotY = offset * (isMobile ? -12 : -18);
+        var rotY = offset * -18;
         var op = absOffset === 0 ? 1 : absOffset === 1 ? 0.75 : absOffset === 2 ? 0.45 : 0.25;
 
         card.style.width = cardW + 'px';
