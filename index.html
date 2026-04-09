@@ -177,23 +177,23 @@
 @media (max-width:768px) {
   .hero-ticker { min-height:auto; position:relative; overflow:hidden; }
 
-  /* Oberer Bereich: Ticker + Philipp zusammen */
+  /* Ticker-Bilder: nur im oberen Bereich, feste Hoehe */
   .hero-ticker__bg {
-    position:absolute; top:0; left:0; width:100%; height:100%;
+    position:absolute; top:0; left:0; width:100%;
+    height:65vh; max-height:480px;
   }
   .hero-ticker__bg::before {
     width:100%;
     background:
-      radial-gradient(ellipse at 50% 60%, transparent 20%, rgba(20,18,16,.5) 55%),
-      linear-gradient(to bottom, rgba(20,18,16,.1) 0%, rgba(20,18,16,.3) 60%, #141210 100%);
+      linear-gradient(to bottom, rgba(20,18,16,.15) 0%, rgba(20,18,16,.3) 50%, #141210 100%);
   }
   .hero-ticker__bg::after { display:none; }
-  .ticker-img { width:120px; height:180px; opacity:.55; border-radius:10px; }
+  .ticker-img { width:120px; height:180px; opacity:.5; border-radius:10px; }
   .hero-ticker__rows { transform:rotate(-8deg) scale(1.5); }
   .hero-ticker__fade-top { height:50px; }
-  .hero-ticker__fade-bottom { height:80px; }
+  .hero-ticker__fade-bottom { display:none; }
 
-  /* Philipp: EXAKT mittig, Unterkoerper abgeschnitten */
+  /* Philipp: mittig, ca 3/4 Hoehe, Unterkoerper abgeschnitten */
   .hero-ticker__person {
     position:relative !important;
     left:0 !important; right:0 !important; bottom:auto !important;
@@ -201,19 +201,20 @@
     z-index:3; pointer-events:none;
     display:flex; justify-content:center; align-items:flex-start;
     overflow:hidden;
-    height:55vh; min-height:300px; max-height:420px;
-    margin:10px auto 0; width:100%;
+    height:50vh; min-height:280px; max-height:400px;
+    margin:0 auto; width:100%;
   }
   .hero-ticker__person img {
-    height:auto; width:70vw; max-width:300px;
+    height:auto; width:65vw; max-width:280px;
     filter:drop-shadow(0 8px 40px rgba(0,0,0,.6));
   }
 
-  /* Text: buendig unter Philipp */
+  /* Text: auf normalem dunklen Hintergrund, keine Ticker mehr */
   .hero-ticker__content {
     position:relative; z-index:4;
-    padding:24px 24px 40px; width:100%; min-height:auto;
+    padding:20px 24px 40px; width:100%; min-height:auto;
     margin-top:0;
+    background:#141210;
   }
   .hero-ticker__content > * { max-width:100%; }
   .hero-ticker__title { font-size:clamp(32px, 8vw, 48px); }
@@ -629,45 +630,55 @@
 }
 .about__fact-label { font-size:13px; color:rgba(255,255,255,.4); margin-top:4px; }
 
-/* --- Bild rechts: Foto-Collage --- */
+/* --- Bild rechts: Organischer Kreis-Cutout --- */
 .about__visual {
   position: relative;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 12px;
-  max-width: 420px;
+  display: flex; align-items: center; justify-content: center;
 }
-.about__photo {
-  border-radius:14px; overflow:hidden; position:relative;
-  box-shadow:0 8px 24px rgba(0,0,0,.3);
-  border:2px solid rgba(232,101,43,.12);
-  transition:transform .4s cubic-bezier(.22,1,.36,1), border-color .4s;
+.about__circle {
+  position: relative;
+  width: clamp(320px, 28vw, 420px);
+  height: clamp(320px, 28vw, 420px);
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(232,101,43,.12) 0%, rgba(232,101,43,.04) 100%);
+  border: 1px solid rgba(232,101,43,.1);
+  flex-shrink: 0;
 }
-.about__photo:hover { transform:scale(1.03); border-color:rgba(232,101,43,.35); }
-.about__photo img { width:100%; height:100%; object-fit:cover; display:block; }
-/* Grosses Hauptbild — 2 Reihen hoch */
-.about__photo--main {
-  grid-row:1/3;
-  border:2px solid rgba(232,101,43,.2);
+.about__circle::before {
+  content:''; position:absolute; inset:-16px;
+  border-radius:50%; border:1px solid rgba(232,101,43,.06);
+  pointer-events:none;
 }
-/* Orangener Akzent-Strich */
-.about__visual::before {
-  content:''; position:absolute; top:-12px; right:20px;
-  width:3px; height:60px; background:rgba(232,101,43,.25); border-radius:3px;
-  z-index:2; pointer-events:none;
+.about__circle::after {
+  content:''; position:absolute; top:-8px; right:12px;
+  width:60px; height:60px; border-radius:50%;
+  background:rgba(232,101,43,.08); border:1px solid rgba(232,101,43,.1);
+  pointer-events:none;
 }
-.about__visual::after {
-  content:''; position:absolute; bottom:20px; left:-12px;
-  width:60px; height:3px; background:rgba(232,101,43,.2); border-radius:3px;
-  z-index:2; pointer-events:none;
+.about__person {
+  position: absolute;
+  bottom: 0; left: 50%; transform: translateX(-50%);
+  height: 115%; width: auto;
+  pointer-events: none;
+  filter: drop-shadow(0 8px 30px rgba(0,0,0,.4));
+  z-index: 2;
+}
+.about__dots {
+  position:absolute; top:20px; left:-30px;
+  display:grid; grid-template-columns:repeat(3,8px); gap:10px;
+  opacity:.15;
+}
+.about__dots span {
+  width:8px; height:8px; border-radius:50%; background:#E8652B;
 }
 
 @media (max-width:900px) {
   .about__inner { grid-template-columns:1fr; text-align:center; }
-  .about__visual { max-width:320px; margin:20px auto 0; gap:8px; }
+  .about__visual { justify-content:center; margin-top:20px; }
+  .about__circle { width:280px; height:280px; }
+  .about__person { height:110%; }
   .about__facts { justify-content:center; }
-  .about__visual::before, .about__visual::after { display:none; }
+  .about__dots { display:none; }
 }
 </style>
 
@@ -694,14 +705,13 @@
       </div>
     </div>
     <div class="about__visual anim" data-anim="fade-right">
-      <div class="about__photo about__photo--main">
-        <img src="img/about-philipp-1.jpg" alt="Philipp beim Filmen">
+      <div class="about__circle">
+        <img src="img/philipp-freigestellt.png" alt="Philipp" class="about__person">
       </div>
-      <div class="about__photo">
-        <img src="img/about-philipp-2.jpg" alt="Philipp unterwegs">
-      </div>
-      <div class="about__photo">
-        <img src="img/about-travel.jpg" alt="Auf Reisen">
+      <div class="about__dots">
+        <span></span><span></span><span></span>
+        <span></span><span></span><span></span>
+        <span></span><span></span><span></span>
       </div>
     </div>
   </div>
@@ -1252,7 +1262,8 @@
       var inner = card.querySelector('.bento__item-inner');
       var existingVid = inner.querySelector('video');
       if(existingVid) {
-        // Zweiter Klick: Video stoppen, Thumbnail wieder zeigen
+        // Scroll-Position merken bevor Video entfernt wird
+        var scrollY = window.scrollY;
         existingVid.pause();
         existingVid.remove();
         inner.querySelector('img').style.display = '';
@@ -1260,6 +1271,8 @@
         if(play) play.style.display = '';
         var info = inner.querySelector('.bento__info');
         if(info) info.style.display = '';
+        // Scroll-Position wiederherstellen
+        window.scrollTo(0, scrollY);
         return;
       }
       // Video direkt in der Karte abspielen
