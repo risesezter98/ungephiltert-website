@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ungephiltert. — Philipp | Video Creator</title>
+<meta name="description" content="Philipp filmt auf Events, interviewt Leute, fängt echte Emotionen ein. Video Creator aus Deutschland.">
+<style>
+/* ============================================
+   RESET & BASIS
+   ============================================ */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --black: #111;
+  --white: #fafafa;
+  --orange: #E8652B;
+  --grey: #888;
+  --light-grey: #e5e5e5;
+  --serif: Georgia, 'Times New Roman', serif;
+  --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --max-width: 1320px;
+  --space-xs: clamp(0.5rem, 1vw, 0.75rem);
+  --space-s: clamp(1rem, 2vw, 1.5rem);
+  --space-m: clamp(2rem, 4vw, 3rem);
+  --space-l: clamp(3rem, 6vw, 5rem);
+  --space-xl: clamp(5rem, 10vw, 8rem);
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  font-family: var(--sans);
+  color: var(--black);
+  background: var(--white);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+  color: inherit;
+}
+
+/* ============================================
+   UTILITY
+   ============================================ */
+.container {
+  width: 90%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================
+   NAVIGATION
+   ============================================ */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  padding: var(--space-s) 0;
+  transition: background 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+nav.scrolled {
+  background: rgba(250, 250, 250, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+nav .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  font-family: var(--serif);
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.nav-logo span {
+  color: var(--orange);
+}
+
+.nav-links {
+  display: flex;
+  gap: var(--space-m);
+  list-style: none;
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.nav-links a {
+  position: relative;
+  padding-bottom: 2px;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--black);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* Mobiles Hamburger-Menu */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 4px;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--black);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .nav-toggle { display: flex; }
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 70%;
+    height: 100vh;
+    background: var(--white);
+    flex-direction: column;
+    padding: 5rem 2rem 2rem;
+    gap: var(--space-m);
+    transition: right 0.4s ease;
+    box-shadow: -4px 0 20px rgba(0,0,0,0.08);
+  }
+  .nav-links.open { right: 0; }
+  .nav-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .nav-toggle.active span:nth-child(2) { opacity: 0; }
+  .nav-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+}
+
+/* ============================================
+   HERO
+   ============================================ */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: end;
+  padding-top: 6rem;
+  overflow: hidden;
+}
+
+.hero-text {
+  padding: var(--space-l) 0 var(--space-l) 5%;
+  align-self: end;
+  padding-bottom: var(--space-xl);
+}
+
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(3.5rem, 10vw, 9rem);
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  margin-bottom: var(--space-s);
+}
+
+.hero-title span {
+  color: var(--orange);
+}
+
+.hero-sub {
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  color: var(--grey);
+  max-width: 340px;
+  line-height: 1.5;
+}
+
+.hero-image {
+  position: relative;
+  align-self: end;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.hero-image img {
+  width: 90%;
+  max-width: 600px;
+  height: auto;
+  object-fit: contain;
+  object-position: bottom;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    padding-top: 5rem;
+  }
+  .hero-text {
+    padding: var(--space-l) 5% var(--space-m);
+    text-align: center;
+  }
+  .hero-sub { margin: 0 auto; }
+  .hero-image {
+    justify-content: center;
+  }
+  .hero-image img {
+    width: 75%;
+    max-width: 400px;
+  }
+}
+
+/* ============================================
+   INTRO
+   ============================================ */
+.intro {
+  padding: var(--space-xl) 0;
+}
+
+.intro-text {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  font-family: var(--serif);
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  line-height: 1.5;
+  color: var(--black);
+}
+
+.intro-text em {
+  font-style: italic;
+  color: var(--orange);
+}
+
+/* ============================================
+   DIVIDER
+   ============================================ */
+.divider {
+  width: 60px;
+  height: 2px;
+  background: var(--orange);
+  margin: 0 auto;
+}
+
+/* ============================================
+   EVENT-ARBEITEN
+   ============================================ */
+.events {
+  padding: var(--space-xl) 0;
+}
+
+.section-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--grey);
+  margin-bottom: var(--space-xs);
+}
+
+.section-title {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: var(--space-l);
+}
+
+.event-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--space-s);
+}
+
+.event-card {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+/* Asymmetrisches Layout — verschiedene Groessen */
+.event-card:nth-child(1) { grid-column: 1 / 8; grid-row: 1 / 3; }
+.event-card:nth-child(2) { grid-column: 8 / 13; }
+.event-card:nth-child(3) { grid-column: 8 / 13; }
+.event-card:nth-child(4) { grid-column: 1 / 5; }
+.event-card:nth-child(5) { grid-column: 5 / 9; }
+.event-card:nth-child(6) { grid-column: 9 / 13; }
+.event-card:nth-child(7) { grid-column: 1 / 7; }
+.event-card:nth-child(8) { grid-column: 7 / 13; }
+
+.event-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.event-card:hover img {
+  transform: scale(1.04);
+}
+
+.event-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(transparent 40%, rgba(17,17,17,0.75));
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: var(--space-s);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.event-card:hover .event-card-overlay {
+  opacity: 1;
+}
+
+.event-card-title {
+  color: #fff;
+  font-family: var(--serif);
+  font-size: clamp(1rem, 1.5vw, 1.3rem);
+  font-weight: 700;
+}
+
+.event-card-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  width: 56px;
+  height: 56px;
+  background: rgba(255,255,255,0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.event-card:hover .event-card-play {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.event-card-play svg {
+  width: 20px;
+  height: 20px;
+  margin-left: 3px;
+  fill: var(--black);
+}
+
+@media (max-width: 768px) {
+  .event-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .event-card:nth-child(1) { grid-column: 1 / -1; grid-row: auto; }
+  .event-card:nth-child(n) { grid-column: auto; }
+  .event-card:nth-child(7) { grid-column: 1 / -1; }
+  .event-card:nth-child(8) { grid-column: 1 / -1; }
+  .event-card-overlay { opacity: 1; }
+  .event-card-play { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+/* ============================================
+   ABLAUF / PROZESS
+   ============================================ */
+.process {
+  padding: var(--space-xl) 0;
+  background: var(--black);
+  color: #fff;
+}
+
+.process .section-label { color: rgba(255,255,255,0.5); }
+
+.process-grid {
+  display: grid;
+  gap: var(--space-l);
+  margin-top: var(--space-l);
+}
+
+.process-step {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-m);
+  align-items: start;
+}
+
+.process-number {
+  font-family: var(--serif);
+  font-size: clamp(4rem, 8vw, 7rem);
+  font-weight: 700;
+  line-height: 0.85;
+  color: rgba(255,255,255,0.1);
+  letter-spacing: -0.04em;
+}
+
+.process-content h3 {
+  font-family: var(--serif);
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+  margin-bottom: var(--space-xs);
+  font-weight: 700;
+}
+
+.process-content p {
+  color: rgba(255,255,255,0.6);
+  font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+  max-width: 500px;
+  line-height: 1.6;
+}
+
+.process-accent {
+  color: var(--orange);
+}
+
+@media (max-width: 600px) {
+  .process-step {
+    grid-template-columns: 1fr;
+    gap: var(--space-xs);
+  }
+  .process-number {
+    font-size: 3rem;
+  }
+}
+
+/* ============================================
+   PERSOENLICH — Horizontale Scroll-Galerie
+   ============================================ */
+.personal {
+  padding: var(--space-xl) 0;
+}
+
+.personal-header {
+  padding: 0 5%;
+  margin-bottom: var(--space-l);
+}
+
+.personal-scroll {
+  display: flex;
+  gap: var(--space-s);
+  overflow-x: auto;
+  padding: 0 5% var(--space-s);
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--light-grey) transparent;
+}
+
+.personal-scroll::-webkit-scrollbar {
+  height: 4px;
+}
+
+.personal-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.personal-scroll::-webkit-scrollbar-thumb {
+  background: var(--light-grey);
+  border-radius: 2px;
+}
+
+.personal-card {
+  flex: 0 0 300px;
+  scroll-snap-align: start;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.personal-card img {
+  width: 300px;
+  height: 400px;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.personal-card:hover img {
+  transform: scale(1.04);
+}
+
+.personal-card-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--space-s);
+  background: linear-gradient(transparent, rgba(17,17,17,0.7));
+  color: #fff;
+  font-family: var(--serif);
+  font-size: 1rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.personal-card:hover .personal-card-info {
+  opacity: 1;
+}
+
+.personal-card-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  width: 48px;
+  height: 48px;
+  background: rgba(255,255,255,0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.personal-card:hover .personal-card-play {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.personal-card-play svg {
+  width: 18px;
+  height: 18px;
+  margin-left: 2px;
+  fill: var(--black);
+}
+
+@media (max-width: 768px) {
+  .personal-card { flex: 0 0 260px; }
+  .personal-card img { width: 260px; height: 340px; }
+  .personal-card-info { opacity: 1; }
+  .personal-card-play { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+/* ============================================
+   ZITAT
+   ============================================ */
+.quote-section {
+  padding: var(--space-xl) 0;
+  text-align: center;
+}
+
+.quote-mark {
+  font-family: var(--serif);
+  font-size: 5rem;
+  line-height: 1;
+  color: var(--orange);
+  margin-bottom: -1rem;
+}
+
+.quote-text {
+  font-family: var(--serif);
+  font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+  font-style: italic;
+  line-height: 1.4;
+  max-width: 750px;
+  margin: 0 auto var(--space-s);
+}
+
+.quote-author {
+  font-size: 0.95rem;
+  color: var(--grey);
+}
+
+/* ============================================
+   PODCAST
+   ============================================ */
+.podcast {
+  padding: var(--space-xl) 0;
+  background: #f5f5f5;
+}
+
+.podcast-layout {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-l);
+  align-items: center;
+}
+
+.podcast-image {
+  width: clamp(200px, 25vw, 320px);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+}
+
+.podcast-image img {
+  width: 100%;
+  height: auto;
+}
+
+.podcast-info h3 {
+  font-family: var(--serif);
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  margin-bottom: var(--space-xs);
+  font-weight: 700;
+}
+
+.podcast-info p {
+  color: var(--grey);
+  margin-bottom: var(--space-m);
+  max-width: 440px;
+  line-height: 1.6;
+}
+
+.podcast-links {
+  display: flex;
+  gap: var(--space-s);
+  flex-wrap: wrap;
+}
+
+.podcast-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid var(--black);
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.podcast-link:hover {
+  background: var(--black);
+  color: #fff;
+}
+
+.podcast-link svg {
+  width: 18px;
+  height: 18px;
+}
+
+@media (max-width: 768px) {
+  .podcast-layout {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .podcast-image {
+    margin: 0 auto;
+    width: 200px;
+  }
+  .podcast-info p { margin-left: auto; margin-right: auto; }
+  .podcast-links { justify-content: center; }
+}
+
+/* ============================================
+   KONTAKT
+   ============================================ */
+.contact {
+  padding: var(--space-xl) 0;
+}
+
+.contact-layout {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.contact-layout .section-title {
+  margin-bottom: var(--space-s);
+}
+
+.contact-layout p {
+  color: var(--grey);
+  margin-bottom: var(--space-m);
+  font-size: clamp(1rem, 1.3vw, 1.15rem);
+  line-height: 1.6;
+}
+
+.btn-primary {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  background: var(--orange);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border-radius: 4px;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+  background: #d1571f;
+  transform: translateY(-2px);
+}
+
+.contact-socials {
+  margin-top: var(--space-m);
+  display: flex;
+  justify-content: center;
+  gap: var(--space-m);
+}
+
+.contact-socials a {
+  color: var(--grey);
+  transition: color 0.3s ease;
+}
+
+.contact-socials a:hover {
+  color: var(--black);
+}
+
+.contact-socials svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+footer {
+  padding: var(--space-m) 0;
+  border-top: 1px solid var(--light-grey);
+}
+
+footer .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-s);
+}
+
+.footer-logo {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.footer-logo span { color: var(--orange); }
+
+.footer-links {
+  display: flex;
+  gap: var(--space-m);
+  list-style: none;
+  font-size: 0.85rem;
+  color: var(--grey);
+}
+
+.footer-links a:hover { color: var(--black); }
+
+@media (max-width: 600px) {
+  footer .container {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* ============================================
+   VIDEO OVERLAY
+   ============================================ */
+.video-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0,0,0,0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.video-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.video-overlay video {
+  max-width: 90%;
+  max-height: 85vh;
+  border-radius: 4px;
+}
+
+.video-overlay-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 44px;
+  height: 44px;
+  color: #fff;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  transition: background 0.3s ease;
+}
+
+.video-overlay-close:hover {
+  background: rgba(255,255,255,0.2);
+}
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+  <div class="container">
+    <a href="#" class="nav-logo">ungephiltert<span>.</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#events">Events</a></li>
+      <li><a href="#personal">Persoenlich</a></li>
+      <li><a href="#podcast">Podcast</a></li>
+      <li><a href="#kontakt">Kontakt</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu oeffnen">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-text">
+    <h1 class="hero-title">unge&shy;philtert<span>.</span></h1>
+    <p class="hero-sub">Echte Videos. Echte Emotionen. Kein Drehbuch.</p>
+  </div>
+  <div class="hero-image">
+    <img src="img/philipp-freigestellt.png" alt="Philipp — Video Creator" width="600" height="800">
+  </div>
+</section>
+
+<!-- Intro -->
+<section class="intro">
+  <div class="container reveal">
+    <p class="intro-text">
+      Ich bin Philipp. Ich filme auf Events, interviewe Leute und mach das Ganze so, dass man beim Zuschauen das Gefuehl hat, <em>dabei gewesen zu sein</em>. Keine gestellten Szenen, keine leeren Versprechen — einfach echt.
+    </p>
+  </div>
+</section>
+
+<div class="divider reveal"></div>
+
+<!-- Event-Arbeiten -->
+<section class="events" id="events">
+  <div class="container">
+    <p class="section-label reveal">Arbeiten</p>
+    <h2 class="section-title reveal">Event-Videos</h2>
+
+    <div class="event-grid">
+      <div class="event-card reveal" data-video="videos/event-frank-rosin.mp4">
+        <img src="thumbnails/event-frank-rosin.jpg" alt="Frank Rosin Event" loading="lazy" width="800" height="450">
+        <div class="event-card-overlay"><span class="event-card-title">Frank Rosin</span></div>
+        <div class="event-card-play"><svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19"/></svg></div>
+      </div>
+
+      <div class="event-card reveal" data-video="videos/event-kollegah.mp4">
+        <img src="thumbnails/event-kollegah.jpg" alt="Kollegah Event" loading="lazy" width="400" height="300">
+        <div class="event-card-overlay"><span class="event-card-title">Kollegah</span></div>
+        <div class="event-card-play"><svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19"/></svg></div>
+      </div>
+
+      <div class="event-card reveal" data-video="videos/event-cocktail-angels.mp4">
+        <img src="thumbnails/event-cocktail-angels.jpg" alt="Cocktail Angels" loading="lazy" width="400" height="300">
+        <div class="event-card-overlay"><span class="event-card-title">Cocktail Angels</span></div>
+        <div class="event-card-play"><svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19"/></svg></div>
+      </div>
+
+      <div class="event-card reveal" data-video="videos/event-sparkasse.mp4">
+        <img src="thumbnails/event-sparkasse.jpg" alt="Sparkasse Event" loading="lazy" width="400" height="300">
+        <div class="event-card-overlay"><span class="event-card-title">Sparkasse</span></div>
+        <div class="event-card-play"><svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19"/></svg></div>
+      </div>
+
+      <div class="event-card reveal" data-video="videos/event-ungeskriptet.mp4">
+        <img src="thumbnails/event-ungeskriptet.jpg" alt="Ungeskriptet" loading="lazy" width="400" height="300">
+        <div class="event-card-overlay"><span class="event-card-title">Ungeskriptet</span></div>
+        <div class="event-card-play"><svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19"/></svg></div>
+      </div>
+
+      <div class="event-card reveal" data-video="videos/event-fdp.mp4">
+        <img src="thumbnails/event-fdp.jpg" alt="FDP Event" loading="lazy" width="400" height="300">
+        <div class="event-card-overlay"><span class="event-card-title">FDP</span></div>
+        <div class="event-card-play"><svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19"/></svg></div>
+      </div>
+
+      <div class="event-card reveal" data-video="videos/event-dj-begleitung.mp4">
+        <img src="thumbnails/event-dj-begleitung.jpg" alt="DJ Begleitung" loading="lazy" width="600" height="400">
+        <div class="event-card-overlay"><span class="event-card-title">DJ Begleitung</span></div>
+        <div class="event-card-play"><svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19"/></svg></div>
+      </div>
+
+      <div class="event-card reveal" data-video="videos/event-sebastian-leeges.mp4">
+        <img src="thumbnails/event-sebastian-leeges.jpg" alt="Sebastian Leeges" loading="lazy" width="600" height="400">
+        <div class="event-card-overlay"><span class="event-card-title">Sebastian Leeges</span></div>
+        <div class="event-card-play"><svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19"/></svg></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Ablauf -->
+<section class="process" id="ablauf">
+  <div class="container">
+    <p class="section-label reveal">So laeuft das</p>
+    <h2 class="section-title reveal" style="color:#fff;">Drei Schritte.<br>Kein Stress.</h2>
+
+    <div class="process-grid">
+      <div class="process-step reveal">
+        <span class="process-number">01</span>
+        <div class="process-content">
+          <h3>Wir reden kurz</h3>
+          <p>Du sagst mir was ansteht — Event, Dreh, Projekt. Ich sage dir ehrlich ob und wie ich das umsetzen kann. <span class="process-accent">Kein Sales-Gespraech.</span></p>
+        </div>
+      </div>
+      <div class="process-step reveal">
+        <span class="process-number">02</span>
+        <div class="process-content">
+          <h3>Ich bin da und filme</h3>
+          <p>Am Tag selbst bin ich einfach da. Keine Regieanweisungen, kein "nochmal bitte". Ich fange ein was passiert — die echten Momente.</p>
+        </div>
+      </div>
+      <div class="process-step reveal">
+        <span class="process-number">03</span>
+        <div class="process-content">
+          <h3>Du bekommst dein Video</h3>
+          <p>Fertig geschnitten, mit Musik, in der Qualitaet die du von meinen anderen Videos kennst. <span class="process-accent">Zeitnah und ohne Ueberraschungen beim Preis.</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Persoenlich -->
+<section class="personal" id="personal">
+  <div class="personal-header">
+    <p class="section-label reveal">Abseits der Events</p>
+    <h2 class="section-title reveal">Persoenlich</h2>
+  </div>
+
+  <div class="personal-scroll">
+    <div class="personal-card" data-video="videos/personal-vorstellung.mp4">
+      <img src="thumbnails/personal-vorstellung.jpg" alt="Vorstellung" loading="lazy" width="300" height="400">
+      <span class="personal-card-info">Vorstellung</span>
+      <div class="personal-card-play"><svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19"/></svg></div>
+    </div>
+    <div class="personal-card" data-video="videos/personal-porsche-sophia.mp4">
+      <img src="thumbnails/personal-porsche-sophia.jpg" alt="Porsche &amp; Sophia" loading="lazy" width="300" height="400">
+      <span class="personal-card-info">Porsche &amp; Sophia</span>
+      <div class="personal-card-play"><svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19"/></svg></div>
+    </div>
+    <div class="personal-card" data-video="videos/personal-asien-reise.mp4">
+      <img src="thumbnails/personal-asien-reise.jpg" alt="Asien Reise" loading="lazy" width="300" height="400">
+      <span class="personal-card-info">Asien Reise</span>
+      <div class="personal-card-play"><svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19"/></svg></div>
+    </div>
+    <div class="personal-card" data-video="videos/personal-turtles.mp4">
+      <img src="thumbnails/personal-turtles.jpg" alt="Turtles" loading="lazy" width="300" height="400">
+      <span class="personal-card-info">Turtles</span>
+      <div class="personal-card-play"><svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19"/></svg></div>
+    </div>
+    <div class="personal-card" data-video="videos/personal-zusammenschnitt.mp4">
+      <img src="thumbnails/personal-zusammenschnitt.jpg" alt="Zusammenschnitt" loading="lazy" width="300" height="400">
+      <span class="personal-card-info">Zusammenschnitt</span>
+      <div class="personal-card-play"><svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19"/></svg></div>
+    </div>
+    <div class="personal-card" data-video="videos/personal-model-clip.mp4">
+      <img src="thumbnails/personal-model-clip.jpg" alt="Model Clip" loading="lazy" width="300" height="400">
+      <span class="personal-card-info">Model Clip</span>
+      <div class="personal-card-play"><svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19"/></svg></div>
+    </div>
+  </div>
+</section>
+
+<!-- Zitat -->
+<section class="quote-section">
+  <div class="container reveal">
+    <div class="quote-mark">&ldquo;</div>
+    <p class="quote-text">Philipp hat unsere Veranstaltung so eingefangen, wie sie sich angefuehlt hat. Nicht inszeniert, nicht uebertrieben — einfach echt.</p>
+    <p class="quote-author">&mdash; Platzhalter, Kundenname</p>
+  </div>
+</section>
+
+<!-- Podcast -->
+<section class="podcast" id="podcast">
+  <div class="container">
+    <div class="podcast-layout reveal">
+      <div class="podcast-image">
+        <img src="img/philipp-podcast.png" alt="ungephiltert. Podcast" width="320" height="320">
+      </div>
+      <div class="podcast-info">
+        <p class="section-label">Podcast</p>
+        <h3>ungephiltert. — Der Podcast</h3>
+        <p>Echte Gespraeche, keine Skripte. Ich rede mit Leuten ueber das was sie wirklich bewegt.</p>
+        <div class="podcast-links">
+          <a href="https://open.spotify.com/show/2oy3STHJ32W3dPG2nFrafn" target="_blank" rel="noopener" class="podcast-link">
+            <!-- Spotify Icon -->
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+            Spotify
+          </a>
+          <a href="https://www.youtube.com/channel/UCA-9U5fk0X307a5lJ49j6Kg" target="_blank" rel="noopener" class="podcast-link">
+            <!-- YouTube Icon -->
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            YouTube
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Kontakt -->
+<section class="contact" id="kontakt">
+  <div class="container">
+    <div class="contact-layout reveal">
+      <p class="section-label">Kontakt</p>
+      <h2 class="section-title">Lass uns reden.</h2>
+      <p>Du hast ein Event, ein Projekt oder einfach eine Idee? Schreib mir. Kein Kontaktformular-Wahnsinn — einfach eine Nachricht und ich melde mich.</p>
+      <a href="kontakt.html" class="btn-primary">Nachricht schreiben</a>
+
+      <div class="contact-socials">
+        <a href="https://www.instagram.com/ungphiltert/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/channel/UCA-9U5fk0X307a5lJ49j6Kg" target="_blank" rel="noopener" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <span class="footer-logo">ungephiltert<span>.</span></span>
+    <ul class="footer-links">
+      <li><a href="impressum.html">Impressum</a></li>
+      <li><a href="datenschutz.html">Datenschutz</a></li>
+    </ul>
+  </div>
+</footer>
+
+<!-- Video Overlay -->
+<div class="video-overlay" id="videoOverlay">
+  <button class="video-overlay-close" id="videoClose" aria-label="Video schliessen">&times;</button>
+  <video id="overlayVideo" controls playsinline></video>
+</div>
+
+<script>
+/* ============================================
+   NAVIGATION
+   ============================================ */
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+
+navToggle.addEventListener('click', () => {
+  navToggle.classList.toggle('active');
+  navLinks.classList.toggle('open');
+});
+
+// Nav-Links schliessen bei Klick (mobil)
+navLinks.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    navToggle.classList.remove('active');
+    navLinks.classList.remove('open');
+  });
+});
+
+// Nav-Hintergrund beim Scrollen
+const nav = document.querySelector('nav');
+const handleNavScroll = () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+};
+window.addEventListener('scroll', handleNavScroll, { passive: true });
+
+/* ============================================
+   REVEAL-ANIMATIONEN (IntersectionObserver)
+   ============================================ */
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if (!prefersReducedMotion) {
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+} else {
+  // Bei reduzierten Animationen: alles sofort sichtbar
+  document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+}
+
+/* ============================================
+   VIDEO OVERLAY
+   ============================================ */
+const overlay = document.getElementById('videoOverlay');
+const overlayVideo = document.getElementById('overlayVideo');
+const videoClose = document.getElementById('videoClose');
+
+// Alle klickbaren Video-Cards
+document.querySelectorAll('[data-video]').forEach(card => {
+  card.addEventListener('click', () => {
+    const src = card.getAttribute('data-video');
+    overlayVideo.src = src;
+    overlay.classList.add('active');
+    overlayVideo.play();
+    document.body.style.overflow = 'hidden';
+  });
+});
+
+const closeOverlay = () => {
+  overlay.classList.remove('active');
+  overlayVideo.pause();
+  overlayVideo.src = '';
+  document.body.style.overflow = '';
+};
+
+videoClose.addEventListener('click', closeOverlay);
+
+overlay.addEventListener('click', (e) => {
+  if (e.target === overlay) closeOverlay();
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && overlay.classList.contains('active')) closeOverlay();
+});
+</script>
+</body>
+</html>
