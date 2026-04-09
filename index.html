@@ -101,7 +101,7 @@
   background: #141210;
 }
 .hero-ticker__bg {
-  position: absolute; top: 0; left: 48%; width: 52%; height: 100%; z-index: 1; overflow: hidden;
+  position: absolute; top: 0; left: 25%; width: 75%; height: 100%; z-index: 1; overflow: hidden;
 }
 .hero-ticker__rows {
   display: flex; flex-direction: column; gap: 14px; padding: 10px 0;
@@ -110,27 +110,27 @@
 .ticker-row { overflow: hidden; width: 100%; }
 .ticker-track { display: flex; gap: 14px; width: max-content; }
 .ticker-img {
-  width: 160px; height: 240px; object-fit: cover;
-  border-radius: 12px; flex-shrink: 0; opacity: 0.3;
+  width: 200px; height: 300px; object-fit: cover;
+  border-radius: 12px; flex-shrink: 0; opacity: 0.6;
 }
 .ticker-row--right .ticker-track { animation: ticker-r 80s linear infinite; }
 .ticker-row--left .ticker-track { animation: ticker-l 80s linear infinite; }
 @keyframes ticker-r { 0%{transform:translateX(-50%)} 100%{transform:translateX(0%)} }
 @keyframes ticker-l { 0%{transform:translateX(0%)} 100%{transform:translateX(-50%)} }
 .hero-ticker__bg::before {
-  content:''; position:absolute; top:0; left:0; width:40%; height:100%;
-  background:linear-gradient(to right, #141210 10%, transparent 100%);
+  content:''; position:absolute; top:0; left:0; width:50%; height:100%;
+  background:linear-gradient(to right, #141210 5%, rgba(20,18,16,.7) 40%, transparent 100%);
   z-index:2; pointer-events:none;
 }
 .hero-ticker__bg::after {
-  content:''; position:absolute; top:0; right:0; width:10%; height:100%;
+  content:''; position:absolute; top:0; right:0; width:5%; height:100%;
   background:linear-gradient(to left, #141210 0%, transparent 100%);
   z-index:2; pointer-events:none;
 }
 .hero-ticker__fade-top, .hero-ticker__fade-bottom {
-  position:absolute; left:0; right:0; height:120px; z-index:2; pointer-events:none;
+  position:absolute; left:0; right:0; height:80px; z-index:2; pointer-events:none;
 }
-.hero-ticker__fade-top { top:0; background:linear-gradient(to bottom, #141210, transparent); }
+.hero-ticker__fade-top { top:0; background:linear-gradient(to bottom, rgba(20,18,16,.6), transparent); }
 .hero-ticker__fade-bottom { bottom:0; background:linear-gradient(to top, #141210, transparent); }
 .hero-ticker__content {
   position:relative; z-index:3;
@@ -188,7 +188,7 @@
       linear-gradient(to bottom, rgba(20,18,16,.15) 0%, rgba(20,18,16,.3) 50%, #141210 100%);
   }
   .hero-ticker__bg::after { display:none; }
-  .ticker-img { width:120px; height:180px; opacity:.5; border-radius:10px; }
+  .ticker-img { width:130px; height:195px; opacity:.55; border-radius:10px; }
   .hero-ticker__rows { transform:rotate(-8deg) scale(1.5); }
   .hero-ticker__fade-top { height:50px; }
   .hero-ticker__fade-bottom { display:none; }
@@ -247,13 +247,13 @@
     <img src="img/philipp-freigestellt.png" alt="Philipp">
   </div>
   <div class="hero-ticker__content">
-    <span class="hero-ticker__label">Creator</span>
-    <h2 class="hero-ticker__title">Ich bin<br>Philipp<em>.</em></h2>
-    <p class="hero-ticker__text">Ich mach Videos und einen eigenen Podcast. Für Unternehmen, für Künstler oder einfach für mich.</p>
+    <span class="hero-ticker__label">Video &amp; Podcast Creator</span>
+    <h2 class="hero-ticker__title">Content, der<br>nach was<br>aussieht<em>.</em></h2>
+    <p class="hero-ticker__text">Videos, Reels und ein eigener Podcast. Für Unternehmen, Künstler und Events.</p>
     <ul class="hero-ticker__bullets">
       <li>Kurzvideos &amp; Reels</li>
       <li>Event-Begleitung &amp; Interviews</li>
-      <li>Personal Branding &amp; Travel</li>
+      <li>Podcast &amp; Personal Brand</li>
     </ul>
     <div class="hero-ticker__actions">
       <a href="#reels" class="hero-ticker__cta">Videos ansehen</a>
