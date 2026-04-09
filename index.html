@@ -193,22 +193,25 @@
   .hero-ticker__fade-top { height:50px; }
   .hero-ticker__fade-bottom { height:80px; }
 
-  /* Philipp: zentriert, nicht zu gross */
+  /* Philipp: zentriert, Unterkoerper abgeschnitten */
   .hero-ticker__person {
     position:relative; z-index:3; pointer-events:none;
-    display:flex; justify-content:center; align-items:flex-end;
-    margin-top:20px;
+    display:flex; justify-content:center; align-items:flex-start;
+    overflow:hidden;
+    height:55vh; min-height:300px; max-height:420px;
+    margin-top:10px;
   }
   .hero-ticker__person img {
-    height:auto; width:55vw; max-width:240px;
+    height:auto; width:80vw; max-width:340px;
     filter:drop-shadow(0 8px 40px rgba(0,0,0,.6));
+    object-fit:cover; object-position:top center;
   }
 
-  /* Text: unter Philipp */
+  /* Text: buendig unter Philipp */
   .hero-ticker__content {
     position:relative; z-index:4;
-    padding:0 24px 40px; width:100%; min-height:auto;
-    margin-top:-30px;
+    padding:24px 24px 40px; width:100%; min-height:auto;
+    margin-top:0;
   }
   .hero-ticker__content > * { max-width:100%; }
   .hero-ticker__title { font-size:clamp(32px, 8vw, 48px); }
