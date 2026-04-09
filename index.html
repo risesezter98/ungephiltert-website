@@ -209,12 +209,12 @@
     filter:drop-shadow(0 8px 40px rgba(0,0,0,.6));
   }
 
-  /* Text: auf normalem dunklen Hintergrund, keine Ticker mehr */
+  /* Text: weicher Uebergang von Ticker zu normalem Hintergrund */
   .hero-ticker__content {
     position:relative; z-index:4;
-    padding:20px 24px 40px; width:100%; min-height:auto;
-    margin-top:0;
-    background:#141210;
+    padding:40px 24px 40px; width:100%; min-height:auto;
+    margin-top:-40px;
+    background:linear-gradient(to bottom, transparent 0%, #141210 40px);
   }
   .hero-ticker__content > * { max-width:100%; }
   .hero-ticker__title { font-size:clamp(32px, 8vw, 48px); }
@@ -484,14 +484,15 @@
 @media (max-width:700px) {
   .bento {
     display:flex; overflow-x:auto; scroll-snap-type:x mandatory;
-    gap:14px; padding:16px 5%;
+    gap:20px; padding:16px calc(50% - 27.5vw);
     -webkit-overflow-scrolling:touch; scrollbar-width:none;
   }
   .bento::-webkit-scrollbar { display:none; }
   .bento__item {
     flex-shrink:0; width:55vw; max-width:220px;
-    transform:none !important; scroll-snap-align:start;
+    transform:none !important; scroll-snap-align:center;
   }
+  .bento__item::before { inset:-4px; }
   .bento__item:nth-child(odd):hover,
   .bento__item:nth-child(even):hover { transform:none !important; box-shadow:none; }
 }
