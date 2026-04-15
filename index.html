@@ -94,14 +94,14 @@
   <div class="nav__links">
     <a href="#reels">Videos</a>
     <a href="#philipp">Über mich</a>
-    <a href="#kontakt" class="nav__cta">Schreib mir</a>
+    <a href="#kontakt" class="nav__cta">Kontakt</a>
   </div>
   <button class="nav__burger" id="burger" aria-label="Menü"><span></span><span></span><span></span></button>
 </nav>
 <div class="mobile-menu" id="mobileMenu">
   <a href="#reels">Videos</a>
   <a href="#philipp">Über mich</a>
-  <a href="#kontakt">Schreib mir</a>
+  <a href="#kontakt">Kontakt</a>
 </div>
 
 
@@ -310,7 +310,7 @@
     <p class="hero-ticker__text"><strong>Video Creator.</strong> Ich halte fest was ich erlebe. <strong>Events, Reisen, Alltag.</strong></p>
     <div class="hero-ticker__actions">
       <a href="#reels" class="hero-ticker__cta">Videos ansehen</a>
-      <a href="#kontakt" class="hero-ticker__cta hero-ticker__cta--ghost">Schreib mir</a>
+      <a href="#kontakt" class="hero-ticker__cta hero-ticker__cta--ghost">Kontakt</a>
     </div>
   </div>
 </div>
@@ -394,7 +394,7 @@
 .events-section__sub b, .events-section__sub strong { color:#fff; font-weight:700; }
 
 /* 3D Karussell */
-.carousel-wrap { position: relative; perspective: 1400px; overflow: hidden; padding: 60px 0 40px; }
+.carousel-wrap { position: relative; perspective: 1400px; overflow: hidden; padding: 60px 0 40px; touch-action: pan-y; -webkit-user-select: none; user-select: none; }
 .carousel-track {
   position:relative; width:100%; display:flex; align-items:center; justify-content:center;
   transform-style:preserve-3d;
@@ -934,9 +934,20 @@
   box-shadow:0 14px 34px rgba(0,0,0,.12);
   background:#0f0d0b;
 }
-.process__phone:nth-child(1) { width:140px; height:250px; transform:rotate(-5deg) translateY(12px); }
-.process__phone:nth-child(2) { width:160px; height:285px; border-color:rgba(232,101,43,.22); z-index:2; box-shadow:0 18px 46px rgba(232,101,43,.14); }
-.process__phone:nth-child(3) { width:140px; height:250px; transform:rotate(5deg) translateY(12px); }
+.process__phone:nth-child(1) { width:200px; height:400px; transform:rotate(-5deg) translateY(14px); }
+.process__phone:nth-child(2) { width:240px; height:480px; border-color:rgba(232,101,43,.22); z-index:2; box-shadow:0 22px 56px rgba(232,101,43,.16); }
+.process__phone:nth-child(3) { width:200px; height:400px; transform:rotate(5deg) translateY(14px); }
+
+/* Step 3 spezifisch: Grid stark asymmetrisch fuer groessere Phones + Zahl hinter ihnen */
+.process__step:nth-child(3) {
+  grid-template-columns: 2.4fr 1fr !important;
+  gap: 40px;
+}
+.process__step:nth-child(3) .process__step-nr {
+  top:-64px; left:-42px; font-size:150px; z-index:0;
+}
+.process__step:nth-child(3) .process__phone { position:relative; z-index:2; }
+.process__step:nth-child(3) .process__phones { gap:14px; padding-top:30px; }
 .process__phone__media { position:absolute; inset:0; overflow:hidden; }
 .process__phone__media img { width:100%; height:100%; object-fit:cover; display:block; }
 .process__phone__label {
@@ -1031,9 +1042,10 @@
 .process__phone--post .mock-post-dots span {
   width:3px; height:3px; border-radius:50%; background:#1a1a1a;
 }
-/* Actions-Block unter dem Bild, füllt den verbleibenden Platz bis unten */
+/* Actions-Block unter dem Bild, füllt den verbleibenden Platz bis unten.
+   Media ist aspect-ratio 1/1, also Hoehe = Phone-Width (200px bei seitlichem Phone). */
 .process__phone--post .mock-post-actions {
-  position:absolute; left:0; right:0; bottom:0; top:calc(34px + 140px);
+  position:absolute; left:0; right:0; bottom:0; top:calc(34px + 200px);
   padding:6px 10px; background:#fff; z-index:4;
   display:flex; flex-direction:column; gap:3px;
 }
@@ -1159,7 +1171,7 @@
                 <div class="mock-post-dots"><span></span><span></span><span></span></div>
               </div>
               <div class="process__phone__media">
-                <img src="thumbnails/event-frank-rosin.jpg?v=37" alt="Post" loading="lazy">
+                <img src="thumbnails/event-cocktail-angels.jpg?v=37" alt="Post" loading="lazy">
               </div>
               <div class="mock-post-actions">
                 <div class="mock-post-icons">
@@ -1534,7 +1546,9 @@
         card.style.width = cardW + 'px';
         card.style.marginLeft = -(cardW/2) + 'px';
         card.style.opacity = op;
-        card.style.pointerEvents = absOffset === 0 ? 'auto' : 'none';
+        // Alle sichtbaren Karten klickbar - seitliche fuehren zum Sprung, aktive startet Video
+        card.style.pointerEvents = 'auto';
+        card.style.cursor = absOffset === 0 ? 'pointer' : 'pointer';
         card.style.transform = 'translateX(' + tx + 'px) translateZ(' + tz + 'px) rotateY(' + rotY + 'deg) scale(' + sc + ')';
         card.style.zIndex = (10 - absOffset);
         card.style.boxShadow = '';
@@ -1570,31 +1584,62 @@
   document.getElementById('carouselPrev').addEventListener('click', function(){ goTo(currentIndex - 1);});
   document.getElementById('carouselNext').addEventListener('click', function(){ goTo(currentIndex + 1);});
 
-  // Touch/Swipe — Tap vs Swipe klar trennen
-  var touchStartX = 0, touchStartY = 0, touchDelta = 0;
+  console.log('[ungephiltert] Karussell v3 mit PointerEvents aktiv');
+  // === SWIPE/DRAG via PointerEvents (Maus + Touch in einem Codepfad) ===
+  // PointerEvents sind modern und robust: setPointerCapture sorgt dafuer, dass
+  // alle nachfolgenden Events auf dem Element landen, selbst wenn der Mauszeiger rausgeht.
   var carouselEl = document.getElementById('eventsCarousel');
-  carouselEl.addEventListener('touchstart', function(e){
-    touchStartX = e.touches[0].clientX;
-    touchStartY = e.touches[0].clientY;
-    touchDelta = 0;
+  var pointerDown = false, pointerStartX = 0, pointerStartY = 0, pointerDelta = 0, pointerHorizontal = false, activePointerId = null;
+  carouselEl.style.cursor = 'grab';
+
+  carouselEl.addEventListener('pointerdown', function(e){
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
+    if (e.target.closest('.carousel-nav') || e.target.closest('.carousel-dot')) return;
+    pointerDown = true;
+    pointerStartX = e.clientX;
+    pointerStartY = e.clientY;
+    pointerDelta = 0;
+    pointerHorizontal = false;
+    activePointerId = e.pointerId;
     carouselDragging = false;
-  }, {passive:true});
-  carouselEl.addEventListener('touchmove', function(e){
-    var dx = e.touches[0].clientX - touchStartX;
-    var dy = e.touches[0].clientY - touchStartY;
-    // Nur horizontal: swipen. Vertikal: normaler Scroll
-    if(Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 15) {
-      carouselDragging = true;
-      touchDelta = dx;
+    try { carouselEl.setPointerCapture(e.pointerId); } catch(_){}
+    carouselEl.style.cursor = 'grabbing';
+  });
+
+  carouselEl.addEventListener('pointermove', function(e){
+    if (!pointerDown || e.pointerId !== activePointerId) return;
+    var dx = e.clientX - pointerStartX;
+    var dy = e.clientY - pointerStartY;
+    // Unterscheidung horizontal/vertikal: nur horizontal ist ein Swipe
+    if (!pointerHorizontal && (Math.abs(dx) > 8 || Math.abs(dy) > 8)) {
+      pointerHorizontal = Math.abs(dx) > Math.abs(dy);
     }
-  }, {passive:true});
-  carouselEl.addEventListener('touchend', function(){
-    if(carouselDragging && Math.abs(touchDelta) > 40) {
-      if(touchDelta < 0) goTo(currentIndex + 1);
+    if (pointerHorizontal) {
+      pointerDelta = dx;
+      // Verhindert Text-Selection und Browser-Drag-Ghost
+      if (Math.abs(dx) > 10 && e.cancelable) e.preventDefault();
+    }
+  });
+
+  function endPointerDrag(e){
+    if (!pointerDown || (e && e.pointerId !== activePointerId)) return;
+    pointerDown = false;
+    carouselEl.style.cursor = 'grab';
+    if (pointerHorizontal && Math.abs(pointerDelta) >= 40) {
+      carouselDragging = true;
+      if (pointerDelta < 0) goTo(currentIndex + 1);
       else goTo(currentIndex - 1);
     }
-    touchDelta = 0;
-  });
+    pointerDelta = 0;
+    pointerHorizontal = false;
+    activePointerId = null;
+  }
+  carouselEl.addEventListener('pointerup', endPointerDrag);
+  carouselEl.addEventListener('pointercancel', endPointerDrag);
+  carouselEl.addEventListener('pointerleave', endPointerDrag);
+
+  // Browser-Default: img-Drag-Ghost-Bild unterdruecken
+  carouselEl.addEventListener('dragstart', function(e){ e.preventDefault(); });
 
   // Initial + Resize
   updateCarousel();
@@ -1645,35 +1690,52 @@
     });
   });
 
-  // === INLINE VIDEO — Event-Karten: Klick = Clean-Play, Ende = zurück zum Thumbnail ===
-  var eventCards = Array.from(document.querySelectorAll('.reel-card[data-video]'));
-  eventCards.forEach(function(card){
-    function resetEvent() {
-      var inlineVid = card.querySelector('video.inline-player');
-      if (inlineVid) { inlineVid.pause(); inlineVid.remove(); }
+  // === EVENT-KARTEN: Ein zentraler Click-Handler per Event-Delegation ===
+  // Seitliche Karte → springt dorthin. Aktive Karte → Clean-Play Video.
+  carouselEl.addEventListener('click', function(e){
+    // Clicks auf Pfeile/Dots durchlassen (eigene Handler)
+    if (e.target.closest('.carousel-nav') || e.target.closest('.carousel-dot')) return;
+
+    var card = e.target.closest('.reel-card[data-video]');
+    if (!card) return;
+
+    // Echter Swipe hat stattgefunden → Klick unterdruecken
+    if (carouselDragging) { carouselDragging = false; return; }
+
+    e.preventDefault();
+    var clickedIndex = carouselCards.indexOf(card);
+
+    // Seitliche Karte → springe dorthin
+    if (clickedIndex !== -1 && clickedIndex !== currentIndex) {
+      carouselCards.forEach(function(c){
+        var v = c.querySelector('video.inline-player');
+        if (v) { v.pause(); v.remove(); }
+      });
+      goTo(clickedIndex);
+      return;
     }
-    card.addEventListener('click', function(e){
-      if (carouselDragging) { carouselDragging = false; return; }
-      e.preventDefault();
-      if (card.querySelector('video.inline-player')) {
-        resetEvent();
-        return;
-      }
-      var thumb = card.querySelector('.reel-card__thumb');
-      var hoverVid = thumb && thumb.querySelector('video.hover-preview');
-      if (hoverVid) { hoverVid.pause(); hoverVid.src=''; hoverVid.remove(); }
-      var vid = document.createElement('video');
-      vid.className = 'inline-player';
-      vid.src = card.dataset.video;
-      vid.autoplay = true;
-      vid.playsInline = true;
-      vid.controls = false;
-      vid.loop = false;
-      vid.disablePictureInPicture = true;
-      vid.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:10;border-radius:16px;cursor:pointer;';
-      vid.addEventListener('ended', resetEvent);
-      card.appendChild(vid);
-    });
+
+    // Aktive Karte: Video toggle
+    var existingVid = card.querySelector('video.inline-player');
+    if (existingVid) { existingVid.pause(); existingVid.remove(); return; }
+
+    // Hover-Preview entfernen
+    var thumb = card.querySelector('.reel-card__thumb');
+    var hoverVid = thumb && thumb.querySelector('video.hover-preview');
+    if (hoverVid) { hoverVid.pause(); hoverVid.src = ''; hoverVid.remove(); }
+
+    // Clean-Play Video starten
+    var vid = document.createElement('video');
+    vid.className = 'inline-player';
+    vid.src = card.dataset.video;
+    vid.autoplay = true;
+    vid.playsInline = true;
+    vid.controls = false;
+    vid.loop = false;
+    vid.disablePictureInPicture = true;
+    vid.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:10;border-radius:16px;cursor:pointer;';
+    vid.addEventListener('ended', function(){ vid.remove(); });
+    card.appendChild(vid);
   });
 
   // Smooth scroll
