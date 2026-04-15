@@ -893,14 +893,15 @@
 
 /* Step Nummer + Bild */
 .process__step-visual { position:relative; }
-/* Alle Step-Nummern einheitlich: 120px, hinter dem Visual (z-index 0), leicht versetzt */
+/* Alle Step-Nummern einheitlich: 120px, komplett ueber dem Visual positioniert.
+   top:-100 sorgt dafuer dass die Zahl oberhalb sitzt und nicht vom Bild verdeckt wird. */
 .process__step-nr {
-  position:absolute; top:-54px; left:-42px;
+  position:absolute; top:-100px; left:-10px;
   font-size:120px; font-weight:900; line-height:1;
   color:rgba(232,101,43,.42); letter-spacing:-.05em;
   pointer-events:none; z-index:0;
 }
-.process__step:nth-child(even) .process__step-nr { left:auto; right:-42px; }
+.process__step:nth-child(even) .process__step-nr { left:auto; right:-10px; }
 .process__step-img {
   border-radius:20px; overflow:hidden; position:relative; z-index:1;
   box-shadow:0 12px 40px rgba(0,0,0,.08);
@@ -1187,15 +1188,15 @@
               <div class="mock-reel-side">
                 <div>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-                  <span>2.4K</span>
+                  <span>847</span>
                 </div>
                 <div>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                  <span>312</span>
+                  <span>58</span>
                 </div>
                 <div>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-                  <span>89</span>
+                  <span>24</span>
                 </div>
               </div>
               <div class="mock-reel-user">@ungphiltert</div>
@@ -1220,9 +1221,9 @@
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
                   <svg class="mock-post-bookmark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
                 </div>
-                <div class="mock-post-likes">1.248 Likes</div>
+                <div class="mock-post-likes">312 Likes</div>
                 <div class="mock-post-caption"><b>ungphiltert</b>Neues Reel ist online 🎬</div>
-                <div class="mock-post-comments">Alle 42 Kommentare ansehen</div>
+                <div class="mock-post-comments">Alle 18 Kommentare ansehen</div>
               </div>
             </div>
           </div>
