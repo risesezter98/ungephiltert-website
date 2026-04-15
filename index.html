@@ -864,7 +864,7 @@
 .process {
   background: #f5f3ef; padding: 100px 5%; position: relative; overflow: hidden;
 }
-.process__inner { max-width: 1000px; margin: 0 auto; }
+.process__inner { max-width: 1180px; margin: 0 auto; }
 .process__header { text-align: center; margin-bottom: 72px; }
 .process__label {
   display:flex; align-items:center; gap:14px;
@@ -904,8 +904,13 @@
 .process__step-img {
   border-radius:20px; overflow:hidden; position:relative; z-index:1;
   box-shadow:0 12px 40px rgba(0,0,0,.08);
+  max-width:260px; margin:0;
 }
 .process__step-img img { width:100%; aspect-ratio:3/4; object-fit:cover; object-position:center 15%; display:block; }
+/* Bild und Phones naeher an die Text-Spalte ziehen (kein Leerraum in der Mitte).
+   justify-self: end/start funktioniert automatisch fuer LTR und RTL (step 2 hat direction:rtl) */
+.process__step-visual { justify-self:end; }
+.process__step-text { justify-self:start; max-width:520px; }
 
 /* Step Text */
 .process__step-text { position:relative; z-index:1; }
@@ -923,109 +928,140 @@
 }
 .process__step-text p { font-size:16px; color:#666; line-height:1.75; }
 
-/* Ergebnis: gestapelte Phones */
+/* === Step 3: Phones — fluid per Prozent + aspect-ratio, skaliert mit Container === */
+.process__step:nth-child(3) .process__step-nr {
+  top:-52px; left:-30px; font-size:140px; z-index:0;
+}
 .process__phones {
-  display:flex; gap:16px; justify-content:center; align-items:flex-end;
-  padding:20px 0;
+  display:flex; gap:2%; justify-content:center; align-items:flex-end;
+  padding:28px 0 8px;
+  width:100%;
+  max-width:460px;
+  margin:0 auto;
 }
 .process__phone {
   border-radius:22px; overflow:hidden; position:relative;
   border:3px solid rgba(0,0,0,.08);
   box-shadow:0 14px 34px rgba(0,0,0,.12);
   background:#0f0d0b;
+  box-sizing:border-box;
+  z-index:2;
 }
-.process__phone:nth-child(1) { width:200px; height:400px; transform:rotate(-5deg) translateY(14px); }
-.process__phone:nth-child(2) { width:240px; height:480px; border-color:rgba(232,101,43,.22); z-index:2; box-shadow:0 22px 56px rgba(232,101,43,.16); }
-.process__phone:nth-child(3) { width:200px; height:400px; transform:rotate(5deg) translateY(14px); }
-
-/* Step 3 spezifisch: Grid stark asymmetrisch fuer groessere Phones + Zahl hinter ihnen */
-.process__step:nth-child(3) {
-  grid-template-columns: 2.4fr 1fr !important;
-  gap: 40px;
+/* Seitliche Phones: 30% der Row-Breite, Aspect 1:2 */
+.process__phone:nth-child(1),
+.process__phone:nth-child(3) {
+  width:30%;
+  aspect-ratio:1/2;
 }
-.process__step:nth-child(3) .process__step-nr {
-  top:-64px; left:-42px; font-size:150px; z-index:0;
+.process__phone:nth-child(1) { transform:rotate(-5deg) translateY(12px); }
+.process__phone:nth-child(3) { transform:rotate(5deg) translateY(12px); }
+/* Mittleres Phone: 36% der Row-Breite, akzentuiert. Bei 520px Row = 187 wide, 374 tall */
+.process__phone:nth-child(2) {
+  width:36%;
+  aspect-ratio:1/2;
+  border-color:rgba(232,101,43,.22);
+  box-shadow:0 22px 56px rgba(232,101,43,.16);
+  z-index:3;
 }
-.process__step:nth-child(3) .process__phone { position:relative; z-index:2; }
-.process__step:nth-child(3) .process__phones { gap:14px; padding-top:30px; }
-.process__phone__media { position:absolute; inset:0; overflow:hidden; }
+.process__phone__media { position:absolute; inset:0; overflow:hidden; z-index:1; }
 .process__phone__media img { width:100%; height:100%; object-fit:cover; display:block; }
 .process__phone__label {
-  position:absolute; top:-22px; left:50%; transform:translateX(-50%);
-  font-size:10px; font-weight:800; text-transform:uppercase;
-  letter-spacing:.12em; color:#E8652B;
+  position:absolute; top:-26px; left:50%; transform:translateX(-50%);
+  font-size:12px; font-weight:800; text-transform:uppercase;
+  letter-spacing:.14em; color:#E8652B;
 }
 
 /* === STORY Mockup === */
+/* Top-Gradient macht den Header lesbar ohne Gesichter zu verdecken */
+.process__phone--story::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:22%;
+  background:linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,0));
+  z-index:3; pointer-events:none;
+}
+/* Bottom-Gradient fuer die Reply-Bar */
+.process__phone--story::after {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:18%;
+  background:linear-gradient(to top, rgba(0,0,0,.55), rgba(0,0,0,0));
+  z-index:3; pointer-events:none;
+}
 .process__phone--story .mock-story-bars {
-  position:absolute; top:8px; left:8px; right:8px;
-  display:flex; gap:3px; z-index:4;
+  position:absolute; top:10px; left:10px; right:10px;
+  display:flex; gap:4px; z-index:4;
 }
 .process__phone--story .mock-story-bars span {
-  flex:1; height:2px; border-radius:2px; background:rgba(255,255,255,.35);
+  flex:1; height:2.5px; border-radius:2px; background:rgba(255,255,255,.45);
 }
-.process__phone--story .mock-story-bars span:first-child { background:rgba(255,255,255,.95); }
-.process__phone--story .mock-story-bars span:nth-child(2) { background:linear-gradient(to right, #fff 60%, rgba(255,255,255,.35) 60%); }
+.process__phone--story .mock-story-bars span:first-child { background:rgba(255,255,255,.98); }
+.process__phone--story .mock-story-bars span:nth-child(2) { background:linear-gradient(to right, #fff 60%, rgba(255,255,255,.45) 60%); }
 .process__phone--story .mock-story-head {
-  position:absolute; top:18px; left:10px; right:10px; z-index:4;
-  display:flex; align-items:center; gap:8px;
+  position:absolute; top:22px; left:12px; right:12px; z-index:4;
+  display:flex; align-items:center; gap:9px;
 }
 .process__phone--story .mock-story-avatar {
-  width:24px; height:24px; border-radius:50%;
+  width:30px; height:30px; border-radius:50%;
   background:url('img/philipp-profilbild.jpg?v=37') center/cover, #E8652B;
   border:2px solid #fff;
   box-shadow:0 0 0 1.5px #E8652B;
 }
 .process__phone--story .mock-story-name {
-  font-size:10px; font-weight:700; color:#fff;
-  text-shadow:0 1px 2px rgba(0,0,0,.5);
+  font-size:13px; font-weight:700; color:#fff;
+  text-shadow:0 1px 3px rgba(0,0,0,.6);
 }
 .process__phone--story .mock-story-reply {
-  position:absolute; left:10px; right:10px; bottom:12px; z-index:4;
-  height:26px; border-radius:50px;
-  border:1.5px solid rgba(255,255,255,.55);
-  display:flex; align-items:center; padding:0 12px;
-  font-size:9px; color:rgba(255,255,255,.75);
+  position:absolute; left:14px; right:14px; bottom:14px; z-index:4;
+  height:34px; border-radius:50px;
+  border:1.5px solid rgba(255,255,255,.65);
+  display:flex; align-items:center; padding:0 14px;
+  font-size:11px; color:rgba(255,255,255,.85);
   backdrop-filter:blur(4px);
-  background:rgba(0,0,0,.15);
+  background:rgba(0,0,0,.2);
 }
 
 /* === REEL Mockup === */
+/* Bottom-Gradient fuer User + Caption + Icons */
+.process__phone--reel::after {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:38%;
+  background:linear-gradient(to top, rgba(0,0,0,.68), rgba(0,0,0,0));
+  z-index:3; pointer-events:none;
+}
 .process__phone--reel .mock-reel-side {
-  position:absolute; right:6px; bottom:56px; z-index:4;
-  display:flex; flex-direction:column; gap:14px; align-items:center;
+  position:absolute; right:8px; bottom:66px; z-index:4;
+  display:flex; flex-direction:column; gap:16px; align-items:center;
 }
 .process__phone--reel .mock-reel-side > div {
-  display:flex; flex-direction:column; align-items:center; gap:2px;
+  display:flex; flex-direction:column; align-items:center; gap:3px;
   color:#fff;
 }
 .process__phone--reel .mock-reel-side svg {
-  width:22px; height:22px; filter:drop-shadow(0 1px 2px rgba(0,0,0,.6));
+  width:26px; height:26px; filter:drop-shadow(0 1px 3px rgba(0,0,0,.7));
 }
 .process__phone--reel .mock-reel-side span {
-  font-size:8px; font-weight:700;
-  text-shadow:0 1px 2px rgba(0,0,0,.6);
+  font-size:10px; font-weight:700;
+  text-shadow:0 1px 2px rgba(0,0,0,.7);
 }
 .process__phone--reel .mock-reel-user {
-  position:absolute; left:10px; bottom:18px; z-index:4;
-  font-size:11px; font-weight:700; color:#fff;
-  text-shadow:0 1px 3px rgba(0,0,0,.7);
+  position:absolute; left:12px; bottom:22px; z-index:4;
+  font-size:13px; font-weight:700; color:#fff;
+  text-shadow:0 1px 3px rgba(0,0,0,.8);
 }
 .process__phone--reel .mock-reel-caption {
-  position:absolute; left:10px; right:44px; bottom:6px; z-index:4;
-  font-size:8px; color:rgba(255,255,255,.85);
-  text-shadow:0 1px 2px rgba(0,0,0,.6);
+  position:absolute; left:12px; right:50px; bottom:8px; z-index:4;
+  font-size:10px; color:rgba(255,255,255,.9);
+  text-shadow:0 1px 2px rgba(0,0,0,.7);
   overflow:hidden; white-space:nowrap; text-overflow:ellipsis;
 }
 
-/* === POST Mockup (Header + 1:1 Bild + Actions + Caption, kein White Space) === */
-.process__phone--post { background:#fff; border-color:rgba(0,0,0,.08); }
-.process__phone--post .process__phone__media {
-  position:absolute; top:34px; left:0; right:0; aspect-ratio:1/1; overflow:hidden;
+/* === POST Mockup === */
+/* Post nutzt Flex-Column fuer fluide, automatische Hoehen.
+   Nur .process__phone--post bekommt display:flex, damit Story/Reel (absolute) nicht beeinflusst werden. */
+.process__phone--post {
+  background:#fff; border-color:rgba(0,0,0,.08);
+  display:flex; flex-direction:column;
 }
 .process__phone--post .mock-post-head {
-  position:absolute; top:0; left:0; right:0; height:34px;
-  display:flex; align-items:center; gap:7px; padding:0 10px;
+  position:relative; flex:0 0 auto;
+  height:32px;
+  display:flex; align-items:center; gap:8px; padding:0 10px;
   background:#fff; z-index:4;
 }
 .process__phone--post .mock-post-avatar {
@@ -1034,7 +1070,7 @@
   flex-shrink:0;
 }
 .process__phone--post .mock-post-name {
-  font-size:10px; font-weight:700; color:#1a1a1a;
+  font-size:11px; font-weight:700; color:#1a1a1a;
 }
 .process__phone--post .mock-post-dots {
   margin-left:auto; display:flex; gap:2px;
@@ -1042,43 +1078,54 @@
 .process__phone--post .mock-post-dots span {
   width:3px; height:3px; border-radius:50%; background:#1a1a1a;
 }
-/* Actions-Block unter dem Bild, füllt den verbleibenden Platz bis unten.
-   Media ist aspect-ratio 1/1, also Hoehe = Phone-Width (200px bei seitlichem Phone). */
+/* Media: groesseres Portrait-Format (4:5 wie Instagram Portrait Post) -> mehr vom Bild sichtbar */
+.process__phone--post .process__phone__media {
+  position:relative; inset:auto;
+  flex:0 0 auto;
+  width:100%; aspect-ratio:4/5;
+  overflow:hidden; z-index:2;
+}
+.process__phone--post .process__phone__media img {
+  object-position:center 35%;
+}
+/* Actions: fuellt den Rest */
 .process__phone--post .mock-post-actions {
-  position:absolute; left:0; right:0; bottom:0; top:calc(34px + 200px);
-  padding:6px 10px; background:#fff; z-index:4;
-  display:flex; flex-direction:column; gap:3px;
+  position:relative; flex:1 1 auto;
+  padding:8px 10px; background:#fff; z-index:4;
+  display:flex; flex-direction:column; gap:4px;
+  min-height:0;
 }
 .process__phone--post .mock-post-icons {
-  display:flex; gap:8px; color:#1a1a1a; align-items:center;
+  display:flex; gap:10px; color:#1a1a1a; align-items:center;
 }
-.process__phone--post .mock-post-icons svg { width:16px; height:16px; }
+.process__phone--post .mock-post-icons svg { width:17px; height:17px; }
 .process__phone--post .mock-post-icons .mock-post-bookmark { margin-left:auto; }
 .process__phone--post .mock-post-likes {
-  font-size:9px; font-weight:700; color:#1a1a1a; margin-top:1px;
+  font-size:10px; font-weight:700; color:#1a1a1a; margin-top:2px;
 }
 .process__phone--post .mock-post-caption {
-  font-size:8px; color:#1a1a1a; line-height:1.35;
+  font-size:9px; color:#1a1a1a; line-height:1.4;
   overflow:hidden; text-overflow:ellipsis;
   display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical;
 }
 .process__phone--post .mock-post-caption b { font-weight:700; margin-right:3px; }
 .process__phone--post .mock-post-comments {
-  font-size:7px; color:#8e8e8e;
+  font-size:8px; color:#8e8e8e;
 }
-/* Mittleres Phone ist größer, also größeres Bild und mehr Action-Space */
-.process__phones > .process__phone--post:nth-child(2) .process__phone__media { top:38px; }
-.process__phones > .process__phone--post:nth-child(2) .mock-post-actions { top:calc(38px + 160px); }
 
 @media (max-width:768px) {
   .process__step { grid-template-columns:1fr; gap:24px; }
+  .process__step:nth-child(3) { grid-template-columns:1fr; gap:24px; }
   .process__step:nth-child(even) { direction:ltr; }
   .process__step-nr { font-size:80px; }
+  .process__step:nth-child(3) .process__step-nr { font-size:80px; top:-24px; left:-8px; }
   .process__step-img { max-width:70%; margin:0 auto; }
   .process__step-img img { aspect-ratio:3/4; max-height:320px; width:100%; }
-  .process__phones { gap:10px; }
-  .process__phone:nth-child(1), .process__phone:nth-child(3) { width:80px; height:145px; }
-  .process__phone:nth-child(2) { width:95px; height:172px; }
+  /* Phones bleiben fluid (% + aspect-ratio), nur Rotation sanfter auf Mobile */
+  .process__phones { gap:2%; padding:20px 0 8px; max-width:100%; }
+  .process__phone:nth-child(1) { transform:rotate(-3deg) translateY(8px); }
+  .process__phone:nth-child(3) { transform:rotate(3deg) translateY(8px); }
+  .process__phone:nth-child(2) { transform:none; }
 }
 </style>
 
@@ -1114,8 +1161,8 @@
         </div>
         <div class="process__step-text">
           <span class="process__step-tag">Interviews</span>
-          <h3>Spontan, locker, auf Augenhöhe</h3>
-          <p>Keine Fragenkataloge, kein steifes Setup. Einfach Gespräche auf Augenhöhe. Das sind die Clips, die am Ende hängen bleiben.</p>
+          <h3>Echt und auf Augenhöhe</h3>
+          <p>Keine Fragenkataloge, kein steifes Setup. Einfach Gespräche, die sich natürlich anfühlen. Das sind die Clips, die am Ende hängen bleiben.</p>
         </div>
       </div>
 
@@ -1877,46 +1924,6 @@
 
   /* Footer */
   .site-footer { padding:24px 5% !important; }
-}
-
-
-  /* Process-Phones Mobile: kleiner, weniger gedreht, UI-Elemente proportional */
-  .process__phones { gap:6px !important; padding-top:30px !important; }
-  .process__phone:nth-child(1) { width:92px !important; height:164px !important; transform:rotate(-3deg) translateY(8px) !important; }
-  .process__phone:nth-child(2) { width:104px !important; height:186px !important; transform:none !important; }
-  .process__phone:nth-child(3) { width:92px !important; height:164px !important; transform:rotate(3deg) translateY(8px) !important; }
-  .process__phone__label { font-size:8px !important; top:-16px !important; letter-spacing:.08em !important; }
-
-  /* STORY kleiner */
-  .process__phone--story .mock-story-bars { top:5px !important; left:5px !important; right:5px !important; }
-  .process__phone--story .mock-story-bars span { height:1.5px !important; }
-  .process__phone--story .mock-story-head { top:12px !important; left:6px !important; gap:5px !important; }
-  .process__phone--story .mock-story-avatar { width:16px !important; height:16px !important; border-width:1.5px !important; }
-  .process__phone--story .mock-story-name { font-size:7px !important; }
-  .process__phone--story .mock-story-reply { left:6px !important; right:6px !important; bottom:8px !important; height:18px !important; font-size:7px !important; padding:0 8px !important; }
-
-  /* REEL kleiner */
-  .process__phone--reel .mock-reel-side { right:4px !important; bottom:38px !important; gap:9px !important; }
-  .process__phone--reel .mock-reel-side svg { width:15px !important; height:15px !important; }
-  .process__phone--reel .mock-reel-side span { font-size:6px !important; }
-  .process__phone--reel .mock-reel-user { font-size:8px !important; left:6px !important; bottom:12px !important; }
-  .process__phone--reel .mock-reel-caption { font-size:6px !important; left:6px !important; right:30px !important; bottom:4px !important; }
-
-  /* POST kleiner */
-  .process__phone--post .process__phone__media { top:22px !important; }
-  .process__phone--post .mock-post-head { height:22px !important; gap:4px !important; padding:0 6px !important; }
-  .process__phone--post .mock-post-avatar { width:14px !important; height:14px !important; }
-  .process__phone--post .mock-post-name { font-size:7px !important; }
-  .process__phone--post .mock-post-dots span { width:2px !important; height:2px !important; }
-  .process__phone--post .mock-post-actions { padding:4px 6px !important; top:calc(22px + 92px) !important; }
-  .process__phones > .process__phone--post:nth-child(2) .process__phone__media { top:22px !important; }
-  .process__phones > .process__phone--post:nth-child(2) .mock-post-actions { top:calc(22px + 104px) !important; }
-  .process__phone--post .mock-post-icons svg { width:12px !important; height:12px !important; }
-  .process__phone--post .mock-post-icons { gap:6px !important; }
-  .process__phone--post .mock-post-likes { font-size:7px !important; }
-  .process__phone--post .mock-post-caption { font-size:6px !important; line-height:1.3 !important; }
-  .process__phone--post .mock-post-comments { font-size:6px !important; }
-
 }
 
 /* Sehr kleine Handys */
