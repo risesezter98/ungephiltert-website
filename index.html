@@ -864,7 +864,7 @@
 .process {
   background: #f5f3ef; padding: 100px 5%; position: relative; overflow: hidden;
 }
-.process__inner { max-width: 1180px; margin: 0 auto; }
+.process__inner { max-width: 1000px; margin: 0 auto; }
 .process__header { text-align: center; margin-bottom: 72px; }
 .process__label {
   display:flex; align-items:center; gap:14px;
@@ -893,24 +893,20 @@
 
 /* Step Nummer + Bild */
 .process__step-visual { position:relative; }
+/* Alle Step-Nummern einheitlich: 120px, hinter dem Visual (z-index 0), leicht versetzt */
 .process__step-nr {
-  position:absolute; top:-32px; left:-18px;
-  font-size:130px; font-weight:900; line-height:1;
-  color:rgba(232,101,43,.22); letter-spacing:-.05em;
-  pointer-events:none; z-index:3;
-  text-shadow:0 2px 0 rgba(255,255,255,.5);
+  position:absolute; top:-54px; left:-42px;
+  font-size:120px; font-weight:900; line-height:1;
+  color:rgba(232,101,43,.42); letter-spacing:-.05em;
+  pointer-events:none; z-index:0;
 }
-.process__step:nth-child(even) .process__step-nr { left:auto; right:-12px; }
+.process__step:nth-child(even) .process__step-nr { left:auto; right:-42px; }
 .process__step-img {
   border-radius:20px; overflow:hidden; position:relative; z-index:1;
   box-shadow:0 12px 40px rgba(0,0,0,.08);
-  max-width:260px; margin:0;
+  max-width:280px; margin:0 auto;
 }
 .process__step-img img { width:100%; aspect-ratio:3/4; object-fit:cover; object-position:center 15%; display:block; }
-/* Bild und Phones naeher an die Text-Spalte ziehen (kein Leerraum in der Mitte).
-   justify-self: end/start funktioniert automatisch fuer LTR und RTL (step 2 hat direction:rtl) */
-.process__step-visual { justify-self:end; }
-.process__step-text { justify-self:start; max-width:520px; }
 
 /* Step Text */
 .process__step-text { position:relative; z-index:1; }
@@ -929,14 +925,11 @@
 .process__step-text p { font-size:16px; color:#666; line-height:1.75; }
 
 /* === Step 3: Phones — fluid per Prozent + aspect-ratio, skaliert mit Container === */
-.process__step:nth-child(3) .process__step-nr {
-  top:-52px; left:-30px; font-size:140px; z-index:0;
-}
 .process__phones {
   display:flex; gap:2%; justify-content:center; align-items:flex-end;
   padding:28px 0 8px;
   width:100%;
-  max-width:460px;
+  max-width:470px;
   margin:0 auto;
 }
 .process__phone {
