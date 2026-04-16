@@ -1015,7 +1015,10 @@
 }
 .process__phone--story .mock-story-avatar {
   width:30px; height:30px; border-radius:50%;
-  background:url('img/philipp-profilbild.jpg?v=37') center/cover, #E8652B;
+  background:url('img/philipp-profilbild.jpg?v=37') center/cover no-repeat;
+  background-color:#333;
+  overflow:hidden;
+  flex-shrink:0;
 }
 .process__phone--story .mock-story-name {
   font-size:13px; font-weight:700; color:#fff;
@@ -1164,6 +1167,12 @@
   .process__phone--post .mock-post-icons svg { width:12px !important; height:12px !important; }
   .process__phone--post .mock-post-likes { font-size:8px !important; }
   .process__phone--post .mock-post-comments { font-size:7px !important; }
+  /* Reel Icons auf Mobile: kleiner als Desktop */
+  .process__phone--reel .mock-reel-side { gap:6px !important; right:4px !important; bottom:38px !important; }
+  .process__phone--reel .mock-reel-side svg { width:13px !important; height:13px !important; }
+  .process__phone--reel .mock-reel-side span { font-size:7px !important; }
+  .process__phone--reel .mock-reel-user { font-size:10px !important; bottom:12px !important; left:6px !important; }
+  .process__phone--reel .mock-reel-caption { font-size:8px !important; bottom:3px !important; left:6px !important; right:28px !important; }
 }
 </style>
 
@@ -1409,7 +1418,7 @@
     <div>
       <span class="pod__label">Mein Podcast</span>
       <h2>Zuhören. Nachfragen. <em>Verstehen.</em></h2>
-      <p>Sportler, Kreative, Politiker — jeder mit einer anderen Geschichte. <strong>Ich will wissen wie andere denken.</strong></p>
+      <p>Jeder hat was erlebt. <strong>Ich frag einfach nach was dahintersteckt.</strong></p>
       <div class="pod__principles">
         <span>Offen</span>
         <span class="pod__dot">·</span>
