@@ -1134,8 +1134,15 @@
   .process__step { grid-template-columns:1fr; gap:24px; }
   .process__step:nth-child(3) { grid-template-columns:1fr; gap:24px; }
   .process__step:nth-child(even) { direction:ltr; }
-  .process__step-nr { font-size:80px; }
-  .process__step:nth-child(3) .process__step-nr { font-size:80px; top:-24px; left:-8px; }
+  /* Zahl auf Mobile: in die Ecke des Bildes, nicht darüber */
+  .process__step-nr {
+    font-size:64px;
+    top:auto; left:auto; right:auto;
+    bottom:-18px; left:8px;
+    color:rgba(244,123,32,.55);
+  }
+  .process__step:nth-child(even) .process__step-nr { left:auto; right:8px; }
+  .process__step:nth-child(3) .process__step-nr { font-size:64px; top:auto; bottom:-18px; left:8px; right:auto; }
   .process__step-img { max-width:70%; margin:0 auto; }
   .process__step-img img { aspect-ratio:3/4; max-height:320px; width:100%; }
   /* Phones bleiben fluid (% + aspect-ratio), nur Rotation sanfter auf Mobile */
@@ -1387,7 +1394,7 @@
   <div class="pod__card">
     <div>
       <span class="pod__label">Mein Podcast</span>
-      <h2>Reden, die <em>wirklich zählen.</em></h2>
+      <h2>Offen. Ehrlich. <em>Ungefiltert.</em></h2>
       <p>Offene Meinungen, ehrliche Einblicke, <strong>echte Geschichten</strong>. Von Sportlern, Kreativen, Politikern und Menschen die was zu erzählen haben.</p>
       <div class="pod__principles">
         <span>Offen</span>
