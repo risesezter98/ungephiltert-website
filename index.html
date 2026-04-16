@@ -1016,8 +1016,6 @@
 .process__phone--story .mock-story-avatar {
   width:30px; height:30px; border-radius:50%;
   background:url('img/philipp-profilbild.jpg?v=37') center/cover, #E8652B;
-  border:2px solid #fff;
-  box-shadow:0 0 0 1.5px #E8652B;
 }
 .process__phone--story .mock-story-name {
   font-size:13px; font-weight:700; color:#fff;
@@ -1041,18 +1039,18 @@
   z-index:3; pointer-events:none;
 }
 .process__phone--reel .mock-reel-side {
-  position:absolute; right:8px; bottom:66px; z-index:4;
-  display:flex; flex-direction:column; gap:16px; align-items:center;
+  position:absolute; right:6px; bottom:50px; z-index:4;
+  display:flex; flex-direction:column; gap:10px; align-items:center;
 }
 .process__phone--reel .mock-reel-side > div {
-  display:flex; flex-direction:column; align-items:center; gap:3px;
+  display:flex; flex-direction:column; align-items:center; gap:2px;
   color:#fff;
 }
 .process__phone--reel .mock-reel-side svg {
-  width:26px; height:26px; filter:drop-shadow(0 1px 3px rgba(0,0,0,.7));
+  width:18px; height:18px; filter:drop-shadow(0 1px 3px rgba(0,0,0,.7));
 }
 .process__phone--reel .mock-reel-side span {
-  font-size:10px; font-weight:700;
+  font-size:8px; font-weight:700;
   text-shadow:0 1px 2px rgba(0,0,0,.7);
 }
 .process__phone--reel .mock-reel-user {
@@ -1162,6 +1160,10 @@
   .process__phone--post .mock-post-avatar { width:16px !important; height:16px !important; }
   .process__phone--post .mock-post-name { font-size:9px !important; }
   .process__phone--post .mock-post-dots span { width:2px !important; height:2px !important; }
+  /* Post Icons auf Mobile kleiner */
+  .process__phone--post .mock-post-icons svg { width:12px !important; height:12px !important; }
+  .process__phone--post .mock-post-likes { font-size:8px !important; }
+  .process__phone--post .mock-post-comments { font-size:7px !important; }
 }
 </style>
 
@@ -1273,8 +1275,8 @@
         </div>
         <div class="process__step-text">
           <span class="process__step-tag">Fertig</span>
-          <h3>Direkt raus</h3>
-          <p>Richtiges Format, geschnitten, mit Musik. Story, Reel oder Post — fertig zum Hochladen.</p>
+          <h3>Ab in den Feed.</h3>
+          <p>Richtiges Format, geschnitten, mit Musik. Story, Reel oder Post.</p>
         </div>
       </div>
     </div>
