@@ -1132,15 +1132,21 @@
   .process__step { grid-template-columns:1fr; gap:24px; }
   .process__step:nth-child(3) { grid-template-columns:1fr; gap:24px; }
   .process__step:nth-child(even) { direction:ltr; }
-  /* Zahl auf Mobile: in die Ecke des Bildes, nicht darüber */
+  /* Zahlen oben in der Ecke — immer sichtbar, nie verdeckt */
   .process__step-nr {
-    font-size:64px;
-    top:auto; left:auto; right:auto;
-    bottom:-18px; left:8px;
-    color:rgba(244,123,32,.55);
+    font-size:56px;
+    top:-6px; left:0; bottom:auto; right:auto;
+    color:rgba(244,123,32,.6);
+    z-index:2;
   }
-  .process__step:nth-child(even) .process__step-nr { left:auto; right:8px; }
-  .process__step:nth-child(3) .process__step-nr { font-size:64px; top:auto; bottom:-18px; left:8px; right:auto; }
+  /* 01: Bild leicht nach rechts, Zahl oben links */
+  .process__step:nth-child(odd) .process__step-img { margin-left:auto; margin-right:auto; padding-left:30px; }
+  /* 02: Zahl oben rechts */
+  .process__step:nth-child(even) .process__step-nr { left:auto; right:0; }
+  .process__step:nth-child(even) .process__step-img { margin-left:auto; margin-right:auto; padding-right:30px; padding-left:0; }
+  /* 03: Zahl oben links über den Phones */
+  .process__step:nth-child(3) .process__step-nr { font-size:56px; top:-6px; left:0; bottom:auto; right:auto; }
+  .process__step:nth-child(3) .process__step-img { padding-left:0; padding-right:0; }
   .process__step-img { max-width:70%; margin:0 auto; }
   .process__step-img img { aspect-ratio:3/4; max-height:320px; width:100%; }
   /* Phones auf Mobile: etwas größer damit Mock-UI nicht gequetscht wird */
