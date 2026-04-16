@@ -1139,15 +1139,12 @@
     color:rgba(244,123,32,.6);
     z-index:2;
   }
-  /* 01: Bild leicht nach rechts, Zahl oben links */
-  .process__step:nth-child(odd) .process__step-img { margin-left:auto; margin-right:auto; padding-left:30px; }
   /* 02: Zahl oben rechts */
   .process__step:nth-child(even) .process__step-nr { left:auto; right:0; }
-  .process__step:nth-child(even) .process__step-img { margin-left:auto; margin-right:auto; padding-right:30px; padding-left:0; }
   /* 03: Zahl oben links über den Phones */
   .process__step:nth-child(3) .process__step-nr { font-size:56px; top:-6px; left:0; bottom:auto; right:auto; }
-  .process__step:nth-child(3) .process__step-img { padding-left:0; padding-right:0; }
-  .process__step-img { max-width:70%; margin:0 auto; }
+  /* Kein Padding am Bildcontainer — kein weisser Balken */
+  .process__step-img { max-width:72%; margin:0 auto; }
   .process__step-img img { aspect-ratio:3/4; max-height:320px; width:100%; }
   /* Phones auf Mobile: etwas größer damit Mock-UI nicht gequetscht wird */
   .process__phones { gap:3%; padding:20px 0 8px; max-width:100%; }
@@ -1224,7 +1221,7 @@
               <div class="mock-story-bars"><span></span><span></span><span></span><span></span></div>
               <div class="mock-story-head">
                 <div class="mock-story-avatar"></div>
-                <div class="mock-story-name">ungphiltert</div>
+                
               </div>
               <div class="mock-story-reply">Nachricht senden</div>
             </div>
@@ -1259,7 +1256,6 @@
               <div class="mock-post-head">
                 <div class="mock-post-avatar"></div>
                 <div class="mock-post-name">ungphiltert</div>
-                <div class="mock-post-dots"><span></span><span></span><span></span></div>
               </div>
               <div class="process__phone__media">
                 <img src="thumbnails/event-cocktail-angels.jpg?v=37" alt="Post" loading="lazy">
