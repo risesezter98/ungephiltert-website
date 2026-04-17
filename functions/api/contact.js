@@ -7,7 +7,7 @@
 //   OWNER_EMAIL  → Philipps echte E-Mail (wo Anfragen ankommen)
 //   SENDER_EMAIL → in Brevo verifizierte Absender-Adresse
 //   OWNER_NAME   → "Philipp"
-const OWNER_EMAIL = "beratung@pfeifferdigital.de";   // TEST: aendern auf Philipps echte Mail wenn live
+const OWNER_EMAIL = "rubenpfeiffer.1104@gmail.com";   // TEST: spaeter auf Philipps Mail wechseln
 const SENDER_EMAIL = "beratung@pfeifferdigital.de";  // Brevo-verifiziert
 const OWNER_NAME = "Philipp";
 const SITE_NAME = "ungephiltert.";
@@ -91,10 +91,11 @@ export async function onRequestPost(context) {
     };
 
     // ============ Mail 2 — Bestätigung an Absender ============
+    const firstName = name.split(/\s+/)[0];
     const confirmationEmail = {
       sender: { name: SITE_NAME, email: SENDER_EMAIL },
       to: [{ email: email, name: name }],
-      subject: "Deine Nachricht ist angekommen — ungephiltert.",
+      subject: "Hab deine Nachricht — ungephiltert.",
       htmlContent: `
         <!DOCTYPE html>
         <html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
@@ -106,15 +107,15 @@ export async function onRequestPost(context) {
             </div>
 
             <div style="padding:36px 32px;">
-              <h2 style="margin:0 0 18px;font-size:22px;color:#111;font-weight:800;letter-spacing:-.02em;">Hi ${escapeHtml(name)},</h2>
-              <p style="font-size:15px;line-height:1.7;color:#444;margin:0 0 16px;">danke für deine Nachricht. Sie ist bei mir angekommen — ich schaue es mir an und melde mich bei dir.</p>
-              <p style="font-size:15px;line-height:1.7;color:#444;margin:0 0 28px;">In der Zwischenzeit kannst du dir gern meine Sachen auf Instagram angucken.</p>
+              <h2 style="margin:0 0 18px;font-size:22px;color:#111;font-weight:800;letter-spacing:-.02em;">Hey ${escapeHtml(firstName)},</h2>
+              <p style="font-size:15px;line-height:1.7;color:#444;margin:0 0 16px;">deine Nachricht ist bei mir gelandet. Ich schau sie mir an und meld mich.</p>
+              <p style="font-size:15px;line-height:1.7;color:#444;margin:0 0 28px;">Bis dahin — guck gern auf Instagram vorbei.</p>
 
               <div style="text-align:center;margin-bottom:28px;">
                 <a href="https://www.instagram.com/ungphiltert/" style="display:inline-block;background:#E8652B;color:#fff;padding:12px 32px;border-radius:50px;text-decoration:none;font-weight:700;font-size:14px;">Auf Instagram folgen</a>
               </div>
 
-              <p style="font-size:15px;line-height:1.7;color:#444;margin:0;">Bis dann,</p>
+              <p style="font-size:15px;line-height:1.7;color:#444;margin:0;">Bis gleich,</p>
               <p style="font-size:15px;line-height:1.7;color:#111;margin:4px 0 0;font-weight:700;">Philipp</p>
             </div>
 
@@ -125,7 +126,7 @@ export async function onRequestPost(context) {
           </div>
         </body></html>
       `,
-      textContent: `Hi ${name},\n\ndanke für deine Nachricht. Sie ist bei mir angekommen — ich schaue es mir an und melde mich bei dir.\n\nBis dann,\nPhilipp\nungephiltert.`,
+      textContent: `Hey ${firstName},\n\ndeine Nachricht ist bei mir gelandet. Ich schau sie mir an und meld mich.\n\nBis dahin — guck gern auf Instagram vorbei.\n\nBis gleich,\nPhilipp\nungephiltert.`,
     };
 
     // ============ Beide Mails parallel via Brevo API senden ============
