@@ -57,24 +57,32 @@
     .intro__lead { font-size: 17px; color: #555; line-height: 1.65; max-width: 400px; }
     .intro__lead strong { color: #1a1a1a; font-weight: 700; }
 
-    /* Philipp-Bild auf dunklem Panel */
+    /* Philipp-Bild */
     .intro__photo {
-      position: relative; width: 100%; max-width: 400px;
-      aspect-ratio: 4/5; border-radius: 22px; overflow: hidden;
-      background: linear-gradient(145deg, #1a1614 0%, #0f0d0b 100%);
-      box-shadow: 0 12px 40px rgba(0,0,0,.15), 0 2px 8px rgba(0,0,0,.06);
+      position: relative; width: 100%; max-width: 420px;
+      aspect-ratio: 5/4; border-radius: 18px; overflow: hidden;
+      box-shadow: 0 14px 40px rgba(0,0,0,.14), 0 2px 8px rgba(0,0,0,.06);
       margin-top: 4px;
     }
-    .intro__photo::before {
-      content: ''; position: absolute; inset: 0;
-      background: radial-gradient(ellipse 60% 70% at 50% 100%, rgba(232,101,43,.18) 0%, transparent 60%);
-      pointer-events: none;
-    }
     .intro__photo img {
-      position: absolute; bottom: 0; left: 50%;
-      transform: translateX(-50%);
-      height: 100%; width: auto; object-fit: contain;
-      filter: drop-shadow(0 8px 20px rgba(0,0,0,.5));
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform .5s;
+    }
+    .intro__photo:hover img { transform: scale(1.03); }
+    /* Dezente L-Eckakzente in Orange */
+    .intro__photo::before {
+      content: ''; position: absolute; top: -2px; left: -2px;
+      width: 36px; height: 36px;
+      border-top: 2px solid #E8652B; border-left: 2px solid #E8652B;
+      border-top-left-radius: 8px;
+      pointer-events: none; z-index: 2;
+    }
+    .intro__photo::after {
+      content: ''; position: absolute; bottom: -2px; right: -2px;
+      width: 36px; height: 36px;
+      border-bottom: 2px solid #E8652B; border-right: 2px solid #E8652B;
+      border-bottom-right-radius: 8px;
+      pointer-events: none; z-index: 2;
     }
 
     /* Alt-Kontakt-Block: Instagram */
@@ -235,7 +243,7 @@
       <h1>Meld dich<em>.</em></h1>
       <p class="intro__lead">Schreib kurz worum es geht. <strong>Ich les jede Nachricht selbst.</strong></p>
       <div class="intro__photo">
-        <img src="img/philipp-freigestellt.webp" alt="Philipp" loading="eager">
+        <img src="img/about-philipp-podcast.jpg" alt="Philipp" loading="eager">
       </div>
       <div class="intro__alt">
         <span class="intro__alt-label">Schneller Weg</span>
