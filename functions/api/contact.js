@@ -7,8 +7,8 @@
 //   OWNER_EMAIL  → Philipps echte E-Mail (wo Anfragen ankommen)
 //   SENDER_EMAIL → in Brevo verifizierte Absender-Adresse
 //   OWNER_NAME   → "Philipp"
-const OWNER_EMAIL = "kontakt@ungephiltert.de";   // TODO: durch Philipps echte Mail ersetzen
-const SENDER_EMAIL = "kontakt@ungephiltert.de";  // TODO: durch verifizierte Brevo-Absender-Adresse ersetzen
+const OWNER_EMAIL = "beratung@pfeifferdigital.de";   // TEST: aendern auf Philipps echte Mail wenn live
+const SENDER_EMAIL = "beratung@pfeifferdigital.de";  // Brevo-verifiziert
 const OWNER_NAME = "Philipp";
 const SITE_NAME = "ungephiltert.";
 
