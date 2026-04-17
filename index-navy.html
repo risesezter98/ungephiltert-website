@@ -6,7 +6,7 @@
   <title>ungephiltert. — Philipp | Video Creator (Navy)</title>
   <meta name="description" content="Philipp — Video Creator. Events, Reisen, Alltag. Ungefiltert.">
   <meta name="robots" content="index,follow">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23060c14'/%3E%3Ccircle cx='50' cy='56' r='20' fill='%23F47B20'/%3E%3C/svg%3E">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230f0d0b'/%3E%3Ccircle cx='50' cy='56' r='20' fill='%23E8652B'/%3E%3C/svg%3E">
   <meta property="og:type" content="website">
   <meta property="og:title" content="ungephiltert. — Philipp | Video Creator">
   <meta property="og:description" content="Video Creator. Events, Reisen, Alltag. Ungefiltert.">
@@ -167,7 +167,8 @@
   .ticker-row--right .ticker-track,
   .ticker-row--left .ticker-track { animation: none; }
 }
-/* Horizontaler Gradient: links dunkel für Textlesbarkeit — reicht weit nach rechts */
+/* Horizontaler Gradient: links dunkel für Textlesbarkeit — dunkler Bereich reicht
+   jetzt deutlich weiter nach rechts (über den Textblock hinaus). Rechter Rand bleibt klar. */
 .hero-ticker__bg::before {
   content:''; position:absolute; top:0; left:0; width:100%; height:100%;
   background:
@@ -397,8 +398,7 @@
   z-index:1; pointer-events:none;
 }
 .events-section__inner { max-width: 100%; margin: 0 auto; padding: 0 2%; position: relative; z-index: 1; }
-
-.events-section__header { margin-bottom: 56px; text-align:center; }
+.events-section__header { max-width:700px; margin-left:auto; margin-right:auto; margin-bottom: 56px; text-align:center; }
 .events-section__label {
   display:flex; align-items:center; gap:14px;
   font-size:13px; font-weight:800;
@@ -750,6 +750,7 @@
   width: 100%;
   max-width: 480px;
   aspect-ratio: 16/10;
+  /* overflow:visible — sonst werden die L-Corner-Pseudos (top:-2px) weggeclippt */
 }
 .about__photo img {
   width: 100%; height: 100%; object-fit: cover; display: block;
@@ -760,7 +761,8 @@
     0 8px 20px rgba(0,0,0,.3),
     inset 0 0 0 1px rgba(255,255,255,.08);
 }
-/* Editorial-Rahmenmarken in beiden oberen Ecken — abgerundete L-Corners */
+/* Editorial-Rahmenmarken in beiden oberen Ecken — abgerundete L-Corners,
+   matchen mit dem Border-Radius des Fotos */
 .about__photo::before {
   content:''; position:absolute;
   top:-2px; left:-2px;
@@ -782,7 +784,8 @@
 
 /* Alte Container-Klassen deaktiviert */
 .about__circle, .about__circle-clip, .about__person, .about__person-overtop,
-.about__person-wrap, .about__dots, .about__polaroid { display:none; }
+.about__person-wrap, .about__dots, .about__polaroid,
+.about__portrait, .about__portrait-caption, .about__person-solo { display:none; }
 
 @media (max-width:900px) {
   .about__inner { grid-template-columns:1fr; text-align:center; }
@@ -946,7 +949,10 @@
 }
 .process__phone--story .mock-story-avatar {
   width:30px; height:30px; border-radius:50%;
-  background:url('img/philipp-profilbild.jpg?v=37') center/cover, #F47B20;
+  background:url('img/philipp-profilbild.jpg?v=37') center/cover no-repeat;
+  background-color:#333;
+  overflow:hidden;
+  flex-shrink:0;
 }
 .process__phone--story .mock-story-name {
   font-size:13px; font-weight:700; color:#fff;
@@ -974,7 +980,7 @@
   display:flex; flex-direction:column; gap:10px; align-items:center;
 }
 .process__phone--reel .mock-reel-side > div {
-  display:flex; flex-direction:column; align-items:center; gap:3px;
+  display:flex; flex-direction:column; align-items:center; gap:2px;
   color:#fff;
 }
 .process__phone--reel .mock-reel-side svg {
@@ -1084,10 +1090,12 @@
   .process__phone:nth-child(1) { transform:rotate(-3deg) translateY(8px); }
   .process__phone:nth-child(3) { transform:rotate(3deg) translateY(8px); }
   .process__phone:nth-child(2) { transform:none; }
+  /* Story-Header auf Mobile kleiner */
   .mock-story-avatar { width:22px !important; height:22px !important; }
   .mock-story-name { font-size:10px !important; }
   .mock-story-head { gap:6px !important; top:18px !important; left:8px !important; right:8px !important; }
   .mock-story-reply { left:8px !important; right:8px !important; font-size:9px !important; height:28px !important; padding:0 8px !important; }
+  /* Post-Header auf Mobile */
   .process__phone--post .mock-post-head { height:26px !important; padding:0 6px !important; gap:5px !important; }
   .process__phone--post .mock-post-avatar { width:16px !important; height:16px !important; }
   .process__phone--post .mock-post-name { font-size:9px !important; }
@@ -1096,13 +1104,19 @@
   .process__phone--post .mock-post-icons svg { width:12px !important; height:12px !important; }
   .process__phone--post .mock-post-likes { font-size:8px !important; }
   .process__phone--post .mock-post-comments { font-size:7px !important; }
+  /* Reel Icons auf Mobile: kleiner als Desktop */
+  .process__phone--reel .mock-reel-side { gap:6px !important; right:4px !important; bottom:38px !important; }
+  .process__phone--reel .mock-reel-side svg { width:13px !important; height:13px !important; }
+  .process__phone--reel .mock-reel-side span { font-size:7px !important; }
+  .process__phone--reel .mock-reel-user { font-size:10px !important; bottom:12px !important; left:6px !important; }
+  .process__phone--reel .mock-reel-caption { font-size:8px !important; bottom:3px !important; left:6px !important; right:28px !important; }
 }
 </style>
 
 <section class="process" id="prozess">
   <div class="process__inner">
     <div class="process__header">
-      <div class="process__label anim">Workflow</div>
+      <div class="process__label anim">Ablauf</div>
       <h2 class="process__title anim" data-delay="1">So entstehen die Videos auf den <em>Events.</em></h2>
     </div>
 
@@ -1176,8 +1190,8 @@
                   <span>24</span>
                 </div>
               </div>
-              <div class="mock-reel-user">@ungphiltert</div>
-              <div class="mock-reel-caption">Event, Fun, Backstage #ungephiltert</div>
+              <div class="mock-reel-user">@dein_kanal</div>
+              <div class="mock-reel-caption">Event, Highlights, Backstage</div>
             </div>
 
             <!-- POST -->
@@ -1185,7 +1199,7 @@
               <div class="process__phone__label">Post</div>
               <div class="mock-post-head">
                 <div class="mock-post-avatar"></div>
-                <div class="mock-post-name">ungphiltert</div>
+                <div class="mock-post-name">dein_kanal</div>
               </div>
               <div class="process__phone__media">
                 <img src="thumbnails/event-cocktail-angels.jpg?v=41" alt="Post" loading="lazy">
@@ -1198,7 +1212,7 @@
                   <svg class="mock-post-bookmark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
                 </div>
                 <div class="mock-post-likes">312 Likes</div>
-                <div class="mock-post-caption"><b>ungphiltert</b>Neues Reel ist online 🎬</div>
+                <div class="mock-post-caption"><b>dein_kanal</b>Neues Reel ist online</div>
                 <div class="mock-post-comments">Alle 18 Kommentare ansehen</div>
               </div>
             </div>
@@ -1206,7 +1220,7 @@
         </div>
         <div class="process__step-text">
           <span class="process__step-tag">Fertig</span>
-          <h3>Ab in den Feed.</h3>
+          <h3>Bereit zum Hochladen.</h3>
           <p>Richtiges Format, geschnitten, mit Musik. Story, Reel oder Post.</p>
         </div>
       </div>
@@ -1411,10 +1425,10 @@
 <section class="contact" id="kontakt">
   <div class="contact__inner anim" data-anim="scale-in">
     <div class="contact__card">
-      <h2>Lass uns <em>reden.</em></h2>
-      <p>Kollab, Event oder eine Frage. <strong>Schreib mir worum es geht.</strong></p>
+      <h2>Schreib <em>mir.</em></h2>
+      <p>Kollab, Event oder einfach eine kurze Frage. <strong>Ich meld mich.</strong></p>
       <div class="contact__btns">
-        <a href="kontakt.html" class="contact__btn contact__btn--orange">Nachricht schreiben</a>
+        <a href="kontakt.html" class="contact__btn contact__btn--orange">Nachricht senden</a>
       </div>
     </div>
   </div>
@@ -1827,7 +1841,7 @@
 /* === MOBILE OVERRIDES === */
 @media (max-width: 768px) {
   /* Hero-Ticker-Bilder sichtbarer auf Mobile */
-  .ticker-img { opacity:.72 !important; filter:brightness(.95) saturate(1) !important; }
+  .ticker-img { opacity:.6 !important; filter:brightness(.9) saturate(.95) !important; }
   .hero-ticker__title { font-size:32px !important; line-height:1.1 !important; }
   .hero-ticker__text { font-size:15px !important; }
   .hero-ticker__label { font-size:11px !important; gap:10px !important; }
