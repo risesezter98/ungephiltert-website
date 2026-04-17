@@ -141,8 +141,13 @@
 
     /* Footer */
     .foot {
-      padding: 20px 5%; text-align: center; font-size: 13px; color: #bbb;
+      padding: 22px 5%; text-align: center; font-size: 13px; color: #999;
+      border-top: 1px solid rgba(0,0,0,.05);
     }
+    .foot__links { display:flex; justify-content:center; gap:18px; flex-wrap:wrap; margin-bottom:6px; }
+    .foot__links a { color:#777; text-decoration:none; font-weight:500; transition:color .2s; }
+    .foot__links a:hover { color:#E8652B; }
+    .foot__copy { color:#bbb; font-size:12px; }
 
     @media (max-width: 600px) {
       .form-card { padding: 28px 20px; }
@@ -201,7 +206,12 @@
 </main>
 
 <footer class="foot">
-  ungephiltert. — Philipp
+  <div class="foot__links">
+    <a href="index.html">Startseite</a>
+    <a href="impressum.html">Impressum</a>
+    <a href="datenschutz.html">Datenschutz</a>
+  </div>
+  <div class="foot__copy">ungephiltert. — Philipp</div>
 </footer>
 
 <script>

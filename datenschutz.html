@@ -24,9 +24,11 @@
     .content ul { color: #555; font-size: 15px; padding-left: 20px; margin-bottom: 16px; }
     .content li { margin-bottom: 6px; }
     .badge { display: inline-block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .14em; color: #E8652B; padding: 5px 14px; background: rgba(232,101,43,.08); border-radius: 50px; margin-bottom: 16px; }
-    .footer { padding: 20px 5%; text-align: center; font-size: 13px; color: #bbb; border-top: 1px solid rgba(0,0,0,.05); }
-    .footer a { color: #999; text-decoration: none; }
-    .footer a:hover { color: #E8652B; }
+    .footer { padding: 22px 5%; text-align: center; font-size: 13px; color: #999; border-top: 1px solid rgba(0,0,0,.05); }
+    .footer__links { display:flex; justify-content:center; gap:18px; flex-wrap:wrap; margin-bottom:6px; }
+    .footer__links a { color:#777; text-decoration:none; font-weight:500; transition:color .2s; }
+    .footer__links a:hover { color:#E8652B; }
+    .footer__copy { color:#bbb; font-size:12px; }
   </style>
 </head>
 <body>
@@ -128,7 +130,12 @@
 </main>
 
 <footer class="footer">
-  ungephiltert. — <a href="index.html">Zurück zur Startseite</a>
+  <div class="footer__links">
+    <a href="index.html">Startseite</a>
+    <a href="impressum.html">Impressum</a>
+    <a href="kontakt.html">Kontakt</a>
+  </div>
+  <div class="footer__copy">ungephiltert. — Philipp</div>
 </footer>
 
 </body>
