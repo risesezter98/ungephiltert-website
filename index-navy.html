@@ -1902,15 +1902,16 @@
   .pod__card { padding:32px 20px !important; }
 }
 
-/* Laptop-Breakpoint (14"-15" MacBook) — Titel kleiner, Philipp-Bild groesser */
+/* Laptop-Breakpoint (14"-15" MacBook) — Text rechter und kleiner, Philipp groesser */
 @media (min-width: 769px) and (max-width: 1400px) {
   .hero-ticker__content {
-    padding:100px 5% 40px;
+    padding:100px 5% 40px 11%;
     min-height:min(88vh, 680px);
   }
-  .hero-ticker__title { font-size:clamp(40px, 4.4vw, 58px) !important; margin-bottom:20px; }
-  .hero-ticker__text { font-size:16px; max-width:380px; margin-bottom:24px; }
-  .hero-ticker__label { font-size:12px; margin-bottom:20px; }
+  .hero-ticker__title { font-size:clamp(34px, 3.6vw, 48px) !important; margin-bottom:18px; line-height:1.08; }
+  .hero-ticker__text { font-size:15px; max-width:360px; margin-bottom:22px; line-height:1.6; }
+  .hero-ticker__label { font-size:11px; margin-bottom:18px; }
+  .hero-ticker__cta { padding:13px 28px; font-size:14px; }
   .hero-ticker__person { left:48%; transform:translateX(-10%); }
   .hero-ticker__person img {
     height:min(92vh, 820px);
