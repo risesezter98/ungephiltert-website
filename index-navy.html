@@ -1932,6 +1932,53 @@
     min-height:540px;
   }
 }
+
+/* Cookie-Info-Banner — minimaler einmaliger Hinweis */
+.cookie-info {
+  position:fixed; bottom:16px; left:16px; right:16px; z-index:9999;
+  max-width:560px; margin:0 auto;
+  background:rgba(11,24,41,.96); backdrop-filter:blur(10px);
+  border:1px solid rgba(244,123,32,.25);
+  border-radius:14px; padding:16px 20px;
+  display:flex; align-items:center; gap:14px;
+  box-shadow:0 10px 30px rgba(0,0,0,.4);
+  font-size:13px; color:rgba(255,255,255,.85); line-height:1.5;
+  transform:translateY(120%); opacity:0; transition:transform .4s, opacity .4s;
+}
+.cookie-info.active { transform:translateY(0); opacity:1; }
+.cookie-info a { color:#F47B20; text-decoration:none; font-weight:600; }
+.cookie-info a:hover { text-decoration:underline; }
+.cookie-info button {
+  flex-shrink:0; background:#F47B20; color:#fff; border:none;
+  padding:9px 18px; border-radius:50px; font-size:13px; font-weight:700;
+  cursor:pointer; transition:transform .2s;
+}
+.cookie-info button:hover { transform:translateY(-1px); }
+@media (max-width:600px) {
+  .cookie-info { flex-direction:column; align-items:stretch; text-align:left; gap:12px; }
+  .cookie-info button { width:100%; }
+}
 </style>
+
+<div class="cookie-info" id="cookieInfo">
+  <span>Diese Website nutzt nur technisch notwendige Cookies. Details in der <a href="datenschutz.html">Datenschutzerklärung</a>.</span>
+  <button type="button" id="cookieOk">OK</button>
+</div>
+
+<script>
+(function(){
+  var key = 'ungephiltert_cookie_ack_v1';
+  var el = document.getElementById('cookieInfo');
+  var btn = document.getElementById('cookieOk');
+  if (!localStorage.getItem(key)) {
+    setTimeout(function(){ el.classList.add('active'); }, 800);
+  }
+  btn.addEventListener('click', function(){
+    localStorage.setItem(key, '1');
+    el.classList.remove('active');
+    setTimeout(function(){ el.style.display='none'; }, 400);
+  });
+})();
+</script>
 </body>
 </html>

@@ -80,6 +80,18 @@
     .field textarea { resize: vertical; min-height: 140px; line-height: 1.6; }
     .field input::placeholder, .field textarea::placeholder { color: #bbb; }
 
+    /* Privacy Checkbox */
+    .field--check { display:flex; align-items:flex-start; gap:10px; margin-top:22px; margin-bottom:6px; }
+    .field--check input[type="checkbox"] {
+      width:18px; height:18px; margin-top:2px; flex-shrink:0;
+      accent-color:#E8652B; cursor:pointer;
+    }
+    .field--check label {
+      font-size:13px; color:#666; line-height:1.55; margin:0; font-weight:400; cursor:pointer;
+    }
+    .field--check label a { color:#E8652B; text-decoration:none; font-weight:600; }
+    .field--check label a:hover { text-decoration:underline; }
+
     /* Buttons */
     .form-actions { margin-top: 28px; }
     .btn {
@@ -169,6 +181,10 @@
         <label for="cf-message">Worum geht es?</label>
         <textarea id="cf-message" name="message" placeholder="Erzähl einfach kurz worum es geht. Ich antworte." required></textarea>
       </div>
+      <div class="field field--check">
+        <input type="checkbox" id="cf-privacy" name="privacy" required>
+        <label for="cf-privacy">Ich habe die <a href="datenschutz.html" target="_blank" rel="noopener">Datenschutzerklärung</a> gelesen und bin mit der Verarbeitung meiner Daten einverstanden.</label>
+      </div>
       <div class="form-error" id="formError">Da ist was schiefgegangen. Versuch es nochmal oder schreib mir auf Instagram.</div>
       <div class="form-actions">
         <button type="submit" class="btn btn--primary" id="submitBtn">Nachricht schicken</button>
@@ -202,9 +218,15 @@
     var name = document.getElementById('cf-name').value.trim();
     var email = document.getElementById('cf-email').value.trim();
     var message = document.getElementById('cf-message').value.trim();
+    var privacy = document.getElementById('cf-privacy').checked;
 
     if (!name || !email || !message) {
       errorBox.textContent = 'Bitte füll alle Felder aus.';
+      errorBox.classList.add('active');
+      return;
+    }
+    if (!privacy) {
+      errorBox.textContent = 'Bitte Datenschutzerklärung bestätigen.';
       errorBox.classList.add('active');
       return;
     }
