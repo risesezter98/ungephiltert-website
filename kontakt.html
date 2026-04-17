@@ -33,42 +33,82 @@
     /* Main */
     .main {
       flex: 1; display: flex; align-items: center; justify-content: center;
-      padding: 40px 5% 80px;
+      padding: 30px 5% 70px;
     }
-    .form-wrap {
-      width: 100%; max-width: 560px;
+    .grid {
+      width: 100%; max-width: 1100px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 72px; align-items: center;
     }
 
-    /* Header */
-    .form-header { margin-bottom: 36px; }
-    .form-header__label {
-      display: inline-block; font-size: 11px; font-weight: 700;
-      text-transform: uppercase; letter-spacing: .14em;
-      color: #E8652B; margin-bottom: 14px;
-      padding: 6px 14px; background: rgba(232,101,43,.08); border-radius: 50px;
+    /* Linke Spalte — Intro + Philipp-Bild */
+    .intro { display: flex; flex-direction: column; gap: 32px; }
+    .intro__label {
+      display: inline-flex; align-items: center; gap: 12px;
+      font-size: 11px; font-weight: 800; letter-spacing: .22em;
+      text-transform: uppercase; color: #E8652B; width: fit-content;
     }
-    .form-header h1 {
-      font-size: clamp(32px, 4.5vw, 44px); font-weight: 800;
-      line-height: 1.1; letter-spacing: -.03em; margin-bottom: 14px;
+    .intro__label::before { content:''; display:inline-block; width:32px; height:2px; background:#E8652B; }
+    .intro h1 {
+      font-size: clamp(38px, 4.6vw, 56px); font-weight: 800;
+      line-height: 1.05; letter-spacing: -.03em; color:#1a1a1a;
     }
-    .form-header h1 em { color: #E8652B; font-style: normal; }
-    .form-header p { font-size: 16px; color: #777; line-height: 1.65; }
+    .intro h1 em { color: #E8652B; font-style: normal; }
+    .intro__lead { font-size: 17px; color: #555; line-height: 1.65; max-width: 400px; }
+    .intro__lead strong { color: #1a1a1a; font-weight: 700; }
+
+    /* Philipp-Bild — Polaroid/Creator-Style */
+    .intro__photo {
+      position: relative; margin-top: 4px;
+      width: 100%; max-width: 380px;
+      transform: rotate(-2deg); transition: transform .4s;
+    }
+    .intro__photo:hover { transform: rotate(0deg); }
+    .intro__photo img {
+      width: 100%; aspect-ratio: 3/4; object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 20px 50px rgba(0,0,0,.2), 0 4px 12px rgba(0,0,0,.08);
+    }
+    .intro__photo::before {
+      content: ''; position: absolute; inset: -2px;
+      border: 2px solid rgba(232,101,43,.3);
+      border-radius: 12px; pointer-events: none;
+      transform: rotate(2deg); transform-origin: center;
+    }
+    .intro__sig {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 14px; color: #777; margin-top: 6px;
+    }
+    .intro__sig b { color: #1a1a1a; font-weight: 700; }
+
+    /* Rechte Spalte — Formular */
+    .form-wrap { width: 100%; }
+    .form-header { margin-bottom: 24px; }
+    .form-header__kicker {
+      font-size: 11px; font-weight: 800; letter-spacing: .18em;
+      text-transform: uppercase; color: #E8652B; margin-bottom: 10px;
+    }
+    .form-header h2 {
+      font-size: 24px; font-weight: 800; letter-spacing: -.02em; color: #1a1a1a;
+      margin-bottom: 8px;
+    }
+    .form-header p { font-size: 14px; color: #888; line-height: 1.5; }
 
     /* Form Card */
     .form-card {
-      background: #fff; border-radius: 20px; padding: 36px 32px;
+      background: #fff; border-radius: 20px; padding: 32px 30px;
       box-shadow: 0 4px 24px rgba(0,0,0,.04);
       border: 1px solid rgba(0,0,0,.04);
     }
 
     /* Inputs */
-    .field { margin-bottom: 18px; }
+    .field { margin-bottom: 16px; }
     .field label {
       display: block; font-size: 13px; font-weight: 600; color: #555;
       margin-bottom: 6px;
     }
     .field input, .field textarea {
-      width: 100%; padding: 14px 16px; border-radius: 12px;
+      width: 100%; padding: 13px 15px; border-radius: 12px;
       border: 1.5px solid rgba(0,0,0,.08); background: #faf9f7;
       font-size: 15px; font-family: inherit; color: #1a1a1a;
       transition: border-color .2s, box-shadow .2s; outline: none;
@@ -77,11 +117,11 @@
       border-color: #E8652B;
       box-shadow: 0 0 0 3px rgba(232,101,43,.08);
     }
-    .field textarea { resize: vertical; min-height: 140px; line-height: 1.6; }
+    .field textarea { resize: vertical; min-height: 120px; line-height: 1.6; }
     .field input::placeholder, .field textarea::placeholder { color: #bbb; }
 
     /* Privacy Checkbox */
-    .field--check { display:flex; align-items:flex-start; gap:10px; margin-top:22px; margin-bottom:6px; }
+    .field--check { display:flex; align-items:flex-start; gap:10px; margin-top:20px; margin-bottom:6px; }
     .field--check input[type="checkbox"] {
       width:18px; height:18px; margin-top:2px; flex-shrink:0;
       accent-color:#E8652B; cursor:pointer;
@@ -93,10 +133,10 @@
     .field--check label a:hover { text-decoration:underline; }
 
     /* Buttons */
-    .form-actions { margin-top: 28px; }
+    .form-actions { margin-top: 24px; }
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-      padding: 16px 32px; border-radius: 50px; font-size: 15px; font-weight: 700;
+      padding: 15px 30px; border-radius: 50px; font-size: 15px; font-weight: 700;
       border: none; cursor: pointer; transition: all .3s; font-family: inherit;
       width: 100%;
     }
@@ -105,9 +145,7 @@
       box-shadow: 0 4px 16px rgba(232,101,43,.2);
     }
     .btn--primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(232,101,43,.3); }
-    .btn--primary:disabled {
-      opacity: .55; cursor: wait; transform: none;
-    }
+    .btn--primary:disabled { opacity: .55; cursor: wait; transform: none; }
 
     /* Error / Success */
     .form-error {
@@ -115,13 +153,13 @@
       background: rgba(220,53,69,.08); color: #c62828;
       border: 1px solid rgba(220,53,69,.18);
       border-radius: 10px; padding: 12px 14px;
-      font-size: 14px; margin-top: 16px;
+      font-size: 14px; margin-top: 14px;
     }
     .form-error.active { display: block; }
 
     .success {
       display: none;
-      text-align: center; padding: 60px 28px;
+      text-align: center; padding: 50px 28px;
       background: #fff; border-radius: 20px;
       box-shadow: 0 4px 24px rgba(0,0,0,.04);
       border: 1px solid rgba(0,0,0,.04);
@@ -129,15 +167,15 @@
     .success.active { display: block; }
     .form-card.hidden { display: none; }
     .success__icon {
-      width: 64px; height: 64px; border-radius: 50%;
+      width: 60px; height: 60px; border-radius: 50%;
       background: rgba(232,101,43,.1); color: #E8652B;
       display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 20px; font-size: 28px;
+      margin: 0 auto 18px; font-size: 26px;
     }
-    .success h2 { font-size: 26px; font-weight: 800; margin-bottom: 10px; letter-spacing: -.02em; }
+    .success h2 { font-size: 24px; font-weight: 800; margin-bottom: 10px; letter-spacing: -.02em; }
     .success h2 em { color: #E8652B; font-style: normal; }
-    .success p { color: #777; font-size: 15px; line-height: 1.65; max-width: 380px; margin: 0 auto; }
-    .success .btn { margin-top: 28px; max-width: 280px; display: inline-flex; }
+    .success p { color: #777; font-size: 15px; line-height: 1.65; max-width: 360px; margin: 0 auto; }
+    .success .btn { margin-top: 24px; max-width: 260px; display: inline-flex; }
 
     /* Footer */
     .foot {
@@ -149,9 +187,16 @@
     .foot__links a:hover { color:#E8652B; }
     .foot__copy { color:#bbb; font-size:12px; }
 
+    /* Mobile */
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: 1fr; gap: 40px; }
+      .intro { align-items: flex-start; }
+      .intro__photo { max-width: 300px; margin: 8px auto 0; }
+    }
     @media (max-width: 600px) {
-      .form-card { padding: 28px 20px; }
-      .form-header { margin-bottom: 28px; }
+      .form-card { padding: 26px 20px; }
+      .form-header { margin-bottom: 20px; }
+      .intro__photo { max-width: 260px; }
     }
   </style>
 </head>
@@ -166,42 +211,56 @@
 </nav>
 
 <main class="main">
-  <div class="form-wrap">
-    <div class="form-header">
-      <span class="form-header__label">Kontakt</span>
+  <div class="grid">
+
+    <div class="intro">
+      <span class="intro__label">Kontakt</span>
       <h1>Schreib mir<em>.</em></h1>
-      <p>Egal ob Kollab, Event oder einfach eine Nachricht. Ich melde mich.</p>
+      <p class="intro__lead">Kollab, Event oder einfach eine kurze Nachricht. <strong>Ich meld mich.</strong></p>
+      <div class="intro__photo">
+        <img src="img/about-philipp-1.jpg" alt="Philipp" loading="eager">
+      </div>
+      <div class="intro__sig">— <b>Philipp</b></div>
     </div>
 
-    <form class="form-card" id="contactForm" novalidate>
-      <div class="field">
-        <label for="cf-name">Dein Name</label>
-        <input type="text" id="cf-name" name="name" placeholder="Vor- und Nachname" required>
+    <div class="form-wrap">
+      <div class="form-header">
+        <div class="form-header__kicker">Nachricht</div>
+        <h2>Worum geht es?</h2>
+        <p>Ein paar Zeilen reichen. Kein Roman nötig.</p>
       </div>
-      <div class="field">
-        <label for="cf-email">E-Mail</label>
-        <input type="email" id="cf-email" name="email" placeholder="name@beispiel.de" required>
-      </div>
-      <div class="field">
-        <label for="cf-message">Worum geht es?</label>
-        <textarea id="cf-message" name="message" placeholder="Erzähl einfach kurz worum es geht. Ich antworte." required></textarea>
-      </div>
-      <div class="field field--check">
-        <input type="checkbox" id="cf-privacy" name="privacy" required>
-        <label for="cf-privacy">Ich habe die <a href="datenschutz.html" target="_blank" rel="noopener">Datenschutzerklärung</a> gelesen und bin mit der Verarbeitung meiner Daten einverstanden.</label>
-      </div>
-      <div class="form-error" id="formError">Da ist was schiefgegangen. Versuch es nochmal oder schreib mir auf Instagram.</div>
-      <div class="form-actions">
-        <button type="submit" class="btn btn--primary" id="submitBtn">Nachricht schicken</button>
-      </div>
-    </form>
 
-    <div class="success" id="successCard">
-      <div class="success__icon">✓</div>
-      <h2>Läuft<em>.</em></h2>
-      <p>Deine Nachricht ist raus. Ich schaue es mir an und melde mich.</p>
-      <a href="index.html" class="btn btn--primary">Zurück zur Seite</a>
+      <form class="form-card" id="contactForm" novalidate>
+        <div class="field">
+          <label for="cf-name">Dein Name</label>
+          <input type="text" id="cf-name" name="name" placeholder="Vor- und Nachname" required>
+        </div>
+        <div class="field">
+          <label for="cf-email">E-Mail</label>
+          <input type="email" id="cf-email" name="email" placeholder="name@beispiel.de" required>
+        </div>
+        <div class="field">
+          <label for="cf-message">Deine Nachricht</label>
+          <textarea id="cf-message" name="message" placeholder="Erzähl einfach kurz worum es geht." required></textarea>
+        </div>
+        <div class="field field--check">
+          <input type="checkbox" id="cf-privacy" name="privacy" required>
+          <label for="cf-privacy">Ich habe die <a href="datenschutz.html" target="_blank" rel="noopener">Datenschutzerklärung</a> gelesen und bin mit der Verarbeitung meiner Daten einverstanden.</label>
+        </div>
+        <div class="form-error" id="formError">Da ist was schiefgegangen. Versuch es nochmal oder schreib mir auf Instagram.</div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn--primary" id="submitBtn">Nachricht schicken</button>
+        </div>
+      </form>
+
+      <div class="success" id="successCard">
+        <div class="success__icon">✓</div>
+        <h2>Läuft<em>.</em></h2>
+        <p>Deine Nachricht ist raus. Ich schau sie mir an und meld mich.</p>
+        <a href="index.html" class="btn btn--primary">Zurück zur Seite</a>
+      </div>
     </div>
+
   </div>
 </main>
 
