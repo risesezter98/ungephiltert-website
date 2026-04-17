@@ -1597,10 +1597,10 @@
       carouselTrack.style.height = activeCard.offsetHeight + 'px';
     }
 
-    // Pfeile direkt neben die erste Nachbarkarte setzen (mittiger, aber nicht ueber Videos)
+    // Pfeile am aeusseren Rand, nur leicht mittiger (zwischen letzter und vorletzter Karte)
     var prevBtn = document.getElementById('carouselPrev');
     var nextBtn = document.getElementById('carouselNext');
-    var arrowEdge = spacing + cardW / 2 + 16;
+    var arrowEdge = (visibleSide - 0.5) * spacing + cardW / 2 + 16;
     var halfWrap = wrapWidth / 2;
     prevBtn.style.left = Math.max(8, halfWrap - arrowEdge) + 'px';
     nextBtn.style.right = Math.max(8, halfWrap - arrowEdge) + 'px';
