@@ -1788,7 +1788,9 @@
   // Läuft NICHT wenn bereits ein inline-player aktiv ist (erst Klick → dann Autoplay mit Sound).
   var isTouch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
   if (!isTouch) {
-    document.querySelectorAll('[data-video]').forEach(function(el){
+    // Hover-Preview NUR auf Bento — fuer Events deaktiviert weil es dort
+    // den Sound beim spaeteren Click blockiert.
+    document.querySelectorAll('.bento__item[data-video]').forEach(function(el){
       var videoSrc = el.getAttribute('data-video');
       if (!videoSrc) return;
       el.style.cursor = 'pointer';
