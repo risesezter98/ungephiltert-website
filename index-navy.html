@@ -1615,10 +1615,9 @@
   document.getElementById('carouselPrev').addEventListener('click', function(){ goTo(currentIndex - 1);});
   document.getElementById('carouselNext').addEventListener('click', function(){ goTo(currentIndex + 1);});
 
-  console.log('[ungephiltert] Karussell v3 mit PointerEvents aktiv');
   // === SWIPE/DRAG via PointerEvents (Maus + Touch in einem Codepfad) ===
-  // PointerEvents sind modern und robust: setPointerCapture sorgt dafuer, dass
-  // alle nachfolgenden Events auf dem Element landen, selbst wenn der Mauszeiger rausgeht.
+  // OHNE setPointerCapture: sonst werden Clicks zum Karussell-Container geroutet
+  // und die Per-Karte-Click-Listener fuer Video-Play feuern nicht mehr.
   var carouselEl = document.getElementById('eventsCarousel');
   var pointerDown = false, pointerStartX = 0, pointerStartY = 0, pointerDelta = 0, pointerHorizontal = false, activePointerId = null;
   carouselEl.style.cursor = 'grab';
