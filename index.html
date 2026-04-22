@@ -816,6 +816,136 @@
 </section>
 
 
+<!-- ═══════════════ PODCAST ═══════════════ -->
+<style>
+.pod { background: #f5f3ef; padding: 140px 5% 140px; position: relative; overflow: hidden; }
+
+/* Podcast-Cover als überlappende Polaroids OBEN und UNTEN in der linken Textspalte.
+   3 oben über der Headline, 3 unten unter den Buttons. Rechtes Bild bleibt unberührt. */
+/* Podcast-Cover als rechte Spalte: 3x2 Grid, leicht rotiert, überlappend. */
+.pod__covers-grid {
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap:18px;
+  padding:8px 0;
+}
+.pod__cover {
+  width:100%; aspect-ratio:16/9;
+  border-radius:12px; overflow:hidden;
+  background:#0a0808;
+  box-shadow:0 18px 38px rgba(0,0,0,.55), 0 4px 12px rgba(0,0,0,.35), inset 0 0 0 1.5px rgba(255,255,255,.08);
+  transition:transform .7s cubic-bezier(.4, 0, .2, 1), box-shadow .7s cubic-bezier(.4, 0, .2, 1);
+}
+.pod__cover:hover {
+  box-shadow:0 22px 44px rgba(0,0,0,.6), 0 6px 14px rgba(0,0,0,.4), inset 0 0 0 1.5px rgba(255,255,255,.12);
+}
+.pod__cover img { width:100%; height:100%; object-fit:cover; display:block; }
+.pod__covers-grid .pod__cover:nth-child(1) { transform:rotate(-4deg) translateX(-6px); }
+.pod__covers-grid .pod__cover:nth-child(2) { transform:rotate(3deg) translateX(6px); }
+.pod__covers-grid .pod__cover:nth-child(3) { transform:rotate(4deg) translateX(-4px); }
+.pod__covers-grid .pod__cover:nth-child(4) { transform:rotate(-3deg) translateX(8px); }
+.pod__covers-grid .pod__cover:nth-child(5) { transform:rotate(-5deg) translateX(-8px); }
+.pod__covers-grid .pod__cover:nth-child(6) { transform:rotate(5deg) translateX(6px); }
+.pod__covers-grid .pod__cover:hover { transform:translateY(-6px) scale(1.035) rotate(0); z-index:5; }
+
+@media (max-width:900px) {
+  .pod { padding: 80px 5% 80px; }
+}
+.pod__card {
+  max-width: 1180px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1.1fr; gap: 56px; align-items: center;
+  background: #141210; border-radius: 26px; padding: 84px 64px;
+  position: relative; overflow: hidden; color:#fff;
+}
+.pod h2 { font-size: 28px; font-weight: 800; margin-bottom: 12px; color:#fff; }
+.pod p { font-size: 16px; color: rgba(255,255,255,.82); line-height: 1.7; margin-bottom: 20px; font-weight:500; }
+.pod p b, .pod p strong { color:#fff; font-weight:700; }
+.pod__links { display: flex; gap: 10px; flex-wrap: wrap; }
+.pod__link {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 18px; background: rgba(255,255,255,.06); border-radius: 50px;
+  font-size: 14px; font-weight: 600; color:#fff;
+  border: 1px solid rgba(255,255,255,.08); transition: border-color .2s, transform .2s;
+}
+.pod__link:hover { border-color: rgba(232,101,43,.3); transform: translateY(-2px); }
+.pod__link svg { width: 18px; height: 18px; }
+.pod__link--spotify svg { color: #1DB954; }
+.pod__visual { border-radius: 16px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,.06); position: relative; }
+.pod__visual img { width: 100%; aspect-ratio: 4/5; object-fit: cover; }
+/* Cutout-Variante: kein Hintergrund, kein Schatten, transparenter PNG schwebt frei */
+.pod__visual--cutout { box-shadow: none; overflow: visible; border-radius: 0; }
+.pod__visual--cutout img { aspect-ratio: auto; object-fit: contain; max-height: 360px; filter: drop-shadow(0 12px 30px rgba(0,0,0,.45)); }
+/* Viewfinder-Brackets entfernt */
+
+.pod__label {
+  display:flex; align-items:center; gap:14px;
+  font-size:13px; font-weight:800;
+  text-transform:uppercase; letter-spacing:.22em;
+  color:#E8652B; margin-bottom:14px; width:fit-content;
+}
+.pod__label::before {
+  content:''; display:inline-block;
+  width:36px; height:2px; background:#E8652B;
+}
+.pod h2 em { color:#E8652B; font-style:normal; }
+.pod__principles {
+  display:flex; align-items:center; gap:14px;
+  margin:28px 0 32px;
+  padding:18px 0;
+  border-top:1px solid rgba(255,255,255,.08);
+  border-bottom:1px solid rgba(255,255,255,.08);
+  font-size:15px; font-weight:700;
+  color:rgba(255,255,255,.92);
+  letter-spacing:.02em;
+}
+.pod__dot { color:#E8652B; font-size:18px; font-weight:900; }
+.pod h2 { font-size:38px !important; letter-spacing:-.03em; line-height:1.1; margin-bottom:16px; }
+
+@media (max-width: 768px) {
+  .pod__card { grid-template-columns: 1fr; padding: 48px 28px; }
+  .pod__visual { max-width:60%; margin:0 auto; }
+  .pod__visual img { aspect-ratio:1/1; }
+}
+</style>
+
+<section class="pod anim" data-anim="scale-in">
+  <div class="pod__card">
+    <div>
+      <span class="pod__label">Mein Podcast</span>
+      <h2>Zuhören. Nachfragen. <em>Verstehen.</em></h2>
+      <p>Jeder hat was erlebt. <strong>Ich frag einfach nach was dahintersteckt.</strong></p>
+      <div class="pod__principles">
+        <span>Offen</span>
+        <span class="pod__dot">·</span>
+        <span>Ehrlich</span>
+        <span class="pod__dot">·</span>
+        <span>Ungefiltert</span>
+      </div>
+      <div class="pod__links">
+        <a href="https://open.spotify.com/show/2oy3STHJ32W3dPG2nFrafn" target="_blank" rel="noopener" class="pod__link pod__link--spotify">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+          Spotify
+        </a>
+        <a href="https://www.youtube.com/channel/UCA-9U5fk0X307a5lJ49j6Kg" target="_blank" rel="noopener" class="pod__link">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          YouTube
+        </a>
+      </div>
+    </div>
+    <!-- Rechte Spalte: 6 Folgen-Cover als schräger 3x2 Grid statt Philipp-Foto -->
+    <div class="pod__covers-grid" aria-hidden="true">
+      <div class="pod__cover"><img src="img/podcast-folge-1.jpg?v=37" alt="" loading="lazy"></div>
+      <div class="pod__cover"><img src="img/podcast-folge-2.jpg?v=37" alt="" loading="lazy"></div>
+      <div class="pod__cover"><img src="img/podcast-folge-3.jpg?v=37" alt="" loading="lazy"></div>
+      <div class="pod__cover"><img src="img/podcast-folge-4.jpg?v=37" alt="" loading="lazy"></div>
+      <div class="pod__cover"><img src="img/podcast-folge-5.jpg?v=37" alt="" loading="lazy"></div>
+      <div class="pod__cover"><img src="img/podcast-folge-6.jpg?v=37" alt="" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+
 <!-- ═══════════════ SO LÄUFT DAS — Vertikale Steps ═══════════════ -->
 <style>
 .process {
@@ -1251,136 +1381,6 @@
         <div class="reel-card" data-video="videos/event-sebastian-leeges.mp4"><div class="reel-card__thumb"><img src="thumbnails/event-sebastian-leeges.jpg?v=41" alt="Sebastian Leeges"><div class="reel-card__play"><div class="reel-card__play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div></div><div class="reel-card__info"><div class="reel-card__name">Sebastian Leeges</div><div class="reel-card__desc">Interview</div></div></div>
       </div>
       <div class="carousel-dots" id="carouselDots"></div>
-    </div>
-  </div>
-</section>
-
-
-<!-- ═══════════════ PODCAST ═══════════════ -->
-<style>
-.pod { background: #f5f3ef; padding: 140px 5% 140px; position: relative; overflow: hidden; }
-
-/* Podcast-Cover als überlappende Polaroids OBEN und UNTEN in der linken Textspalte.
-   3 oben über der Headline, 3 unten unter den Buttons. Rechtes Bild bleibt unberührt. */
-/* Podcast-Cover als rechte Spalte: 3x2 Grid, leicht rotiert, überlappend. */
-.pod__covers-grid {
-  display:grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  gap:18px;
-  padding:8px 0;
-}
-.pod__cover {
-  width:100%; aspect-ratio:16/9;
-  border-radius:12px; overflow:hidden;
-  background:#0a0808;
-  box-shadow:0 18px 38px rgba(0,0,0,.55), 0 4px 12px rgba(0,0,0,.35), inset 0 0 0 1.5px rgba(255,255,255,.08);
-  transition:transform .7s cubic-bezier(.4, 0, .2, 1), box-shadow .7s cubic-bezier(.4, 0, .2, 1);
-}
-.pod__cover:hover {
-  box-shadow:0 22px 44px rgba(0,0,0,.6), 0 6px 14px rgba(0,0,0,.4), inset 0 0 0 1.5px rgba(255,255,255,.12);
-}
-.pod__cover img { width:100%; height:100%; object-fit:cover; display:block; }
-.pod__covers-grid .pod__cover:nth-child(1) { transform:rotate(-4deg) translateX(-6px); }
-.pod__covers-grid .pod__cover:nth-child(2) { transform:rotate(3deg) translateX(6px); }
-.pod__covers-grid .pod__cover:nth-child(3) { transform:rotate(4deg) translateX(-4px); }
-.pod__covers-grid .pod__cover:nth-child(4) { transform:rotate(-3deg) translateX(8px); }
-.pod__covers-grid .pod__cover:nth-child(5) { transform:rotate(-5deg) translateX(-8px); }
-.pod__covers-grid .pod__cover:nth-child(6) { transform:rotate(5deg) translateX(6px); }
-.pod__covers-grid .pod__cover:hover { transform:translateY(-6px) scale(1.035) rotate(0); z-index:5; }
-
-@media (max-width:900px) {
-  .pod { padding: 80px 5% 80px; }
-}
-.pod__card {
-  max-width: 1180px; margin: 0 auto;
-  display: grid; grid-template-columns: 1fr 1.1fr; gap: 56px; align-items: center;
-  background: #141210; border-radius: 26px; padding: 84px 64px;
-  position: relative; overflow: hidden; color:#fff;
-}
-.pod h2 { font-size: 28px; font-weight: 800; margin-bottom: 12px; color:#fff; }
-.pod p { font-size: 16px; color: rgba(255,255,255,.82); line-height: 1.7; margin-bottom: 20px; font-weight:500; }
-.pod p b, .pod p strong { color:#fff; font-weight:700; }
-.pod__links { display: flex; gap: 10px; flex-wrap: wrap; }
-.pod__link {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 10px 18px; background: rgba(255,255,255,.06); border-radius: 50px;
-  font-size: 14px; font-weight: 600; color:#fff;
-  border: 1px solid rgba(255,255,255,.08); transition: border-color .2s, transform .2s;
-}
-.pod__link:hover { border-color: rgba(232,101,43,.3); transform: translateY(-2px); }
-.pod__link svg { width: 18px; height: 18px; }
-.pod__link--spotify svg { color: #1DB954; }
-.pod__visual { border-radius: 16px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,.06); position: relative; }
-.pod__visual img { width: 100%; aspect-ratio: 4/5; object-fit: cover; }
-/* Cutout-Variante: kein Hintergrund, kein Schatten, transparenter PNG schwebt frei */
-.pod__visual--cutout { box-shadow: none; overflow: visible; border-radius: 0; }
-.pod__visual--cutout img { aspect-ratio: auto; object-fit: contain; max-height: 360px; filter: drop-shadow(0 12px 30px rgba(0,0,0,.45)); }
-/* Viewfinder-Brackets entfernt */
-
-.pod__label {
-  display:flex; align-items:center; gap:14px;
-  font-size:13px; font-weight:800;
-  text-transform:uppercase; letter-spacing:.22em;
-  color:#E8652B; margin-bottom:14px; width:fit-content;
-}
-.pod__label::before {
-  content:''; display:inline-block;
-  width:36px; height:2px; background:#E8652B;
-}
-.pod h2 em { color:#E8652B; font-style:normal; }
-.pod__principles {
-  display:flex; align-items:center; gap:14px;
-  margin:28px 0 32px;
-  padding:18px 0;
-  border-top:1px solid rgba(255,255,255,.08);
-  border-bottom:1px solid rgba(255,255,255,.08);
-  font-size:15px; font-weight:700;
-  color:rgba(255,255,255,.92);
-  letter-spacing:.02em;
-}
-.pod__dot { color:#E8652B; font-size:18px; font-weight:900; }
-.pod h2 { font-size:38px !important; letter-spacing:-.03em; line-height:1.1; margin-bottom:16px; }
-
-@media (max-width: 768px) {
-  .pod__card { grid-template-columns: 1fr; padding: 48px 28px; }
-  .pod__visual { max-width:60%; margin:0 auto; }
-  .pod__visual img { aspect-ratio:1/1; }
-}
-</style>
-
-<section class="pod anim" data-anim="scale-in">
-  <div class="pod__card">
-    <div>
-      <span class="pod__label">Mein Podcast</span>
-      <h2>Zuhören. Nachfragen. <em>Verstehen.</em></h2>
-      <p>Jeder hat was erlebt. <strong>Ich frag einfach nach was dahintersteckt.</strong></p>
-      <div class="pod__principles">
-        <span>Offen</span>
-        <span class="pod__dot">·</span>
-        <span>Ehrlich</span>
-        <span class="pod__dot">·</span>
-        <span>Ungefiltert</span>
-      </div>
-      <div class="pod__links">
-        <a href="https://open.spotify.com/show/2oy3STHJ32W3dPG2nFrafn" target="_blank" rel="noopener" class="pod__link pod__link--spotify">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
-          Spotify
-        </a>
-        <a href="https://www.youtube.com/channel/UCA-9U5fk0X307a5lJ49j6Kg" target="_blank" rel="noopener" class="pod__link">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-          YouTube
-        </a>
-      </div>
-    </div>
-    <!-- Rechte Spalte: 6 Folgen-Cover als schräger 3x2 Grid statt Philipp-Foto -->
-    <div class="pod__covers-grid" aria-hidden="true">
-      <div class="pod__cover"><img src="img/podcast-folge-1.jpg?v=37" alt="" loading="lazy"></div>
-      <div class="pod__cover"><img src="img/podcast-folge-2.jpg?v=37" alt="" loading="lazy"></div>
-      <div class="pod__cover"><img src="img/podcast-folge-3.jpg?v=37" alt="" loading="lazy"></div>
-      <div class="pod__cover"><img src="img/podcast-folge-4.jpg?v=37" alt="" loading="lazy"></div>
-      <div class="pod__cover"><img src="img/podcast-folge-5.jpg?v=37" alt="" loading="lazy"></div>
-      <div class="pod__cover"><img src="img/podcast-folge-6.jpg?v=37" alt="" loading="lazy"></div>
     </div>
   </div>
 </section>
