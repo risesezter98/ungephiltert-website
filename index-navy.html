@@ -1633,7 +1633,8 @@
     pointerHorizontal = false;
     activePointerId = e.pointerId;
     carouselDragging = false;
-    try { carouselEl.setPointerCapture(e.pointerId); } catch(_){}
+    // KEIN setPointerCapture — sonst fangen wir die Clicks ab und
+    // die Per-Karte-Click-Listener feuern nicht mehr.
     carouselEl.style.cursor = 'grabbing';
   });
 
