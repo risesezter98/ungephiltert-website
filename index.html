@@ -1755,24 +1755,26 @@
     var hoverVid = thumb && thumb.querySelector('video.hover-preview');
     if (hoverVid) { hoverVid.pause(); hoverVid.src = ''; hoverVid.remove(); }
 
-    // Clean-Play Video starten
+    // Clean-Play Video starten — muted starten, nach play() unmuten.
+    // (Browser erlauben muted-Autoplay immer; Unmute nach Play-Start ist ok.)
     var vid = document.createElement('video');
     vid.className = 'inline-player';
     vid.src = card.dataset.video;
     vid.playsInline = true;
     vid.controls = false;
     vid.loop = false;
-    vid.muted = false;
+    vid.muted = true;
     vid.volume = 1.0;
     vid.disablePictureInPicture = true;
     vid.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:10;border-radius:16px;cursor:pointer;';
     vid.addEventListener('ended', function(){ vid.remove(); });
     card.appendChild(vid);
-    // Explizit play() im Click-Context, damit Browser Sound erlaubt.
-    // Falls Browser Autoplay-mit-Sound blockiert, Fallback auf stumm.
     var playPromise = vid.play();
-    if (playPromise && typeof playPromise.catch === 'function') {
-      playPromise.catch(function(){ vid.muted = true; vid.play().catch(function(){}); });
+    function unmute(){ vid.muted = false; vid.volume = 1.0; }
+    if (playPromise && typeof playPromise.then === 'function') {
+      playPromise.then(unmute).catch(function(){});
+    } else {
+      unmute();
     }
   });
 
