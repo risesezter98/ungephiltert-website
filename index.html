@@ -1721,60 +1721,59 @@
     });
   });
 
-  // === EVENT-KARTEN: Ein zentraler Click-Handler per Event-Delegation ===
-  // Seitliche Karte → springt dorthin. Aktive Karte → Clean-Play Video.
-  carouselEl.addEventListener('click', function(e){
-    // Clicks auf Pfeile/Dots durchlassen (eigene Handler)
-    if (e.target.closest('.carousel-nav') || e.target.closest('.carousel-dot')) return;
+  // === EVENT-KARTEN: Einzel-Click-Listener pro Karte (wie Bento) ===
+  // Delegated Click via carouselEl wird von Chrome Desktop nicht als direkte
+  // User-Geste gewertet (Pointer-Capture), deshalb kein Sound. Direkt-Listener auf
+  // der Karte selbst = trusted gesture = Sound erlaubt.
+  carouselCards.forEach(function(card){
+    card.addEventListener('click', function(e){
+      // Echter Swipe hat stattgefunden → Klick unterdruecken
+      if (carouselDragging) { carouselDragging = false; return; }
 
-    var card = e.target.closest('.reel-card[data-video]');
-    if (!card) return;
+      var clickedIndex = carouselCards.indexOf(card);
 
-    // Echter Swipe hat stattgefunden → Klick unterdruecken
-    if (carouselDragging) { carouselDragging = false; return; }
+      // Seitliche Karte → springe dorthin
+      if (clickedIndex !== -1 && clickedIndex !== currentIndex) {
+        e.preventDefault();
+        carouselCards.forEach(function(c){
+          var v = c.querySelector('video.inline-player');
+          if (v) { v.pause(); v.remove(); }
+        });
+        goTo(clickedIndex);
+        return;
+      }
 
-    e.preventDefault();
-    var clickedIndex = carouselCards.indexOf(card);
+      // Aktive Karte: Video toggle
+      e.preventDefault();
+      var existingVid = card.querySelector('video.inline-player');
+      if (existingVid) { existingVid.pause(); existingVid.remove(); return; }
 
-    // Seitliche Karte → springe dorthin
-    if (clickedIndex !== -1 && clickedIndex !== currentIndex) {
-      carouselCards.forEach(function(c){
-        var v = c.querySelector('video.inline-player');
-        if (v) { v.pause(); v.remove(); }
-      });
-      goTo(clickedIndex);
-      return;
-    }
+      // Hover-Preview entfernen
+      var thumb = card.querySelector('.reel-card__thumb');
+      var hoverVid = thumb && thumb.querySelector('video.hover-preview');
+      if (hoverVid) { hoverVid.pause(); hoverVid.src = ''; hoverVid.remove(); }
 
-    // Aktive Karte: Video toggle
-    var existingVid = card.querySelector('video.inline-player');
-    if (existingVid) { existingVid.pause(); existingVid.remove(); return; }
-
-    // Hover-Preview entfernen
-    var thumb = card.querySelector('.reel-card__thumb');
-    var hoverVid = thumb && thumb.querySelector('video.hover-preview');
-    if (hoverVid) { hoverVid.pause(); hoverVid.src = ''; hoverVid.remove(); }
-
-    // Clean-Play Video starten.
-    // Chrome Desktop blockt Sound-Autoplay bei niedrigem Media Engagement Index.
-    // Trick: muted starten (immer erlaubt) -> play() -> SYNCHRON unmuten,
-    // solange die Click-Geste noch aktiv ist.
-    var vid = document.createElement('video');
-    vid.className = 'inline-player';
-    vid.src = card.dataset.video;
-    vid.playsInline = true;
-    vid.controls = false;
-    vid.loop = false;
-    vid.muted = true;
-    vid.disablePictureInPicture = true;
-    vid.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:10;border-radius:16px;cursor:pointer;';
-    vid.addEventListener('ended', function(){ vid.remove(); });
-    card.appendChild(vid);
-    var p = vid.play();
-    if (p && typeof p.catch === 'function') p.catch(function(){});
-    // Direkt synchron unmuten — User-Geste ist noch gueltig.
-    vid.muted = false;
-    vid.volume = 1.0;
+      // Clean-Play Video — direkter Click-Handler, play() mit Sound erlaubt
+      var vid = document.createElement('video');
+      vid.className = 'inline-player';
+      vid.src = card.dataset.video;
+      vid.playsInline = true;
+      vid.controls = false;
+      vid.loop = false;
+      vid.disablePictureInPicture = true;
+      vid.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:10;border-radius:16px;cursor:pointer;';
+      vid.addEventListener('ended', function(){ vid.remove(); });
+      card.appendChild(vid);
+      // Direkter Play-Aufruf im Click-Context — Sound erlaubt.
+      // Fallback: falls Browser trotzdem blockt, muted starten und spaeter unmuten.
+      var p = vid.play();
+      if (p && typeof p.catch === 'function') {
+        p.catch(function(){
+          vid.muted = true;
+          vid.play().then(function(){ vid.muted = false; vid.volume = 1.0; }).catch(function(){});
+        });
+      }
+    });
   });
 
   // Smooth scroll
