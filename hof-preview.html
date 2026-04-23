@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Hof — 5 zentrierte Mini-Designs</title>
+<title>Hof — Designs (V2)</title>
 <style>
   *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
   body { background: #f0f4f9; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #0d1f35; }
@@ -34,216 +34,223 @@
   .vhead p { font-size: 14px; color: rgba(255,255,255,.7); max-width: 780px; line-height: 1.5; }
   .vhead__tag { display:inline-block; background:#F47B20; color:#fff; font-size:10px; font-weight:800; letter-spacing:.15em; padding:3px 9px; border-radius:3px; margin-bottom:10px; }
 
-  /* Alle Hof-Bilder kriegen ein sanftes einheitliches Treatment fuer Farb-Harmonie */
-  .hof-img { filter: saturate(.75) contrast(1.04) brightness(.97); }
+  .hof-img { filter: saturate(.85) contrast(1.04); }
 
-  /* ═══ V1 — SINGLE HERO: ein mittiges Bild mit Ueberlagerung ═══ */
-  .h1 {
-    background: #1a1816; color: #fff;
-    padding: 100px 5% 100px;
+  /* ════════════════════════════════════════════
+     V1 — 2 BILDER MITTIG, 1 ZEILE TEXT DARUNTER
+     Bilder oben, kurzer Fakt-Satz darunter.
+     ════════════════════════════════════════════ */
+  .a1 {
+    background: #f6f2ec; padding: 90px 5% 90px; text-align: center;
   }
-  .h1__inner { max-width: 880px; margin: 0 auto; text-align: center; }
-  .h1__kicker { font-size: 12px; font-weight: 800; letter-spacing: .28em; color: #F47B20; margin-bottom: 14px; text-transform: uppercase; }
-  .h1__hd { font-size: clamp(28px, 3.6vw, 42px); font-weight: 800; line-height: 1.15; margin-bottom: 36px; letter-spacing: -.02em; }
-  .h1__hd em { color: #F47B20; font-style: normal; }
-  .h1__img {
-    position: relative;
-    width: 100%; aspect-ratio: 16/9;
-    overflow: hidden;
-    border-radius: 8px;
-    box-shadow: 0 40px 80px rgba(0,0,0,.5);
+  .a1__inner { max-width: 900px; margin: 0 auto; }
+  .a1__pair {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
   }
-  .h1__img img { width: 100%; height: 100%; object-fit: cover; }
-  .h1__cap {
-    font-size: 13px; font-weight: 600; color: rgba(255,255,255,.6);
-    margin-top: 18px; letter-spacing: .02em;
+  .a1__pair figure {
+    aspect-ratio: 4/3; overflow: hidden;
+    border-radius: 6px; background:#ddd;
+    box-shadow: 0 16px 36px rgba(13,31,53,.18);
   }
+  .a1__pair img { width:100%; height:100%; object-fit: cover; }
+  .a1__line {
+    font-size: 16px; color: #1a1a1a; line-height: 1.6;
+    margin-top: 32px; font-weight: 500;
+    max-width: 620px; margin-left: auto; margin-right: auto;
+  }
+  .a1__line strong { font-weight: 700; color: #0d1f35; }
+  @media (max-width: 700px) { .a1__pair { grid-template-columns: 1fr; } }
 
-  /* ═══ V2 — DUAL CENTERED: 2 Bilder nebeneinander mittig ═══ */
-  .h2 {
-    background: #f6f2ec; color: #1a1a1a;
-    padding: 100px 5% 100px;
+  /* ════════════════════════════════════════════
+     V2 — EINE ZEILE LINKS, EIN BILD RECHTS
+     Aber schmal & mittig (max 860px), 60/40 Verhältnis.
+     ════════════════════════════════════════════ */
+  .a2 {
+    background: #1a1816; color: #fff; padding: 90px 5% 90px;
   }
-  .h2__inner { max-width: 900px; margin: 0 auto; text-align: center; }
-  .h2__kicker { font-size: 12px; font-weight: 800; letter-spacing: .26em; color: #F47B20; margin-bottom: 12px; text-transform: uppercase; }
-  .h2__hd { font-size: clamp(26px, 3.2vw, 36px); font-weight: 800; line-height: 1.2; margin-bottom: 36px; color: #0d1f35; letter-spacing: -.02em; max-width: 620px; margin-left: auto; margin-right: auto; }
-  .h2__hd em { color: #F47B20; font-style: normal; }
-  .h2__pair {
+  .a2__inner {
+    max-width: 880px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 36px;
+    align-items: center;
+  }
+  .a2__text {}
+  .a2__kicker { font-size: 12px; font-weight: 800; letter-spacing: .24em; color: #F47B20; margin-bottom: 14px; text-transform: uppercase; }
+  .a2__sent { font-size: 22px; line-height: 1.45; font-weight: 500; color: #fff; }
+  .a2__sent strong { font-weight: 700; color: #F47B20; }
+  .a2__img {
+    aspect-ratio: 4/5; border-radius: 6px; overflow: hidden;
+    box-shadow: 0 28px 60px rgba(0,0,0,.5);
+  }
+  .a2__img img { width:100%; height:100%; object-fit: cover; }
+  @media (max-width: 700px) { .a2__inner { grid-template-columns: 1fr; } }
+
+  /* ════════════════════════════════════════════
+     V3 — 1 BILD GROSS MITTIG, TEXT DARUNTER
+     Luftbild groß, schmaler Text zentriert drunter.
+     ════════════════════════════════════════════ */
+  .a3 {
+    background: #fff; padding: 90px 5% 90px; text-align: center;
+    color: #0d1f35;
+  }
+  .a3__inner { max-width: 960px; margin: 0 auto; }
+  .a3__img {
+    aspect-ratio: 16/9; border-radius: 8px; overflow: hidden;
+    box-shadow: 0 30px 60px rgba(13,31,53,.2);
+  }
+  .a3__img img { width:100%; height:100%; object-fit: cover; }
+  .a3__line {
+    font-size: 17px; color: #1a1a1a; line-height: 1.6;
+    margin-top: 28px; font-weight: 500;
+    max-width: 580px; margin-left: auto; margin-right: auto;
+  }
+  .a3__line strong { color: #0d1f35; font-weight: 700; }
+
+  /* ════════════════════════════════════════════
+     V4 — SPLIT-CARD MITTIG: BILD + TEXT NEBENEINANDER
+     Eine Karte, halb Bild, halb Text. Kompakt.
+     ════════════════════════════════════════════ */
+  .a4 {
+    background: #eef1f7; padding: 90px 5% 90px;
+  }
+  .a4__card {
+    max-width: 920px; margin: 0 auto;
+    background: #fff;
+    border-radius: 10px; overflow: hidden;
+    box-shadow: 0 28px 60px rgba(13,31,53,.14);
     display: grid; grid-template-columns: 1fr 1fr;
-    gap: 16px;
   }
-  .h2__pair figure {
-    aspect-ratio: 4/5;
-    overflow: hidden;
-    border-radius: 4px;
-    background: #ddd;
-    box-shadow: 0 18px 38px rgba(0,0,0,.12);
+  .a4__img { aspect-ratio: 1/1; overflow: hidden; }
+  .a4__img img { width:100%; height:100%; object-fit: cover; }
+  .a4__body {
+    padding: 48px 44px;
+    display: flex; flex-direction: column; justify-content: center;
+    color: #0d1f35;
   }
-  .h2__pair img { width:100%; height:100%; object-fit: cover; }
-  @media (max-width: 700px) { .h2__pair { grid-template-columns: 1fr; } }
+  .a4__kicker { font-size: 12px; font-weight: 800; letter-spacing: .24em; color: #F47B20; margin-bottom: 14px; text-transform: uppercase; }
+  .a4__line { font-size: 17px; line-height: 1.7; color: #1a1a1a; font-weight: 500; }
+  .a4__line strong { color: #0d1f35; font-weight: 700; }
+  @media (max-width: 700px) { .a4__card { grid-template-columns: 1fr; } .a4__img { aspect-ratio: 16/10; } }
 
-  /* ═══ V3 — CINEMATIC BANNER: Full-width Drohne, Text überlagert mittig ═══ */
-  .h3 {
-    position: relative;
-    height: 70vh; min-height: 460px;
-    overflow: hidden;
-    display: flex; align-items: center; justify-content: center;
-    text-align: center;
-    background: #0d1f35;
+  /* ════════════════════════════════════════════
+     V5 — 2 BILDER NEBENEINANDER ALS BREITE KACHELN
+     Beide gleich, breites Hochformat. Text rechts
+     als schmale Spalte daneben.
+     ════════════════════════════════════════════ */
+  .a5 {
+    background: #f6f2ec; padding: 90px 5% 90px;
   }
-  .h3__bg {
-    position: absolute; inset: 0;
-    background: url('img/hof-drohne.jpg') center/cover no-repeat;
-    filter: brightness(.55) saturate(.7);
+  .a5__inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr auto; gap: 14px;
+    align-items: stretch;
   }
-  .h3__bg::after {
-    content:''; position: absolute; inset: 0;
-    background: linear-gradient(180deg, rgba(10,10,10,.2) 0%, rgba(10,10,10,.55) 100%);
+  .a5__inner figure {
+    aspect-ratio: 4/5; overflow: hidden; border-radius: 6px;
+    box-shadow: 0 14px 30px rgba(13,31,53,.14);
   }
-  .h3__content { position: relative; z-index: 1; max-width: 720px; padding: 0 5%; color: #fff; }
-  .h3__kicker { font-size: 12px; font-weight: 800; letter-spacing: .28em; color: #F47B20; margin-bottom: 18px; text-transform: uppercase; }
-  .h3__hd { font-size: clamp(32px, 4.8vw, 56px); font-weight: 800; line-height: 1.05; letter-spacing: -.03em; margin-bottom: 16px; }
-  .h3__hd em { color: #F47B20; font-style: normal; }
-  .h3__sub { font-size: 16px; color: rgba(255,255,255,.82); max-width: 520px; margin: 0 auto; line-height: 1.6; }
-
-  /* ═══ V4 — NARROW STACK: 1 Hero-Bild mittig schmal + 1 kleineres darunter ═══ */
-  .h4 {
-    background: #eef1f7; color: #0d1f35;
-    padding: 100px 5% 100px;
-  }
-  .h4__inner { max-width: 640px; margin: 0 auto; text-align: center; }
-  .h4__kicker { font-size: 12px; font-weight: 800; letter-spacing: .28em; color: #F47B20; margin-bottom: 12px; text-transform: uppercase; }
-  .h4__hd { font-size: clamp(26px, 3.2vw, 36px); font-weight: 800; line-height: 1.15; margin-bottom: 32px; letter-spacing: -.02em; }
-  .h4__hd em { color: #F47B20; font-style: normal; }
-  .h4__hero {
-    aspect-ratio: 4/3; border-radius: 6px; overflow: hidden;
-    box-shadow: 0 22px 48px rgba(13,31,53,.22);
-    margin-bottom: 14px;
-  }
-  .h4__hero img { width:100%; height:100%; object-fit: cover; }
-  .h4__small {
-    width: 55%; margin: 0 auto;
-    aspect-ratio: 1/1; border-radius: 6px; overflow: hidden;
-    box-shadow: 0 16px 32px rgba(13,31,53,.2);
-  }
-  .h4__small img { width:100%; height:100%; object-fit: cover; }
-  .h4__line { font-size: 13px; color: #555; margin-top: 16px; font-weight: 500; }
-
-  /* ═══ V5 — BEFORE/AFTER SLIDER: Drohne oben, Küken unten als diptych mittig ═══ */
-  .h5 {
-    background: #1a1816; color: #fff;
-    padding: 110px 5% 110px;
-  }
-  .h5__inner { max-width: 760px; margin: 0 auto; text-align: center; }
-  .h5__kicker { font-size: 12px; font-weight: 800; letter-spacing: .28em; color: #F47B20; margin-bottom: 14px; text-transform: uppercase; }
-  .h5__hd { font-size: clamp(28px, 3.6vw, 44px); font-weight: 800; line-height: 1.1; margin-bottom: 34px; letter-spacing: -.02em; }
-  .h5__hd em { color: #F47B20; font-style: normal; }
-  .h5__diptych {
-    display: grid; grid-template-rows: 1fr 1fr;
-    gap: 8px;
-    max-width: 540px; margin: 0 auto;
-  }
-  .h5__diptych figure {
-    aspect-ratio: 16/9; overflow: hidden;
+  .a5__inner figure img { width:100%; height:100%; object-fit: cover; }
+  .a5__text {
+    align-self: center;
+    max-width: 240px;
+    padding: 0 0 0 16px;
     border-left: 3px solid #F47B20;
   }
-  .h5__diptych img { width:100%; height:100%; object-fit: cover; }
-  .h5__line { font-size: 13px; color: rgba(255,255,255,.55); margin-top: 22px; font-weight: 500; letter-spacing: .02em; }
-
+  .a5__kicker { font-size: 11px; font-weight: 800; letter-spacing: .2em; color: #F47B20; margin-bottom: 10px; text-transform: uppercase; }
+  .a5__line { font-size: 15px; line-height: 1.55; color: #1a1a1a; font-weight: 500; }
+  .a5__line strong { color: #0d1f35; font-weight: 700; }
+  @media (max-width: 820px) {
+    .a5__inner { grid-template-columns: 1fr 1fr; }
+    .a5__text { grid-column: 1 / 3; max-width: 100%; border-left: none; border-top: 3px solid #F47B20; padding: 18px 0 0; }
+  }
 </style>
 </head>
 <body>
 
 <nav class="vnav">
-  <span class="vnav__title">Hof — 5 zentrierte Designs</span>
-  <a href="#v1">V1 · Hero</a>
-  <a href="#v2">V2 · Dual</a>
-  <a href="#v3">V3 · Cinematic</a>
-  <a href="#v4">V4 · Stack</a>
-  <a href="#v5">V5 · Diptych</a>
+  <span class="vnav__title">Hof — V2 Designs (lakonisch)</span>
+  <a href="#v1">V1 · 2er Grid + Zeile</a>
+  <a href="#v2">V2 · Text/Bild 50/50</a>
+  <a href="#v3">V3 · Banner + Text</a>
+  <a href="#v4">V4 · Split Card</a>
+  <a href="#v5">V5 · 2 Bilder + Seitenspalte</a>
   <a href="index.html" style="margin-left:auto; background:#F47B20;">← zurück</a>
 </nav>
 
-<!-- V1 -->
+<!-- ════ V1 ════ -->
 <header class="vhead" id="v1">
-  <span class="vhead__tag">V1 · SINGLE HERO</span>
-  <h2>Ein einziges mittiges Bild, Headline drüber</h2>
-  <p>Nur die Drohnen-Aufnahme. Mittig, ruhig, cinematisch. Der Text sitzt darüber zentriert. Dunkler Hintergrund, wirkt wie ein Filmstill. Kein zusätzlicher Schnickschnack.</p>
+  <span class="vhead__tag">V1 · ZWEI BILDER + EIN SATZ DARUNTER</span>
+  <h2>2 Bilder nebeneinander, darunter ein Fakt-Satz</h2>
+  <p>Einfacher geht kaum. Mittig auf warmem Cream. Bilder sprechen selbst. Der Satz darunter sagt was ist — ohne Story.</p>
 </header>
-<section class="h1">
-  <div class="h1__inner">
-    <div class="h1__kicker">Zuhause in Anzefahr</div>
-    <h2 class="h1__hd">Bevor ich gefilmt hab, <em>war da der Hof.</em></h2>
-    <div class="h1__img">
-      <img class="hof-img" src="img/hof-drohne.jpg" alt="">
+<section class="a1">
+  <div class="a1__inner">
+    <div class="a1__pair">
+      <figure><img class="hof-img" src="img/hof-drohne.jpg" alt=""></figure>
+      <figure><img class="hof-img" src="img/hof-huehner.jpg" alt=""></figure>
     </div>
-    <p class="h1__cap">Geflügelhof Reinkemeier · dritte Generation</p>
+    <p class="a1__line">Nebenbei studier ich <strong>Agrarwissenschaft</strong>. Und zuhause in Anzefahr hat meine Familie einen <strong>Hühnerhof in dritter Generation.</strong></p>
   </div>
 </section>
 
-<!-- V2 -->
+<!-- ════ V2 ════ -->
 <header class="vhead" id="v2">
-  <span class="vhead__tag">V2 · DUAL CENTERED</span>
-  <h2>2 Bilder nebeneinander, mittig auf warmem Cream</h2>
-  <p>Drohne + Küken im gleichen Hochformat, sanft desaturiert für Farbharmonie. Warme Beige-Fläche als Ruhepol zwischen Navy oben und Hellblau unten. Headline schlicht darüber.</p>
+  <span class="vhead__tag">V2 · TEXT LINKS, BILD RECHTS</span>
+  <h2>Halb/Halb mittig, dunkel</h2>
+  <p>Auf der linken Seite der Fakt-Satz, rechts ein Hochformat-Bild. Schmal, mittig, dunkler Hintergrund. Wirkt wie ein Editorial-Einschub.</p>
 </header>
-<section class="h2">
-  <div class="h2__inner">
-    <div class="h2__kicker">Zuhause</div>
-    <h2 class="h2__hd">Anzefahr. Wo ich <em>herkomme.</em></h2>
-    <div class="h2__pair">
-      <figure><img class="hof-img" src="img/hof-drohne.jpg" alt=""></figure>
-      <figure><img class="hof-img" src="img/hof-kueken.jpg" alt=""></figure>
+<section class="a2">
+  <div class="a2__inner">
+    <div class="a2__text">
+      <div class="a2__kicker">Nebenbei</div>
+      <p class="a2__sent">Ich studier <strong>Agrarwissenschaft</strong>. Und meine Familie hat einen <strong>Hühnerhof in Anzefahr.</strong> Dritte Generation.</p>
     </div>
+    <div class="a2__img"><img class="hof-img" src="img/hof-huehner.jpg" alt=""></div>
   </div>
 </section>
 
-<!-- V3 -->
+<!-- ════ V3 ════ -->
 <header class="vhead" id="v3">
-  <span class="vhead__tag">V3 · CINEMATIC BANNER</span>
-  <h2>Full-width Drohne als Bühne, Text mittig überlagert</h2>
-  <p>Die Aufnahme füllt die ganze Breite, stark abgedunkelt, der Text schwebt mittig drüber. Fühlt sich an wie ein Filmmoment. Kein Rand, keine Kachel, keine Grenzen.</p>
+  <span class="vhead__tag">V3 · LUFTBILD GROSS, TEXT DARUNTER</span>
+  <h2>Ein Bild breit, 2 Zeilen darunter</h2>
+  <p>Das Drohnenfoto füllt die Mitte. Darunter kurz und knapp was Sache ist. Weißer Hintergrund, sauber, kein Drama.</p>
 </header>
-<section class="h3">
-  <div class="h3__bg"></div>
-  <div class="h3__content">
-    <div class="h3__kicker">Zuhause · Anzefahr</div>
-    <h2 class="h3__hd">Bevor die Kamera lief, <em>war da der Hof.</em></h2>
-    <p class="h3__sub">Geflügelhof Reinkemeier. Dritte Generation. Hier hab ich gelernt, dass Arbeit an einer Sache, die einem Spaß macht, am Ende zum Ziel führt.</p>
+<section class="a3">
+  <div class="a3__inner">
+    <div class="a3__img"><img class="hof-img" src="img/hof-drohne.jpg" alt=""></div>
+    <p class="a3__line">Zuhause in Anzefahr. Meine Familie hat hier einen <strong>Hühnerhof</strong>, dritte Generation. Wenn ich nicht grad film oder studier, helf ich mit.</p>
   </div>
 </section>
 
-<!-- V4 -->
+<!-- ════ V4 ════ -->
 <header class="vhead" id="v4">
-  <span class="vhead__tag">V4 · NARROW STACK</span>
-  <h2>Schmale Spalte mittig — 1 großes + 1 kleines Bild</h2>
-  <p>Maximal 640px breit. Drohne groß oben, Küken klein und rund zentriert darunter. Hellblauer Hintergrund matchen zum Podcast-Section-Ton. Ruhig, fokussiert.</p>
+  <span class="vhead__tag">V4 · SPLIT-CARD</span>
+  <h2>Eine Karte mittig, halb Bild halb Text</h2>
+  <p>Kompakter Block, 50/50 Aufteilung. Bild Hühner links, Text rechts. Fühlt sich an wie eine kleine Referenz-Kachel.</p>
 </header>
-<section class="h4">
-  <div class="h4__inner">
-    <div class="h4__kicker">Zuhause</div>
-    <h2 class="h4__hd">Anzefahr ist der Ort <em>der mich macht.</em></h2>
-    <div class="h4__hero"><img class="hof-img" src="img/hof-drohne.jpg" alt=""></div>
-    <div class="h4__small"><img class="hof-img" src="img/hof-kueken.jpg" alt=""></div>
-    <p class="h4__line">Geflügelhof Reinkemeier. Dritte Generation. Junghennen-Aufzucht.</p>
+<section class="a4">
+  <div class="a4__card">
+    <div class="a4__img"><img class="hof-img" src="img/hof-huehner.jpg" alt=""></div>
+    <div class="a4__body">
+      <div class="a4__kicker">Nebenbei</div>
+      <p class="a4__line">Ich studier <strong>Agrarwissenschaft</strong>. Zuhause in Anzefahr haben wir einen <strong>Hühnerhof</strong>, dritte Generation.</p>
+    </div>
   </div>
 </section>
 
-<!-- V5 -->
+<!-- ════ V5 ════ -->
 <header class="vhead" id="v5">
-  <span class="vhead__tag">V5 · DIPTYCH MIT ORANGE RAND</span>
-  <h2>Zwei schmale Bilder übereinander, Orange-Border links</h2>
-  <p>Drohne und Küken untereinander als Diptychon. Links je eine Orange-Linie als Akzent. Mittig zentriert, schmal (max 540px). Dunkler Hintergrund. Minimalistisch und editorial.</p>
+  <span class="vhead__tag">V5 · ZWEI BILDER + SEITENSPALTE</span>
+  <h2>2 Hochformat-Bilder nebeneinander, schmaler Text-Streifen rechts</h2>
+  <p>Asymmetrisch aber mittig ausgerichtet. Links 2 Bilder gleich groß, rechts ein orange-gerandeter Satz als Seitenspalte. Magazin-Feel ohne Drama.</p>
 </header>
-<section class="h5">
-  <div class="h5__inner">
-    <div class="h5__kicker">Zuhause</div>
-    <h2 class="h5__hd">Alles fängt in <em>Anzefahr</em> an.</h2>
-    <div class="h5__diptych">
-      <figure><img class="hof-img" src="img/hof-drohne.jpg" alt=""></figure>
-      <figure><img class="hof-img" src="img/hof-kueken.jpg" alt=""></figure>
+<section class="a5">
+  <div class="a5__inner">
+    <figure><img class="hof-img" src="img/hof-drohne.jpg" alt=""></figure>
+    <figure><img class="hof-img" src="img/hof-huehner.jpg" alt=""></figure>
+    <div class="a5__text">
+      <div class="a5__kicker">Nebenbei</div>
+      <p class="a5__line">Studium läuft. Und der Hof auch. <strong>Dritte Generation Hühnerhof</strong> in Anzefahr.</p>
     </div>
-    <p class="h5__line">Geflügelhof Reinkemeier · dritte Generation</p>
   </div>
 </section>
 
