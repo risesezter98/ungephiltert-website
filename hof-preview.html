@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Hof — Mini-Varianten</title>
+<title>Kurz zu mir — Copy-Varianten</title>
 <style>
   *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
   body { background: #f0f4f9; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #0d1f35; }
@@ -32,249 +32,204 @@
     border-top: 3px solid #F47B20;
   }
   .vhead h2 { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
-  .vhead p { font-size: 14px; color: rgba(255,255,255,.7); max-width: 680px; line-height: 1.5; }
+  .vhead p { font-size: 14px; color: rgba(255,255,255,.7); max-width: 780px; line-height: 1.5; }
   .vhead__tag { display:inline-block; background:#F47B20; color:#fff; font-size:10px; font-weight:800; letter-spacing:.15em; padding:3px 9px; border-radius:3px; margin-bottom:10px; }
 
-  /* Fake nachgebaute About-Section davor, damit man sieht wie es sich einfügt */
-  .fake-about {
-    background: #141210; padding: 90px 5%; color: #fff;
+  /* About-Sektion Kopie (exakt wie in index.html Navy) */
+  .about {
+    background: #141210; padding: 100px 5% 110px; position: relative; overflow: hidden; color: #fff;
   }
-  .fake-about__inner {
-    max-width: 1100px; margin: 0 auto;
+  .about__inner {
+    max-width: 1100px; margin: 0 auto; position: relative; z-index: 1;
     display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: center;
   }
-  .fake-about__label {
-    display:inline-flex; align-items:center; gap:12px;
-    font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:.22em;
-    color:#F47B20; margin-bottom:14px;
+  .about__label {
+    display:flex; align-items:center; gap:14px;
+    font-size:13px; font-weight:800; text-transform:uppercase; letter-spacing:.22em;
+    color:#F47B20; margin-bottom:16px; width:fit-content;
   }
-  .fake-about__label::before { content:''; width:34px; height:2px; background:#F47B20; }
-  .fake-about h2 {
-    font-size: clamp(30px, 4vw, 44px); font-weight: 800;
-    line-height: 1.05; margin-bottom: 18px;
+  .about__label::before { content:''; width:36px; height:2px; background:#F47B20; }
+  .about__title {
+    font-size: clamp(32px, 4.5vw, 50px); font-weight: 800;
+    line-height: 1.08; letter-spacing: -.03em; margin-bottom: 20px; color: #fff;
   }
-  .fake-about p { font-size: 16px; line-height: 1.7; color: rgba(255,255,255,.8); margin-bottom: 12px; }
-  .fake-about__photo {
-    aspect-ratio: 4/5; border-radius: 6px; overflow: hidden;
-    box-shadow: 0 20px 40px rgba(0,0,0,.4);
-    background: #333;
+  .about__title em { color: #F47B20; font-style: normal; }
+  .about__desc {
+    font-size: 17px; color: rgba(255,255,255,.82); line-height: 1.8; margin-bottom: 20px; font-weight: 500;
   }
-
-  /* ══════════════════════════════════════════════
-     V1 — INLINE IN ABOUT ERGÄNZT
-     Kleiner Polaroid-Stack neben dem About-Foto,
-     ein Extra-Satz unter dem Fließtext.
-     ══════════════════════════════════════════════ */
-  .v1-about .fake-about__inner {
-    grid-template-columns: 1fr 1fr;
+  .about__desc strong { color: #fff; font-weight: 700; }
+  .about__tags {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    margin-top: 28px; padding-top: 22px;
+    border-top: 1px solid rgba(255,255,255,.08);
   }
-  .v1-about__visual {
+  .about__tag {
+    display: inline-block; padding: 8px 16px; border-radius: 50px;
+    border: 1px solid rgba(244,123,32,.25); background: rgba(244,123,32,.06);
+    font-size: 12px; font-weight: 700; color: rgba(255,255,255,.85);
+    letter-spacing: .02em; white-space: nowrap;
+  }
+  .about__visual {
+    display: flex; align-items: center; justify-content: center;
+    min-height: clamp(280px, 28vw, 400px);
+  }
+  .about__photo {
     position: relative;
-    aspect-ratio: 4/5;
+    width: 100%; max-width: 480px; aspect-ratio: 16/10;
   }
-  .v1-about__photo-main {
-    position: absolute; top: 0; left: 0;
-    width: 78%; aspect-ratio: 4/5;
-    border-radius: 6px; overflow: hidden;
-    box-shadow: 0 20px 40px rgba(0,0,0,.4);
-    background: #333;
+  .about__photo img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    border-radius: 6px;
+    box-shadow: 0 24px 60px rgba(0,0,0,.55), 0 8px 20px rgba(0,0,0,.3);
   }
-  .v1-about__photo-main img { width:100%; height:100%; object-fit: cover; }
-  .v1-about__polaroid {
-    position: absolute; bottom: 4%; right: 0;
-    width: 44%;
-    background: #fff;
-    padding: 8px 8px 22px;
-    transform: rotate(5deg);
-    box-shadow: 0 18px 38px rgba(0,0,0,.45);
-    z-index: 2;
+  .about__photo::before {
+    content:''; position:absolute; top:-2px; left:-2px;
+    width:38px; height:38px;
+    border-top:2px solid #F47B20; border-left:2px solid #F47B20;
+    border-top-left-radius:8px; z-index:2;
   }
-  .v1-about__polaroid img { width:100%; aspect-ratio: 1/1; object-fit: cover; }
-  .v1-about__polaroid span {
-    position: absolute; bottom: 5px; left: 0; right: 0;
-    text-align: center;
-    font-family: 'Courier New', monospace;
-    font-size: 11px; color: #444; font-weight: 700; letter-spacing: .1em;
+  .about__photo::after {
+    content:''; position:absolute; bottom:-2px; right:-2px;
+    width:38px; height:38px;
+    border-bottom:2px solid #F47B20; border-right:2px solid #F47B20;
+    border-bottom-right-radius:8px; z-index:2;
   }
-  .v1-about__note {
-    margin-top: 18px; padding-top: 18px;
-    border-top: 1px solid rgba(255,255,255,.1);
-    font-size: 14px !important; color: rgba(255,255,255,.65) !important;
-  }
-  .v1-about__note strong { color: #fff; font-weight: 700; }
-
-  /* ══════════════════════════════════════════════
-     V2 — MINI-STRIP ZWISCHEN SEKTIONEN
-     Einzeiler + 3 kleine Bilder — kein Headline,
-     wie eine Randnotiz.
-     ══════════════════════════════════════════════ */
-  .v2-strip {
-    background: #f6f2ec;
-    padding: 54px 5%;
-    border-top: 1px solid rgba(0,0,0,.05);
-    border-bottom: 1px solid rgba(0,0,0,.05);
-  }
-  .v2-strip__inner {
-    max-width: 1100px; margin: 0 auto;
-    display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center;
-  }
-  .v2-strip__text {
-    font-size: 18px; line-height: 1.5; color: #1a1a1a; font-weight: 500;
-  }
-  .v2-strip__text small {
-    display: block;
-    font-size: 11px; font-weight: 800; letter-spacing: .22em;
-    color: #F47B20; text-transform: uppercase; margin-bottom: 8px;
-  }
-  .v2-strip__text strong { font-weight: 700; }
-  .v2-strip__thumbs {
-    display: flex; gap: 10px;
-  }
-  .v2-strip__thumb {
-    width: 110px; height: 110px;
-    border-radius: 6px; overflow: hidden;
-    box-shadow: 0 8px 20px rgba(0,0,0,.1);
-    background: #ddd;
-    transition: transform .4s;
-  }
-  .v2-strip__thumb:hover { transform: translateY(-4px); }
-  .v2-strip__thumb img { width:100%; height:100%; object-fit: cover; }
-  .v2-strip__thumb--sepia img { filter: sepia(.35) saturate(.8); }
-  @media (max-width: 900px) {
-    .v2-strip__inner { grid-template-columns: 1fr; gap: 24px; }
-    .v2-strip__thumbs { justify-content: flex-start; }
-    .v2-strip__thumb { width: 90px; height: 90px; }
-  }
-
-  /* ══════════════════════════════════════════════
-     V3 — BENTO-ERWEITERUNG IN "MEIN CONTENT"
-     Wie wenn der Hof einfach eine Kachel im
-     vorhandenen Bento-Grid wäre (mit Label).
-     ══════════════════════════════════════════════ */
-  .v3-wrap {
-    background: #0d1f35; padding: 80px 5%;
-  }
-  .v3-wrap__head { max-width: 1100px; margin: 0 auto 28px; }
-  .v3-wrap__head h3 {
-    font-size: 14px; font-weight: 800; color: rgba(255,255,255,.55);
-    text-transform: uppercase; letter-spacing: .2em;
-  }
-  .v3-grid {
-    max-width: 1100px; margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: 200px;
-    gap: 12px;
-  }
-  .v3-tile {
-    position: relative; overflow: hidden;
-    border-radius: 10px; background: #222;
-  }
-  .v3-tile img { width:100%; height:100%; object-fit: cover; }
-  .v3-tile__cap {
-    position: absolute; bottom: 10px; left: 10px;
-    font-size: 11px; color: #fff; font-weight: 700;
-    background: rgba(0,0,0,.55); backdrop-filter: blur(4px);
-    padding: 4px 10px; border-radius: 4px; letter-spacing: .1em;
-  }
-  .v3-tile--big { grid-column: span 2; grid-row: span 2; }
-  .v3-tile--tall { grid-row: span 2; }
-  .v3-tile--note {
-    background: linear-gradient(135deg, #F47B20, #c95a15);
-    display: flex; flex-direction: column; justify-content: space-between;
-    padding: 22px;
-  }
-  .v3-tile--note strong {
-    font-size: 14px; color: rgba(255,255,255,.85); font-weight: 700;
-    text-transform: uppercase; letter-spacing: .15em;
-  }
-  .v3-tile--note p {
-    font-size: 16px; line-height: 1.4; color: #fff; font-weight: 700;
+  @media (max-width:900px) {
+    .about__inner { grid-template-columns:1fr; }
   }
 </style>
 </head>
 <body>
 
 <nav class="vnav">
-  <span class="vnav__title">Hof — Mini-Varianten (subtil)</span>
-  <a href="#v1">V1 · Inline in About</a>
-  <a href="#v2">V2 · Strip zwischen Sektionen</a>
-  <a href="#v3">V3 · Mini-Bento auf Dark</a>
+  <span class="vnav__title">Kurz zu mir — Copy-Varianten</span>
+  <a href="#v1">V1</a>
+  <a href="#v2">V2</a>
+  <a href="#v3">V3</a>
+  <a href="#v4">V4</a>
   <a href="index.html" style="margin-left:auto; background:#F47B20;">← zurück</a>
 </nav>
 
-<!-- ════════════ V1 ════════════ -->
+<!-- ════════════ V1 — Philipps Vorschlag nah am Original ════════════ -->
 <header class="vhead" id="v1">
-  <span class="vhead__tag">V1 · INLINE IN ABOUT</span>
-  <h2>Der Hof ergänzt "Kurz zu mir" — keine eigene Sektion</h2>
-  <p>Beim Foto liegt ein kleines Polaroid vom Küken auf. Unter dem Fließtext ein Einzeiler als Randnotiz. Philipp bleibt im Zentrum, der Hof packt ihn nebenbei ein.</p>
+  <span class="vhead__tag">V1 · PHILIPPS VORSCHLAG 1:1</span>
+  <h2>Direkt aus deiner Sprachnachricht</h2>
+  <p>Agrarwissenschaft Osnabrück + Anzefahr + dritte Generation Junghennen + "harte Arbeit an einer Sache die Spaß macht = Ziel zum Erfolg". Kompletter 3. Absatz in der About-Sektion.</p>
 </header>
 
-<section class="fake-about v1-about">
-  <div class="fake-about__inner">
+<section class="about">
+  <div class="about__inner">
     <div>
-      <span class="fake-about__label">Über mich</span>
-      <h2>Kurz zu <em>mir.</em></h2>
-      <p>Angefangen hat alles mit meinem <strong style="color:#fff;">eigenen Podcast</strong>. Ich rede gern mit Leuten und will verstehen wie andere denken. Daraus sind dann Videos geworden. Erst für mich, dann für andere.</p>
-      <p>Heute drehe ich <strong style="color:#fff;">überall mit</strong>, wo gerade was passiert. Der Rest ergibt sich.</p>
-      <p class="v1-about__note">Nebenbei: <strong>dritter Generation Hühnerhof.</strong> Anzefahr. Da komm ich her.</p>
-    </div>
-    <div class="v1-about__visual">
-      <div class="v1-about__photo-main">
-        <img src="img/about-philipp-podcast.jpg" alt="Philipp" onerror="this.parentElement.style.background='#444'">
+      <span class="about__label">Über mich</span>
+      <h2 class="about__title">Kurz zu <em>mir.</em></h2>
+      <p class="about__desc">Angefangen hat alles mit meinem <strong>eigenen Podcast</strong>. Ich rede gern mit Leuten und will verstehen wie andere denken. Daraus sind dann Videos geworden. Erst für mich, dann für andere.</p>
+      <p class="about__desc">Heute drehe ich <strong>überall mit</strong>, wo gerade was passiert. Der Rest ergibt sich.</p>
+      <p class="about__desc">Nebenbei studier ich <strong>Agrarwissenschaft</strong> in Osnabrück. Und daheim in Anzefahr führen wir einen <strong>Familienbetrieb in dritter Generation</strong> — Aufzucht von Junghennen. Da hab ich seit klein auf gelernt: <strong>wer täglich an einer Sache dranbleibt die ihm Spaß macht, der kommt auch an.</strong></p>
+      <div class="about__tags">
+        <span class="about__tag">Video Creator</span>
+        <span class="about__tag">Events &amp; Interviews</span>
+        <span class="about__tag">Eigener Podcast</span>
+        <span class="about__tag">Agrarwissenschaft</span>
+        <span class="about__tag">Dritte Generation</span>
       </div>
-      <figure class="v1-about__polaroid">
-        <img src="img/hof-kueken.jpg" alt="Küken">
-        <span>ZUHAUSE</span>
+    </div>
+    <div class="about__visual">
+      <figure class="about__photo">
+        <img src="img/about-philipp-podcast.jpg" alt="">
       </figure>
     </div>
   </div>
 </section>
 
-<!-- ════════════ V2 ════════════ -->
+<!-- ════════════ V2 — Kompakter, rhythmischer ════════════ -->
 <header class="vhead" id="v2">
-  <span class="vhead__tag">V2 · STRIP ZWISCHEN SEKTIONEN</span>
-  <h2>Schmaler Strip, eine Zeile Text + 3 Mini-Bilder</h2>
-  <p>Keine Headline, keine Story. Nur ein kurzer Einzeiler und 3 Thumbnails (Hof damals, heute, Küken). Wie eine Randnotiz auf dem Weg von "Kurz zu mir" zu "Podcast". Höhe ca. 180px — fällt nicht auf wie ein eigenes Kapitel.</p>
+  <span class="vhead__tag">V2 · KOMPAKT</span>
+  <h2>Kurze Sätze, rhythmisch</h2>
+  <p>Studium + Hof in einen fließenden kurzen Absatz gepackt. Weniger "Lehren", mehr Fakt. "Zwischendurch" statt "Nebenbei".</p>
 </header>
 
-<section class="v2-strip">
-  <div class="v2-strip__inner">
-    <div class="v2-strip__text">
-      <small>Nebenbei</small>
-      Dritte Generation <strong>Geflügelhof Reinkemeier</strong>. Anzefahr. Da komm ich her — hält mich geerdet.
+<section class="about">
+  <div class="about__inner">
+    <div>
+      <span class="about__label">Über mich</span>
+      <h2 class="about__title">Kurz zu <em>mir.</em></h2>
+      <p class="about__desc">Angefangen hat alles mit meinem <strong>eigenen Podcast</strong>. Ich rede gern mit Leuten und will verstehen wie andere denken. Daraus sind dann Videos geworden. Erst für mich, dann für andere.</p>
+      <p class="about__desc">Heute drehe ich <strong>überall mit</strong>, wo gerade was passiert. Der Rest ergibt sich.</p>
+      <p class="about__desc">Zwischendurch studier ich <strong>Agrarwissenschaft</strong> in Osnabrück. Daheim in Anzefahr läuft der <strong>Familienbetrieb</strong> — Junghennen-Aufzucht, dritte Generation. <strong>Da lernt man früh dass nix von allein kommt.</strong></p>
+      <div class="about__tags">
+        <span class="about__tag">Video Creator</span>
+        <span class="about__tag">Events &amp; Interviews</span>
+        <span class="about__tag">Eigener Podcast</span>
+        <span class="about__tag">Agrarwissenschaft</span>
+        <span class="about__tag">Dritte Generation</span>
+      </div>
     </div>
-    <div class="v2-strip__thumbs">
-      <div class="v2-strip__thumb v2-strip__thumb--sepia"><img src="img/hof-damals.jpg" alt=""></div>
-      <div class="v2-strip__thumb"><img src="img/hof-drohne.jpg" alt=""></div>
-      <div class="v2-strip__thumb"><img src="img/hof-kueken.jpg" alt=""></div>
+    <div class="about__visual">
+      <figure class="about__photo">
+        <img src="img/about-philipp-podcast.jpg" alt="">
+      </figure>
     </div>
   </div>
 </section>
 
-<!-- ════════════ V3 ════════════ -->
+<!-- ════════════ V3 — Lockerer, erzählerischer ════════════ -->
 <header class="vhead" id="v3">
-  <span class="vhead__tag">V3 · MINI-BENTO AUF DARK</span>
-  <h2>Kompakter Bento-Block, 2 Bilder + 1 Note-Kachel</h2>
-  <p>Auf dem dunklen Navy als Einschub. Große Drohnen-Kachel + Küken-Kachel hoch + orange Note-Kachel mit einem Satz. Rein visuell, keine Headline drüber. Reiht sich ein wie eine kleine Detail-Gruppe im Stil von "Mein Content".</p>
+  <span class="vhead__tag">V3 · LOCKER</span>
+  <h2>Mehr Persönlichkeit, mehr Flow</h2>
+  <p>Studium + Hof mit leicht selbstironischem Ton. Dranbleiben-Motto als zweiter Satz eigenständig. "Da kenn ich jeden Handgriff" bringt körperliche Präsenz rein.</p>
 </header>
 
-<section class="v3-wrap">
-  <div class="v3-wrap__head">
-    <h3>— Nebenbei</h3>
+<section class="about">
+  <div class="about__inner">
+    <div>
+      <span class="about__label">Über mich</span>
+      <h2 class="about__title">Kurz zu <em>mir.</em></h2>
+      <p class="about__desc">Angefangen hat alles mit meinem <strong>eigenen Podcast</strong>. Ich rede gern mit Leuten und will verstehen wie andere denken. Daraus sind dann Videos geworden. Erst für mich, dann für andere.</p>
+      <p class="about__desc">Heute drehe ich <strong>überall mit</strong>, wo gerade was passiert. Der Rest ergibt sich.</p>
+      <p class="about__desc">Daneben läuft <strong>Agrarwissenschaft</strong> in Osnabrück. Und zuhause in Anzefahr helf ich im <strong>Familienbetrieb</strong> mit — dritte Generation Junghennen-Aufzucht, da kenn ich jeden Handgriff. <strong>Dranbleiben an der einen Sache, die dir Spaß macht — mehr braucht's nicht.</strong></p>
+      <div class="about__tags">
+        <span class="about__tag">Video Creator</span>
+        <span class="about__tag">Events &amp; Interviews</span>
+        <span class="about__tag">Eigener Podcast</span>
+        <span class="about__tag">Agrarwissenschaft</span>
+        <span class="about__tag">Dritte Generation</span>
+      </div>
+    </div>
+    <div class="about__visual">
+      <figure class="about__photo">
+        <img src="img/about-philipp-podcast.jpg" alt="">
+      </figure>
+    </div>
   </div>
-  <div class="v3-grid">
-    <figure class="v3-tile v3-tile--big">
-      <img src="img/hof-drohne.jpg" alt="">
-      <span class="v3-tile__cap">Anzefahr · Geflügelhof Reinkemeier</span>
-    </figure>
-    <figure class="v3-tile v3-tile--tall">
-      <img src="img/hof-kueken.jpg" alt="">
-      <span class="v3-tile__cap">Aufzucht</span>
-    </figure>
-    <div class="v3-tile v3-tile--note">
-      <strong>Herkunft</strong>
-      <p>Dritte Generation. Da komm ich her.</p>
+</section>
+
+<!-- ════════════ V4 — Sehr kurz, reduziert ════════════ -->
+<header class="vhead" id="v4">
+  <span class="vhead__tag">V4 · REDUZIERT</span>
+  <h2>Eine Zeile pro Thema, sehr knapp</h2>
+  <p>Hof + Studium in minimalster Form. Kein Motto, keine Lebensweisheit. Ruhiger, trockener Ton. Statements statt Erklärung.</p>
+</header>
+
+<section class="about">
+  <div class="about__inner">
+    <div>
+      <span class="about__label">Über mich</span>
+      <h2 class="about__title">Kurz zu <em>mir.</em></h2>
+      <p class="about__desc">Angefangen hat alles mit meinem <strong>eigenen Podcast</strong>. Ich rede gern mit Leuten und will verstehen wie andere denken. Daraus sind dann Videos geworden. Erst für mich, dann für andere.</p>
+      <p class="about__desc">Heute drehe ich <strong>überall mit</strong>, wo gerade was passiert. Der Rest ergibt sich.</p>
+      <p class="about__desc">Dazu: <strong>Agrarwissenschaft</strong> in Osnabrück. Daheim in Anzefahr der <strong>Familienhof</strong>, dritte Generation — Junghennen. Wenn ich nicht vor der Kamera steh, bin ich meistens da.</p>
+      <div class="about__tags">
+        <span class="about__tag">Video Creator</span>
+        <span class="about__tag">Events &amp; Interviews</span>
+        <span class="about__tag">Eigener Podcast</span>
+        <span class="about__tag">Agrarwissenschaft</span>
+        <span class="about__tag">Dritte Generation</span>
+      </div>
+    </div>
+    <div class="about__visual">
+      <figure class="about__photo">
+        <img src="img/about-philipp-podcast.jpg" alt="">
+      </figure>
     </div>
   </div>
 </section>
