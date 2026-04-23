@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Kurz zu mir — Copy-Varianten</title>
+<title>Hof — 5 zentrierte Mini-Designs</title>
 <style>
   *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
   body { background: #f0f4f9; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #0d1f35; }
@@ -22,7 +22,6 @@
     padding: 8px 14px; border-radius: 50px;
     font-size: 13px; font-weight: 700; color: #fff;
     background: rgba(255,255,255,.08); text-decoration: none;
-    transition: all .2s;
   }
   .vnav a:hover { background: #F47B20; }
 
@@ -35,202 +34,216 @@
   .vhead p { font-size: 14px; color: rgba(255,255,255,.7); max-width: 780px; line-height: 1.5; }
   .vhead__tag { display:inline-block; background:#F47B20; color:#fff; font-size:10px; font-weight:800; letter-spacing:.15em; padding:3px 9px; border-radius:3px; margin-bottom:10px; }
 
-  /* About-Sektion Kopie (exakt wie in index.html Navy) */
-  .about {
-    background: #141210; padding: 100px 5% 110px; position: relative; overflow: hidden; color: #fff;
+  /* Alle Hof-Bilder kriegen ein sanftes einheitliches Treatment fuer Farb-Harmonie */
+  .hof-img { filter: saturate(.75) contrast(1.04) brightness(.97); }
+
+  /* ═══ V1 — SINGLE HERO: ein mittiges Bild mit Ueberlagerung ═══ */
+  .h1 {
+    background: #1a1816; color: #fff;
+    padding: 100px 5% 100px;
   }
-  .about__inner {
-    max-width: 1100px; margin: 0 auto; position: relative; z-index: 1;
-    display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: center;
-  }
-  .about__label {
-    display:flex; align-items:center; gap:14px;
-    font-size:13px; font-weight:800; text-transform:uppercase; letter-spacing:.22em;
-    color:#F47B20; margin-bottom:16px; width:fit-content;
-  }
-  .about__label::before { content:''; width:36px; height:2px; background:#F47B20; }
-  .about__title {
-    font-size: clamp(32px, 4.5vw, 50px); font-weight: 800;
-    line-height: 1.08; letter-spacing: -.03em; margin-bottom: 20px; color: #fff;
-  }
-  .about__title em { color: #F47B20; font-style: normal; }
-  .about__desc {
-    font-size: 17px; color: rgba(255,255,255,.82); line-height: 1.8; margin-bottom: 20px; font-weight: 500;
-  }
-  .about__desc strong { color: #fff; font-weight: 700; }
-  .about__tags {
-    display: flex; flex-wrap: wrap; gap: 10px;
-    margin-top: 28px; padding-top: 22px;
-    border-top: 1px solid rgba(255,255,255,.08);
-  }
-  .about__tag {
-    display: inline-block; padding: 8px 16px; border-radius: 50px;
-    border: 1px solid rgba(244,123,32,.25); background: rgba(244,123,32,.06);
-    font-size: 12px; font-weight: 700; color: rgba(255,255,255,.85);
-    letter-spacing: .02em; white-space: nowrap;
-  }
-  .about__visual {
-    display: flex; align-items: center; justify-content: center;
-    min-height: clamp(280px, 28vw, 400px);
-  }
-  .about__photo {
+  .h1__inner { max-width: 880px; margin: 0 auto; text-align: center; }
+  .h1__kicker { font-size: 12px; font-weight: 800; letter-spacing: .28em; color: #F47B20; margin-bottom: 14px; text-transform: uppercase; }
+  .h1__hd { font-size: clamp(28px, 3.6vw, 42px); font-weight: 800; line-height: 1.15; margin-bottom: 36px; letter-spacing: -.02em; }
+  .h1__hd em { color: #F47B20; font-style: normal; }
+  .h1__img {
     position: relative;
-    width: 100%; max-width: 480px; aspect-ratio: 16/10;
+    width: 100%; aspect-ratio: 16/9;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 40px 80px rgba(0,0,0,.5);
   }
-  .about__photo img {
-    width: 100%; height: 100%; object-fit: cover; display: block;
-    border-radius: 6px;
-    box-shadow: 0 24px 60px rgba(0,0,0,.55), 0 8px 20px rgba(0,0,0,.3);
+  .h1__img img { width: 100%; height: 100%; object-fit: cover; }
+  .h1__cap {
+    font-size: 13px; font-weight: 600; color: rgba(255,255,255,.6);
+    margin-top: 18px; letter-spacing: .02em;
   }
-  .about__photo::before {
-    content:''; position:absolute; top:-2px; left:-2px;
-    width:38px; height:38px;
-    border-top:2px solid #F47B20; border-left:2px solid #F47B20;
-    border-top-left-radius:8px; z-index:2;
+
+  /* ═══ V2 — DUAL CENTERED: 2 Bilder nebeneinander mittig ═══ */
+  .h2 {
+    background: #f6f2ec; color: #1a1a1a;
+    padding: 100px 5% 100px;
   }
-  .about__photo::after {
-    content:''; position:absolute; bottom:-2px; right:-2px;
-    width:38px; height:38px;
-    border-bottom:2px solid #F47B20; border-right:2px solid #F47B20;
-    border-bottom-right-radius:8px; z-index:2;
+  .h2__inner { max-width: 900px; margin: 0 auto; text-align: center; }
+  .h2__kicker { font-size: 12px; font-weight: 800; letter-spacing: .26em; color: #F47B20; margin-bottom: 12px; text-transform: uppercase; }
+  .h2__hd { font-size: clamp(26px, 3.2vw, 36px); font-weight: 800; line-height: 1.2; margin-bottom: 36px; color: #0d1f35; letter-spacing: -.02em; max-width: 620px; margin-left: auto; margin-right: auto; }
+  .h2__hd em { color: #F47B20; font-style: normal; }
+  .h2__pair {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 16px;
   }
-  @media (max-width:900px) {
-    .about__inner { grid-template-columns:1fr; }
+  .h2__pair figure {
+    aspect-ratio: 4/5;
+    overflow: hidden;
+    border-radius: 4px;
+    background: #ddd;
+    box-shadow: 0 18px 38px rgba(0,0,0,.12);
   }
+  .h2__pair img { width:100%; height:100%; object-fit: cover; }
+  @media (max-width: 700px) { .h2__pair { grid-template-columns: 1fr; } }
+
+  /* ═══ V3 — CINEMATIC BANNER: Full-width Drohne, Text überlagert mittig ═══ */
+  .h3 {
+    position: relative;
+    height: 70vh; min-height: 460px;
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center;
+    background: #0d1f35;
+  }
+  .h3__bg {
+    position: absolute; inset: 0;
+    background: url('img/hof-drohne.jpg') center/cover no-repeat;
+    filter: brightness(.55) saturate(.7);
+  }
+  .h3__bg::after {
+    content:''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(10,10,10,.2) 0%, rgba(10,10,10,.55) 100%);
+  }
+  .h3__content { position: relative; z-index: 1; max-width: 720px; padding: 0 5%; color: #fff; }
+  .h3__kicker { font-size: 12px; font-weight: 800; letter-spacing: .28em; color: #F47B20; margin-bottom: 18px; text-transform: uppercase; }
+  .h3__hd { font-size: clamp(32px, 4.8vw, 56px); font-weight: 800; line-height: 1.05; letter-spacing: -.03em; margin-bottom: 16px; }
+  .h3__hd em { color: #F47B20; font-style: normal; }
+  .h3__sub { font-size: 16px; color: rgba(255,255,255,.82); max-width: 520px; margin: 0 auto; line-height: 1.6; }
+
+  /* ═══ V4 — NARROW STACK: 1 Hero-Bild mittig schmal + 1 kleineres darunter ═══ */
+  .h4 {
+    background: #eef1f7; color: #0d1f35;
+    padding: 100px 5% 100px;
+  }
+  .h4__inner { max-width: 640px; margin: 0 auto; text-align: center; }
+  .h4__kicker { font-size: 12px; font-weight: 800; letter-spacing: .28em; color: #F47B20; margin-bottom: 12px; text-transform: uppercase; }
+  .h4__hd { font-size: clamp(26px, 3.2vw, 36px); font-weight: 800; line-height: 1.15; margin-bottom: 32px; letter-spacing: -.02em; }
+  .h4__hd em { color: #F47B20; font-style: normal; }
+  .h4__hero {
+    aspect-ratio: 4/3; border-radius: 6px; overflow: hidden;
+    box-shadow: 0 22px 48px rgba(13,31,53,.22);
+    margin-bottom: 14px;
+  }
+  .h4__hero img { width:100%; height:100%; object-fit: cover; }
+  .h4__small {
+    width: 55%; margin: 0 auto;
+    aspect-ratio: 1/1; border-radius: 6px; overflow: hidden;
+    box-shadow: 0 16px 32px rgba(13,31,53,.2);
+  }
+  .h4__small img { width:100%; height:100%; object-fit: cover; }
+  .h4__line { font-size: 13px; color: #555; margin-top: 16px; font-weight: 500; }
+
+  /* ═══ V5 — BEFORE/AFTER SLIDER: Drohne oben, Küken unten als diptych mittig ═══ */
+  .h5 {
+    background: #1a1816; color: #fff;
+    padding: 110px 5% 110px;
+  }
+  .h5__inner { max-width: 760px; margin: 0 auto; text-align: center; }
+  .h5__kicker { font-size: 12px; font-weight: 800; letter-spacing: .28em; color: #F47B20; margin-bottom: 14px; text-transform: uppercase; }
+  .h5__hd { font-size: clamp(28px, 3.6vw, 44px); font-weight: 800; line-height: 1.1; margin-bottom: 34px; letter-spacing: -.02em; }
+  .h5__hd em { color: #F47B20; font-style: normal; }
+  .h5__diptych {
+    display: grid; grid-template-rows: 1fr 1fr;
+    gap: 8px;
+    max-width: 540px; margin: 0 auto;
+  }
+  .h5__diptych figure {
+    aspect-ratio: 16/9; overflow: hidden;
+    border-left: 3px solid #F47B20;
+  }
+  .h5__diptych img { width:100%; height:100%; object-fit: cover; }
+  .h5__line { font-size: 13px; color: rgba(255,255,255,.55); margin-top: 22px; font-weight: 500; letter-spacing: .02em; }
+
 </style>
 </head>
 <body>
 
 <nav class="vnav">
-  <span class="vnav__title">Kurz zu mir — Copy-Varianten</span>
-  <a href="#v1">V1</a>
-  <a href="#v2">V2</a>
-  <a href="#v3">V3</a>
-  <a href="#v4">V4</a>
+  <span class="vnav__title">Hof — 5 zentrierte Designs</span>
+  <a href="#v1">V1 · Hero</a>
+  <a href="#v2">V2 · Dual</a>
+  <a href="#v3">V3 · Cinematic</a>
+  <a href="#v4">V4 · Stack</a>
+  <a href="#v5">V5 · Diptych</a>
   <a href="index.html" style="margin-left:auto; background:#F47B20;">← zurück</a>
 </nav>
 
-<!-- ════════════ V1 — Philipps Vorschlag nah am Original ════════════ -->
+<!-- V1 -->
 <header class="vhead" id="v1">
-  <span class="vhead__tag">V1 · PHILIPPS VORSCHLAG 1:1</span>
-  <h2>Direkt aus deiner Sprachnachricht</h2>
-  <p>Agrarwissenschaft Osnabrück + Anzefahr + dritte Generation Junghennen + "harte Arbeit an einer Sache die Spaß macht = Ziel zum Erfolg". Kompletter 3. Absatz in der About-Sektion.</p>
+  <span class="vhead__tag">V1 · SINGLE HERO</span>
+  <h2>Ein einziges mittiges Bild, Headline drüber</h2>
+  <p>Nur die Drohnen-Aufnahme. Mittig, ruhig, cinematisch. Der Text sitzt darüber zentriert. Dunkler Hintergrund, wirkt wie ein Filmstill. Kein zusätzlicher Schnickschnack.</p>
 </header>
-
-<section class="about">
-  <div class="about__inner">
-    <div>
-      <span class="about__label">Über mich</span>
-      <h2 class="about__title">Kurz zu <em>mir.</em></h2>
-      <p class="about__desc">Angefangen hat alles mit meinem <strong>eigenen Podcast</strong>. Ich rede gern mit Leuten und will verstehen wie andere denken. Daraus sind dann Videos geworden. Erst für mich, dann für andere.</p>
-      <p class="about__desc">Heute drehe ich <strong>überall mit</strong>, wo gerade was passiert. Der Rest ergibt sich.</p>
-      <p class="about__desc">Nebenbei studier ich <strong>Agrarwissenschaft</strong> in Osnabrück. Und daheim in Anzefahr führen wir einen <strong>Familienbetrieb in dritter Generation</strong> — Aufzucht von Junghennen. Da hab ich seit klein auf gelernt: <strong>wer täglich an einer Sache dranbleibt die ihm Spaß macht, der kommt auch an.</strong></p>
-      <div class="about__tags">
-        <span class="about__tag">Video Creator</span>
-        <span class="about__tag">Events &amp; Interviews</span>
-        <span class="about__tag">Eigener Podcast</span>
-        <span class="about__tag">Agrarwissenschaft</span>
-        <span class="about__tag">Dritte Generation</span>
-      </div>
+<section class="h1">
+  <div class="h1__inner">
+    <div class="h1__kicker">Zuhause in Anzefahr</div>
+    <h2 class="h1__hd">Bevor ich gefilmt hab, <em>war da der Hof.</em></h2>
+    <div class="h1__img">
+      <img class="hof-img" src="img/hof-drohne.jpg" alt="">
     </div>
-    <div class="about__visual">
-      <figure class="about__photo">
-        <img src="img/about-philipp-podcast.jpg" alt="">
-      </figure>
-    </div>
+    <p class="h1__cap">Geflügelhof Reinkemeier · dritte Generation</p>
   </div>
 </section>
 
-<!-- ════════════ V2 — Kompakter, rhythmischer ════════════ -->
+<!-- V2 -->
 <header class="vhead" id="v2">
-  <span class="vhead__tag">V2 · KOMPAKT</span>
-  <h2>Kurze Sätze, rhythmisch</h2>
-  <p>Studium + Hof in einen fließenden kurzen Absatz gepackt. Weniger "Lehren", mehr Fakt. "Zwischendurch" statt "Nebenbei".</p>
+  <span class="vhead__tag">V2 · DUAL CENTERED</span>
+  <h2>2 Bilder nebeneinander, mittig auf warmem Cream</h2>
+  <p>Drohne + Küken im gleichen Hochformat, sanft desaturiert für Farbharmonie. Warme Beige-Fläche als Ruhepol zwischen Navy oben und Hellblau unten. Headline schlicht darüber.</p>
 </header>
-
-<section class="about">
-  <div class="about__inner">
-    <div>
-      <span class="about__label">Über mich</span>
-      <h2 class="about__title">Kurz zu <em>mir.</em></h2>
-      <p class="about__desc">Angefangen hat alles mit meinem <strong>eigenen Podcast</strong>. Ich rede gern mit Leuten und will verstehen wie andere denken. Daraus sind dann Videos geworden. Erst für mich, dann für andere.</p>
-      <p class="about__desc">Heute drehe ich <strong>überall mit</strong>, wo gerade was passiert. Der Rest ergibt sich.</p>
-      <p class="about__desc">Zwischendurch studier ich <strong>Agrarwissenschaft</strong> in Osnabrück. Daheim in Anzefahr läuft der <strong>Familienbetrieb</strong> — Junghennen-Aufzucht, dritte Generation. <strong>Da lernt man früh dass nix von allein kommt.</strong></p>
-      <div class="about__tags">
-        <span class="about__tag">Video Creator</span>
-        <span class="about__tag">Events &amp; Interviews</span>
-        <span class="about__tag">Eigener Podcast</span>
-        <span class="about__tag">Agrarwissenschaft</span>
-        <span class="about__tag">Dritte Generation</span>
-      </div>
-    </div>
-    <div class="about__visual">
-      <figure class="about__photo">
-        <img src="img/about-philipp-podcast.jpg" alt="">
-      </figure>
+<section class="h2">
+  <div class="h2__inner">
+    <div class="h2__kicker">Zuhause</div>
+    <h2 class="h2__hd">Anzefahr. Wo ich <em>herkomme.</em></h2>
+    <div class="h2__pair">
+      <figure><img class="hof-img" src="img/hof-drohne.jpg" alt=""></figure>
+      <figure><img class="hof-img" src="img/hof-kueken.jpg" alt=""></figure>
     </div>
   </div>
 </section>
 
-<!-- ════════════ V3 — Lockerer, erzählerischer ════════════ -->
+<!-- V3 -->
 <header class="vhead" id="v3">
-  <span class="vhead__tag">V3 · LOCKER</span>
-  <h2>Mehr Persönlichkeit, mehr Flow</h2>
-  <p>Studium + Hof mit leicht selbstironischem Ton. Dranbleiben-Motto als zweiter Satz eigenständig. "Da kenn ich jeden Handgriff" bringt körperliche Präsenz rein.</p>
+  <span class="vhead__tag">V3 · CINEMATIC BANNER</span>
+  <h2>Full-width Drohne als Bühne, Text mittig überlagert</h2>
+  <p>Die Aufnahme füllt die ganze Breite, stark abgedunkelt, der Text schwebt mittig drüber. Fühlt sich an wie ein Filmmoment. Kein Rand, keine Kachel, keine Grenzen.</p>
 </header>
-
-<section class="about">
-  <div class="about__inner">
-    <div>
-      <span class="about__label">Über mich</span>
-      <h2 class="about__title">Kurz zu <em>mir.</em></h2>
-      <p class="about__desc">Angefangen hat alles mit meinem <strong>eigenen Podcast</strong>. Ich rede gern mit Leuten und will verstehen wie andere denken. Daraus sind dann Videos geworden. Erst für mich, dann für andere.</p>
-      <p class="about__desc">Heute drehe ich <strong>überall mit</strong>, wo gerade was passiert. Der Rest ergibt sich.</p>
-      <p class="about__desc">Daneben läuft <strong>Agrarwissenschaft</strong> in Osnabrück. Und zuhause in Anzefahr helf ich im <strong>Familienbetrieb</strong> mit — dritte Generation Junghennen-Aufzucht, da kenn ich jeden Handgriff. <strong>Dranbleiben an der einen Sache, die dir Spaß macht — mehr braucht's nicht.</strong></p>
-      <div class="about__tags">
-        <span class="about__tag">Video Creator</span>
-        <span class="about__tag">Events &amp; Interviews</span>
-        <span class="about__tag">Eigener Podcast</span>
-        <span class="about__tag">Agrarwissenschaft</span>
-        <span class="about__tag">Dritte Generation</span>
-      </div>
-    </div>
-    <div class="about__visual">
-      <figure class="about__photo">
-        <img src="img/about-philipp-podcast.jpg" alt="">
-      </figure>
-    </div>
+<section class="h3">
+  <div class="h3__bg"></div>
+  <div class="h3__content">
+    <div class="h3__kicker">Zuhause · Anzefahr</div>
+    <h2 class="h3__hd">Bevor die Kamera lief, <em>war da der Hof.</em></h2>
+    <p class="h3__sub">Geflügelhof Reinkemeier. Dritte Generation. Hier hab ich gelernt, dass Arbeit an einer Sache, die einem Spaß macht, am Ende zum Ziel führt.</p>
   </div>
 </section>
 
-<!-- ════════════ V4 — Sehr kurz, reduziert ════════════ -->
+<!-- V4 -->
 <header class="vhead" id="v4">
-  <span class="vhead__tag">V4 · REDUZIERT</span>
-  <h2>Eine Zeile pro Thema, sehr knapp</h2>
-  <p>Hof + Studium in minimalster Form. Kein Motto, keine Lebensweisheit. Ruhiger, trockener Ton. Statements statt Erklärung.</p>
+  <span class="vhead__tag">V4 · NARROW STACK</span>
+  <h2>Schmale Spalte mittig — 1 großes + 1 kleines Bild</h2>
+  <p>Maximal 640px breit. Drohne groß oben, Küken klein und rund zentriert darunter. Hellblauer Hintergrund matchen zum Podcast-Section-Ton. Ruhig, fokussiert.</p>
 </header>
+<section class="h4">
+  <div class="h4__inner">
+    <div class="h4__kicker">Zuhause</div>
+    <h2 class="h4__hd">Anzefahr ist der Ort <em>der mich macht.</em></h2>
+    <div class="h4__hero"><img class="hof-img" src="img/hof-drohne.jpg" alt=""></div>
+    <div class="h4__small"><img class="hof-img" src="img/hof-kueken.jpg" alt=""></div>
+    <p class="h4__line">Geflügelhof Reinkemeier. Dritte Generation. Junghennen-Aufzucht.</p>
+  </div>
+</section>
 
-<section class="about">
-  <div class="about__inner">
-    <div>
-      <span class="about__label">Über mich</span>
-      <h2 class="about__title">Kurz zu <em>mir.</em></h2>
-      <p class="about__desc">Angefangen hat alles mit meinem <strong>eigenen Podcast</strong>. Ich rede gern mit Leuten und will verstehen wie andere denken. Daraus sind dann Videos geworden. Erst für mich, dann für andere.</p>
-      <p class="about__desc">Heute drehe ich <strong>überall mit</strong>, wo gerade was passiert. Der Rest ergibt sich.</p>
-      <p class="about__desc">Dazu: <strong>Agrarwissenschaft</strong> in Osnabrück. Daheim in Anzefahr der <strong>Familienhof</strong>, dritte Generation — Junghennen. Wenn ich nicht vor der Kamera steh, bin ich meistens da.</p>
-      <div class="about__tags">
-        <span class="about__tag">Video Creator</span>
-        <span class="about__tag">Events &amp; Interviews</span>
-        <span class="about__tag">Eigener Podcast</span>
-        <span class="about__tag">Agrarwissenschaft</span>
-        <span class="about__tag">Dritte Generation</span>
-      </div>
+<!-- V5 -->
+<header class="vhead" id="v5">
+  <span class="vhead__tag">V5 · DIPTYCH MIT ORANGE RAND</span>
+  <h2>Zwei schmale Bilder übereinander, Orange-Border links</h2>
+  <p>Drohne und Küken untereinander als Diptychon. Links je eine Orange-Linie als Akzent. Mittig zentriert, schmal (max 540px). Dunkler Hintergrund. Minimalistisch und editorial.</p>
+</header>
+<section class="h5">
+  <div class="h5__inner">
+    <div class="h5__kicker">Zuhause</div>
+    <h2 class="h5__hd">Alles fängt in <em>Anzefahr</em> an.</h2>
+    <div class="h5__diptych">
+      <figure><img class="hof-img" src="img/hof-drohne.jpg" alt=""></figure>
+      <figure><img class="hof-img" src="img/hof-kueken.jpg" alt=""></figure>
     </div>
-    <div class="about__visual">
-      <figure class="about__photo">
-        <img src="img/about-philipp-podcast.jpg" alt="">
-      </figure>
-    </div>
+    <p class="h5__line">Geflügelhof Reinkemeier · dritte Generation</p>
   </div>
 </section>
 

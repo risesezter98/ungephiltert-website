@@ -760,42 +760,12 @@
 
 /* Alte Container-Klassen deaktiviert */
 .about__circle, .about__circle-clip, .about__person, .about__person-overtop,
-.about__person-wrap, .about__dots, .about__polaroid,
+.about__person-wrap, .about__dots, .about__polaroid, .about__gallery, .about__polaroids,
 .about__portrait, .about__portrait-caption, .about__person-solo { display:none; }
-
-/* --- Hof-Gallery: Main-Foto oben, 2 kleine Bilder als sauberer Strip darunter --- */
-.about__visual { flex-direction: column; gap: 12px; max-width: 480px; margin-left: auto; }
-.about__gallery {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-.about__gallery figure {
-  position: relative;
-  aspect-ratio: 4/3;
-  border-radius: 6px;
-  overflow: hidden;
-  background: #2a2a2a;
-  box-shadow: 0 14px 32px rgba(0,0,0,.35);
-}
-.about__gallery img {
-  width: 100%; height: 100%; object-fit: cover; display: block;
-  transition: transform .6s cubic-bezier(.22,1,.36,1);
-}
-.about__gallery figure:hover img { transform: scale(1.05); }
-.about__gallery figcaption {
-  position: absolute;
-  bottom: 8px; left: 10px;
-  font-size: 10px; font-weight: 800; color: #fff;
-  letter-spacing: .18em; text-transform: uppercase;
-  background: rgba(0,0,0,.55); backdrop-filter: blur(6px);
-  padding: 4px 8px; border-radius: 3px;
-}
 
 @media (max-width:900px) {
   .about__inner { grid-template-columns:1fr; text-align:center; }
-  .about__visual { justify-content:center; margin-top:24px; min-height:auto; margin-left: 0; margin-right: auto; }
+  .about__visual { justify-content:center; margin-top:24px; min-height:auto; }
   .about__photo { max-width:400px; }
 }
 </style>
@@ -818,16 +788,6 @@
       <figure class="about__photo">
         <img src="img/about-philipp-podcast.jpg?v=38" alt="Philipp im Podcast-Studio">
       </figure>
-      <div class="about__gallery">
-        <figure>
-          <img src="img/hof-drohne.jpg" alt="Hof in Anzefahr">
-          <figcaption>Anzefahr</figcaption>
-        </figure>
-        <figure>
-          <img src="img/hof-kueken.jpg" alt="Zuhause">
-          <figcaption>Zuhause</figcaption>
-        </figure>
-      </div>
     </div>
   </div>
 </section>
