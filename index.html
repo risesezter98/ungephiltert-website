@@ -463,12 +463,12 @@
   display:flex; align-items:center; gap:14px;
   font-size:13px; font-weight:800;
   text-transform:uppercase; letter-spacing:.22em;
-  color:#0d1f35; margin-bottom:10px;
+  color:#F47B20; margin-bottom:10px;
   width:fit-content;
 }
 .personal-section__label::before {
   content:''; display:inline-block;
-  width:36px; height:2px; background:#0d1f35;
+  width:36px; height:2px; background:#F47B20;
 }
 .personal-section__title {
   font-size:clamp(28px, 4vw, 42px); font-weight:800; line-height:1.1;
@@ -787,6 +787,132 @@
       <figure class="about__photo">
         <img src="img/about-philipp-podcast.jpg?v=38" alt="Philipp im Podcast-Studio">
       </figure>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════ FAMILIENBETRIEB — Hühnerhof, Herkunft ═══════════════ -->
+<style>
+.roots {
+  background: #f6f2ec; padding: 110px 5% 110px;
+  position: relative; overflow: hidden; color: #1a1a1a;
+}
+.roots::before {
+  content:''; position:absolute; top:0; left:0; width:100%; height:100%;
+  background:
+    radial-gradient(ellipse at 15% 80%, rgba(244,123,32,.06) 0%, transparent 40%),
+    radial-gradient(ellipse at 85% 20%, rgba(13,31,53,.04) 0%, transparent 35%);
+  pointer-events:none; z-index:0;
+}
+.roots__inner {
+  max-width: 1100px; margin: 0 auto; position:relative; z-index:1;
+  display: grid; grid-template-columns: 1fr 1.1fr; gap: 56px; align-items: center;
+}
+/* Bild links */
+.roots__visual {
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  min-height: clamp(280px, 28vw, 400px);
+}
+.roots__photo {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  aspect-ratio: 4/5;
+}
+.roots__photo img, .roots__photo video {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  border-radius: 6px;
+  filter: contrast(1.03) saturate(.98);
+  box-shadow:
+    0 24px 60px rgba(0,0,0,.18),
+    0 8px 20px rgba(0,0,0,.08);
+}
+.roots__photo::before {
+  content:''; position:absolute;
+  top:-2px; left:-2px;
+  width:38px; height:38px;
+  border-top:2px solid #F47B20;
+  border-left:2px solid #F47B20;
+  border-top-left-radius:8px;
+  pointer-events:none; z-index:2;
+}
+.roots__photo::after {
+  content:''; position:absolute;
+  bottom:-2px; right:-2px;
+  width:38px; height:38px;
+  border-bottom:2px solid #F47B20;
+  border-right:2px solid #F47B20;
+  border-bottom-right-radius:8px;
+  pointer-events:none; z-index:2;
+}
+/* Text rechts */
+.roots__text {}
+.roots__label {
+  display:flex; align-items:center; gap:14px;
+  font-size:13px; font-weight:800;
+  text-transform:uppercase; letter-spacing:.22em;
+  color:#F47B20; margin-bottom:16px;
+  width:fit-content;
+}
+.roots__label::before {
+  content:''; display:inline-block;
+  width:36px; height:2px; background:#F47B20;
+}
+.roots__title {
+  font-size:clamp(32px, 4.5vw, 50px); font-weight:800; line-height:1.08;
+  letter-spacing:-.03em; margin-bottom:20px; color:#1a1a1a;
+}
+.roots__title em { color:#F47B20; font-style:normal; }
+.roots__desc {
+  font-size:17px; color:#444; line-height:1.8; margin-bottom:18px; font-weight:500;
+}
+.roots__desc b, .roots__desc strong { color:#1a1a1a; font-weight:700; }
+.roots__meta {
+  display:flex; flex-wrap:wrap; gap:10px;
+  margin-top:28px; padding-top:22px;
+  border-top:1px solid rgba(0,0,0,.1);
+}
+.roots__meta span {
+  display:inline-block;
+  padding:8px 16px; border-radius:50px;
+  border:1px solid rgba(244,123,32,.25);
+  background:rgba(244,123,32,.06);
+  font-size:12px; font-weight:700;
+  color:#1a1a1a;
+  letter-spacing:.02em;
+  white-space:nowrap;
+}
+@media (max-width:900px) {
+  .roots { padding: 70px 5% 70px; }
+  .roots__inner { grid-template-columns:1fr; text-align:left; gap:32px; }
+  .roots__visual { justify-content:center; min-height:auto; }
+  .roots__photo { max-width:380px; aspect-ratio:4/5; }
+  .roots__title { font-size:30px; line-height:1.1; }
+  .roots__desc { font-size:15px; }
+  .roots__meta { justify-content:flex-start; }
+}
+</style>
+
+<section class="roots" id="herkunft">
+  <div class="roots__inner">
+    <div class="roots__visual anim" data-anim="fade-left">
+      <figure class="roots__photo">
+        <img src="img/familienbetrieb-huehnerhof.jpg?v=1" alt="Familienbetrieb — Hühnerhof" onerror="this.style.display='none'">
+      </figure>
+    </div>
+    <div class="roots__text">
+      <span class="roots__label anim">Familienbetrieb</span>
+      <h2 class="roots__title anim" data-delay="1">Dritte Generation <em>Hühnerhof.</em></h2>
+      <p class="roots__desc anim" data-delay="2">Nebenbei hilf ich im Betrieb meiner Familie mit. <strong>Jungtier-Aufzucht, seit drei Generationen.</strong> Da bin ich aufgewachsen, da kenn ich jeden Handgriff.</p>
+      <p class="roots__desc anim" data-delay="3">Hat mit Videos erstmal nix zu tun — ist mir aber wichtig. Da hab ich gelernt dass <strong>harte Arbeit</strong> kein Spruch ist sondern Grundlage. Wer was erreichen will, kommt da nicht drum rum.</p>
+      <p class="roots__desc anim" data-delay="4">Studium, Videos, Hof. <strong>Alles drei ungefiltert.</strong></p>
+      <div class="roots__meta anim" data-delay="4">
+        <span>Dritte Generation</span>
+        <span>Jungtier-Aufzucht</span>
+        <span>Bodenständig</span>
+      </div>
     </div>
   </div>
 </section>
