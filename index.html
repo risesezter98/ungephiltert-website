@@ -760,13 +760,57 @@
 
 /* Alte Container-Klassen deaktiviert */
 .about__circle, .about__circle-clip, .about__person, .about__person-overtop,
-.about__person-wrap, .about__dots, .about__polaroid,
+.about__person-wrap, .about__dots,
 .about__portrait, .about__portrait-caption, .about__person-solo { display:none; }
+
+/* --- Hof-Polaroids: 2 schraeg angeklemmt neben Haupt-Foto --- */
+.about__polaroids {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+.about__polaroid {
+  position: absolute;
+  width: clamp(130px, 16vw, 180px);
+  background: #fff;
+  padding: 8px 8px 28px;
+  box-shadow:
+    0 24px 44px rgba(0,0,0,.55),
+    0 8px 16px rgba(0,0,0,.35);
+  pointer-events: auto;
+  transition: transform .5s cubic-bezier(.22,1,.36,1);
+}
+.about__polaroid img {
+  width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block;
+}
+.about__polaroid-cap {
+  position: absolute;
+  bottom: 6px; left: 0; right: 0;
+  text-align: center;
+  font-family: 'Courier New', monospace;
+  font-size: 11px; font-weight: 700; color: #444;
+  letter-spacing: .15em; text-transform: uppercase;
+}
+.about__polaroid--one {
+  top: -14%; left: -8%;
+  transform: rotate(-7deg);
+}
+.about__polaroid--one:hover { transform: rotate(-2deg) scale(1.04); }
+.about__polaroid--two {
+  bottom: -10%; right: -6%;
+  transform: rotate(6deg);
+}
+.about__polaroid--two:hover { transform: rotate(1deg) scale(1.04); }
+.about__polaroid--sepia img { filter: sepia(.3) saturate(.85) contrast(.98); }
 
 @media (max-width:900px) {
   .about__inner { grid-template-columns:1fr; text-align:center; }
   .about__visual { justify-content:center; margin-top:24px; min-height:auto; }
   .about__photo { max-width:400px; }
+  .about__polaroid--one { top: -8%; left: -4%; width: 110px; }
+  .about__polaroid--two { bottom: -6%; right: -4%; width: 110px; }
+  .about__polaroid-cap { font-size: 9px; }
 }
 </style>
 
@@ -777,19 +821,29 @@
       <h2 class="about__title anim" data-delay="1">Kurz zu <em>mir.</em></h2>
       <p class="about__desc anim" data-delay="2">Angefangen hat alles mit meinem <strong>eigenen Podcast</strong>. Ich rede gern mit Leuten und will verstehen wie andere denken. Daraus sind dann Videos geworden. Erst für mich, dann für andere.</p>
       <p class="about__desc anim" data-delay="3">Heute drehe ich <strong>überall mit</strong>, wo gerade was passiert. Der Rest ergibt sich.</p>
-      <p class="about__desc anim" data-delay="4">Nebenbei studier ich <strong>Agrarwissenschaft</strong> in Osnabrück. Und daheim in Anzefahr führen wir einen <strong>Familienbetrieb in dritter Generation</strong> — Aufzucht von Junghennen. Da hab ich seit klein auf gelernt: <strong>wer täglich an einer Sache dranbleibt die ihm Spaß macht, der kommt auch an.</strong></p>
+      <p class="about__desc anim" data-delay="4">Nebenbei studier ich <strong>Agrarwissenschaft</strong> in Osnabrück. In meiner Heimat Anzefahr führen wir einen <strong>Familienbetrieb in dritter Generation</strong>, Aufzucht von Junghennen. Seit ich klein bin gehört das zu meinem Alltag. Dort hab ich gelernt, dass tägliche Arbeit an einer Sache die einem Spaß macht, am Ende zum Ziel führt.</p>
       <div class="about__tags anim" data-delay="4">
         <span class="about__tag">Video Creator</span>
         <span class="about__tag">Events &amp; Interviews</span>
         <span class="about__tag">Eigener Podcast</span>
         <span class="about__tag">Agrarwissenschaft</span>
-        <span class="about__tag">Dritte Generation</span>
+        <span class="about__tag">Junghennen-Aufzucht</span>
       </div>
     </div>
     <div class="about__visual anim" data-anim="fade-right">
       <figure class="about__photo">
         <img src="img/about-philipp-podcast.jpg?v=38" alt="Philipp im Podcast-Studio">
       </figure>
+      <div class="about__polaroids" aria-hidden="true">
+        <figure class="about__polaroid about__polaroid--one about__polaroid--sepia">
+          <img src="img/hof-damals.jpg" alt="">
+          <figcaption class="about__polaroid-cap">Damals</figcaption>
+        </figure>
+        <figure class="about__polaroid about__polaroid--two">
+          <img src="img/hof-kueken.jpg" alt="">
+          <figcaption class="about__polaroid-cap">Zuhause</figcaption>
+        </figure>
+      </div>
     </div>
   </div>
 </section>
