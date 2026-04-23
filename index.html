@@ -792,68 +792,53 @@
 </section>
 
 
-<!-- ═══════════════ FAMILIENBETRIEB — Hühnerhof, Herkunft ═══════════════ -->
+<!-- ═══════════════ FAMILIENBETRIEB — Magazin-Layout mit Luftaufnahme ═══════════════ -->
 <style>
 .roots {
-  background: #f6f2ec; padding: 110px 5% 110px;
-  position: relative; overflow: hidden; color: #1a1a1a;
+  background: #f6f2ec; position: relative; overflow: hidden; color: #1a1a1a;
+  padding: 0 0 100px;
 }
-.roots::before {
-  content:''; position:absolute; top:0; left:0; width:100%; height:100%;
-  background:
-    radial-gradient(ellipse at 15% 80%, rgba(244,123,32,.06) 0%, transparent 40%),
-    radial-gradient(ellipse at 85% 20%, rgba(13,31,53,.04) 0%, transparent 35%);
-  pointer-events:none; z-index:0;
-}
-.roots__inner {
-  max-width: 1100px; margin: 0 auto; position:relative; z-index:1;
-  display: grid; grid-template-columns: 1fr 1.1fr; gap: 56px; align-items: center;
-}
-/* Bild links */
-.roots__visual {
-  position: relative;
-  display: flex; align-items: center; justify-content: center;
-  min-height: clamp(280px, 28vw, 400px);
-}
-.roots__photo {
+/* Hero-Banner: Luftaufnahme als cinematic Strip */
+.roots__banner {
   position: relative;
   width: 100%;
-  max-width: 480px;
-  aspect-ratio: 4/5;
+  aspect-ratio: 21/9;
+  max-height: 560px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #2a2a2a 0%, #0d1f35 100%);
 }
-.roots__photo img, .roots__photo video {
+.roots__banner img {
   width: 100%; height: 100%; object-fit: cover; display: block;
-  border-radius: 6px;
-  filter: contrast(1.03) saturate(.98);
-  box-shadow:
-    0 24px 60px rgba(0,0,0,.18),
-    0 8px 20px rgba(0,0,0,.08);
+  filter: contrast(1.02) saturate(1.05);
 }
-.roots__photo::before {
-  content:''; position:absolute;
-  top:-2px; left:-2px;
-  width:38px; height:38px;
-  border-top:2px solid #F47B20;
-  border-left:2px solid #F47B20;
-  border-top-left-radius:8px;
-  pointer-events:none; z-index:2;
+.roots__banner-overlay {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(to top, rgba(0,0,0,.6) 0%, rgba(0,0,0,.15) 50%, transparent 100%),
+    linear-gradient(to right, rgba(0,0,0,.35) 0%, transparent 60%);
+  pointer-events: none;
 }
-.roots__photo::after {
-  content:''; position:absolute;
-  bottom:-2px; right:-2px;
-  width:38px; height:38px;
-  border-bottom:2px solid #F47B20;
-  border-right:2px solid #F47B20;
-  border-bottom-right-radius:8px;
-  pointer-events:none; z-index:2;
+.roots__banner-caption {
+  position: absolute; left: 5%; bottom: 7%; right: 5%;
+  color: #fff; z-index: 2;
+  max-width: 600px;
 }
-/* Text rechts */
-.roots__text {}
+.roots__banner-caption .roots__label {
+  color: #fff;
+}
+.roots__banner-caption .roots__label::before {
+  background: #F47B20;
+}
+.roots__banner-caption .roots__title {
+  color: #fff; margin-bottom: 0;
+}
+.roots__banner-caption .roots__title em { color: #F47B20; }
+
 .roots__label {
   display:flex; align-items:center; gap:14px;
   font-size:13px; font-weight:800;
   text-transform:uppercase; letter-spacing:.22em;
-  color:#F47B20; margin-bottom:16px;
+  color:#F47B20; margin-bottom:14px;
   width:fit-content;
 }
 .roots__label::before {
@@ -861,59 +846,112 @@
   width:36px; height:2px; background:#F47B20;
 }
 .roots__title {
-  font-size:clamp(32px, 4.5vw, 50px); font-weight:800; line-height:1.08;
-  letter-spacing:-.03em; margin-bottom:20px; color:#1a1a1a;
+  font-size:clamp(32px, 4.8vw, 54px); font-weight:800; line-height:1.08;
+  letter-spacing:-.03em; margin-bottom:20px;
 }
 .roots__title em { color:#F47B20; font-style:normal; }
-.roots__desc {
-  font-size:17px; color:#444; line-height:1.8; margin-bottom:18px; font-weight:500;
+
+/* Content-Block: asymmetrisch, Text links breit + Quote-Panel rechts */
+.roots__content {
+  max-width: 1100px; margin: 0 auto; padding: 70px 5% 0;
+  display: grid; grid-template-columns: 1.6fr 1fr; gap: 64px; align-items: start;
 }
-.roots__desc b, .roots__desc strong { color:#1a1a1a; font-weight:700; }
-.roots__meta {
-  display:flex; flex-wrap:wrap; gap:10px;
-  margin-top:28px; padding-top:22px;
-  border-top:1px solid rgba(0,0,0,.1);
+.roots__body {}
+.roots__body p {
+  font-size:17px; color:#3a3a3a; line-height:1.8; margin-bottom:18px; font-weight:500;
 }
-.roots__meta span {
-  display:inline-block;
-  padding:8px 16px; border-radius:50px;
-  border:1px solid rgba(244,123,32,.25);
-  background:rgba(244,123,32,.06);
-  font-size:12px; font-weight:700;
-  color:#1a1a1a;
-  letter-spacing:.02em;
-  white-space:nowrap;
+.roots__body p:last-child { margin-bottom: 0; }
+.roots__body strong, .roots__body b { color:#1a1a1a; font-weight:700; }
+
+/* Quote-Panel rechts — hebt sich ab, wirkt wie Editorial-Pull-Quote */
+.roots__side {
+  position: relative;
+  border-left: 3px solid #F47B20;
+  padding: 8px 0 8px 28px;
 }
-@media (max-width:900px) {
-  .roots { padding: 70px 5% 70px; }
-  .roots__inner { grid-template-columns:1fr; text-align:left; gap:32px; }
-  .roots__visual { justify-content:center; min-height:auto; }
-  .roots__photo { max-width:380px; aspect-ratio:4/5; }
-  .roots__title { font-size:30px; line-height:1.1; }
-  .roots__desc { font-size:15px; }
-  .roots__meta { justify-content:flex-start; }
+.roots__quote {
+  font-size: 22px; line-height: 1.5; font-weight: 600;
+  color: #1a1a1a; margin-bottom: 22px;
+  letter-spacing: -.01em;
+}
+.roots__quote em { color:#F47B20; font-style: normal; }
+.roots__byline {
+  font-size: 13px; color: #666; font-weight: 600;
+  text-transform: uppercase; letter-spacing: .15em;
+}
+
+/* Thumbnail-Reihe darunter: Platz fuer 2 weitere Bilder (Kueken, Hof-Detail) */
+.roots__thumbs {
+  max-width: 1100px; margin: 56px auto 0; padding: 0 5%;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+}
+.roots__thumb {
+  position: relative;
+  aspect-ratio: 4/3;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #e8e3dc;
+  box-shadow: 0 12px 30px rgba(0,0,0,.08);
+}
+.roots__thumb img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform .7s cubic-bezier(.22,1,.36,1);
+}
+.roots__thumb:hover img { transform: scale(1.04); }
+.roots__thumb-empty {
+  display:flex; align-items:center; justify-content:center;
+  color: #b0a99e; font-size: 13px; font-weight: 600;
+  text-align: center; padding: 20px;
+  font-style: italic;
+}
+
+@media (max-width: 900px) {
+  .roots { padding-bottom: 70px; }
+  .roots__banner { aspect-ratio: 4/3; max-height: 380px; }
+  .roots__banner-caption { bottom: 6%; }
+  .roots__content {
+    padding: 48px 5% 0;
+    grid-template-columns: 1fr; gap: 36px;
+  }
+  .roots__side { border-left: none; border-top: 3px solid #F47B20; padding: 20px 0 0; }
+  .roots__quote { font-size: 19px; }
+  .roots__thumbs { margin-top: 36px; grid-template-columns: 1fr; gap: 16px; }
+  .roots__thumb { aspect-ratio: 16/10; }
 }
 </style>
 
 <section class="roots" id="herkunft">
-  <div class="roots__inner">
-    <div class="roots__visual anim" data-anim="fade-left">
-      <figure class="roots__photo">
-        <img src="img/familienbetrieb-huehnerhof.jpg?v=1" alt="Familienbetrieb — Hühnerhof" onerror="this.style.display='none'">
-      </figure>
+  <!-- Banner mit Luftaufnahme + Overlay-Caption -->
+  <div class="roots__banner anim" data-anim="scale-in">
+    <img src="img/hof-drohne.jpg?v=1" alt="Familienbetrieb — Luftaufnahme" onerror="this.style.display='none'">
+    <div class="roots__banner-overlay"></div>
+    <div class="roots__banner-caption">
+      <span class="roots__label">Familienbetrieb</span>
+      <h2 class="roots__title">Dritte Generation <em>Hühnerhof.</em></h2>
     </div>
-    <div class="roots__text">
-      <span class="roots__label anim">Familienbetrieb</span>
-      <h2 class="roots__title anim" data-delay="1">Dritte Generation <em>Hühnerhof.</em></h2>
-      <p class="roots__desc anim" data-delay="2">Nebenbei hilf ich im Betrieb meiner Familie mit. <strong>Jungtier-Aufzucht, seit drei Generationen.</strong> Da bin ich aufgewachsen, da kenn ich jeden Handgriff.</p>
-      <p class="roots__desc anim" data-delay="3">Hat mit Videos erstmal nix zu tun — ist mir aber wichtig. Da hab ich gelernt dass <strong>harte Arbeit</strong> kein Spruch ist sondern Grundlage. Wer was erreichen will, kommt da nicht drum rum.</p>
-      <p class="roots__desc anim" data-delay="4">Studium, Videos, Hof. <strong>Alles drei ungefiltert.</strong></p>
-      <div class="roots__meta anim" data-delay="4">
-        <span>Dritte Generation</span>
-        <span>Jungtier-Aufzucht</span>
-        <span>Bodenständig</span>
-      </div>
+  </div>
+
+  <!-- Content-Block: Text + Pull-Quote -->
+  <div class="roots__content">
+    <div class="roots__body anim" data-delay="1">
+      <p>Nebenbei hilf ich im Betrieb meiner Familie mit. <strong>Jungtier-Aufzucht, seit drei Generationen.</strong> Da bin ich aufgewachsen, da kenn ich jeden Handgriff.</p>
+      <p>Hat mit Videos erstmal nix zu tun — ist mir aber wichtig. Da hab ich gelernt dass harte Arbeit kein Spruch ist, sondern <strong>Grundlage</strong>. Wer was erreichen will, kommt da nicht drum rum.</p>
+      <p>Studium, Videos, Hof. <strong>Alles drei ungefiltert.</strong></p>
     </div>
+    <aside class="roots__side anim" data-delay="2">
+      <p class="roots__quote">"Wer was erreichen will, <em>kommt da nicht drum rum.</em>"</p>
+      <div class="roots__byline">— Philipp · dritte Generation</div>
+    </aside>
+  </div>
+
+  <!-- Thumbs fuer weitere Bilder (z.B. Kueken, Philipp auf dem Hof) -->
+  <div class="roots__thumbs anim" data-delay="3">
+    <figure class="roots__thumb">
+      <img src="img/hof-detail-1.jpg?v=1" alt="" onerror="this.parentElement.innerHTML='<div class=&quot;roots__thumb-empty&quot;>Foto folgt: Jungtiere / Aufzucht</div>'">
+    </figure>
+    <figure class="roots__thumb">
+      <img src="img/hof-detail-2.jpg?v=1" alt="" onerror="this.parentElement.innerHTML='<div class=&quot;roots__thumb-empty&quot;>Foto folgt: Philipp am Hof</div>'">
+    </figure>
   </div>
 </section>
 
