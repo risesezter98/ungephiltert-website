@@ -796,7 +796,7 @@
 <style>
 .roots {
   background: #f6f2ec; position: relative; overflow: hidden; color: #1a1a1a;
-  padding: 0 0 100px;
+  padding: 0 0 110px;
 }
 /* Hero-Banner: Luftaufnahme als cinematic Strip */
 .roots__banner {
@@ -807,7 +807,7 @@
   overflow: hidden;
   background: linear-gradient(135deg, #2a2a2a 0%, #0d1f35 100%);
 }
-.roots__banner img {
+.roots__banner > img {
   width: 100%; height: 100%; object-fit: cover; display: block;
   filter: contrast(1.02) saturate(1.05);
 }
@@ -821,7 +821,7 @@
 .roots__banner-caption {
   position: absolute; left: 5%; bottom: 7%; right: 5%;
   color: #fff; z-index: 2;
-  max-width: 600px;
+  max-width: 620px;
 }
 .roots__banner-caption .roots__label {
   color: #fff;
@@ -833,6 +833,31 @@
   color: #fff; margin-bottom: 0;
 }
 .roots__banner-caption .roots__title em { color: #F47B20; }
+
+/* "Damals"-Polaroid: historisches Luftbild leicht rotiert unten rechts am Banner */
+.roots__damals {
+  position: absolute;
+  right: 5%; bottom: -48px;
+  width: clamp(180px, 22vw, 280px);
+  transform: rotate(4deg);
+  background: #fff;
+  padding: 12px 12px 36px;
+  box-shadow:
+    0 22px 50px rgba(0,0,0,.35),
+    0 6px 14px rgba(0,0,0,.18);
+  z-index: 3;
+}
+.roots__damals img {
+  width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block;
+  filter: sepia(.15) saturate(.9) contrast(.98);
+}
+.roots__damals-caption {
+  position: absolute; left: 0; right: 0; bottom: 8px;
+  text-align: center;
+  font-family: 'Courier New', monospace;
+  font-size: 13px; font-weight: 700;
+  color: #444; letter-spacing: .08em;
+}
 
 .roots__label {
   display:flex; align-items:center; gap:14px;
@@ -853,7 +878,7 @@
 
 /* Content-Block: asymmetrisch, Text links breit + Quote-Panel rechts */
 .roots__content {
-  max-width: 1100px; margin: 0 auto; padding: 70px 5% 0;
+  max-width: 1100px; margin: 0 auto; padding: 100px 5% 0;
   display: grid; grid-template-columns: 1.6fr 1fr; gap: 64px; align-items: start;
 }
 .roots__body {}
@@ -862,6 +887,10 @@
 }
 .roots__body p:last-child { margin-bottom: 0; }
 .roots__body strong, .roots__body b { color:#1a1a1a; font-weight:700; }
+.roots__body .brand {
+  display:inline-block; font-weight:800; color:#0d1f35;
+  border-bottom: 2px solid #F47B20;
+}
 
 /* Quote-Panel rechts — hebt sich ab, wirkt wie Editorial-Pull-Quote */
 .roots__side {
@@ -880,10 +909,10 @@
   text-transform: uppercase; letter-spacing: .15em;
 }
 
-/* Thumbnail-Reihe darunter: Platz fuer 2 weitere Bilder (Kueken, Hof-Detail) */
+/* Thumbnail-Reihe: 3 Bilder — Huehner, Kueken, Schild */
 .roots__thumbs {
-  max-width: 1100px; margin: 56px auto 0; padding: 0 5%;
-  display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  max-width: 1100px; margin: 64px auto 0; padding: 0 5%;
+  display: grid; grid-template-columns: 1.25fr 1fr 1.25fr; gap: 20px;
 }
 .roots__thumb {
   position: relative;
@@ -891,7 +920,7 @@
   border-radius: 6px;
   overflow: hidden;
   background: #e8e3dc;
-  box-shadow: 0 12px 30px rgba(0,0,0,.08);
+  box-shadow: 0 14px 32px rgba(0,0,0,.1);
 }
 .roots__thumb img {
   width: 100%; height: 100%; object-fit: cover; display: block;
@@ -900,42 +929,57 @@
 .roots__thumb:hover img { transform: scale(1.04); }
 .roots__thumb-empty {
   display:flex; align-items:center; justify-content:center;
-  color: #b0a99e; font-size: 13px; font-weight: 600;
+  color: #b0a99e; font-size: 12px; font-weight: 600;
   text-align: center; padding: 20px;
   font-style: italic;
+  width: 100%; height: 100%;
 }
+/* Die Kueken-Thumb etwas staerker hervorheben (Portrait-Format passt) */
+.roots__thumb--kueken { aspect-ratio: 3/4; }
+.roots__thumb--kueken img { object-position: center; }
 
 @media (max-width: 900px) {
   .roots { padding-bottom: 70px; }
-  .roots__banner { aspect-ratio: 4/3; max-height: 380px; }
-  .roots__banner-caption { bottom: 6%; }
+  .roots__banner { aspect-ratio: 4/3; max-height: 420px; }
+  .roots__banner-caption { bottom: 14%; max-width: 100%; }
+  .roots__damals {
+    width: 120px; right: 5%; bottom: -30px;
+    padding: 8px 8px 26px;
+  }
+  .roots__damals-caption { font-size: 11px; bottom: 6px; }
   .roots__content {
-    padding: 48px 5% 0;
+    padding: 60px 5% 0;
     grid-template-columns: 1fr; gap: 36px;
   }
   .roots__side { border-left: none; border-top: 3px solid #F47B20; padding: 20px 0 0; }
   .roots__quote { font-size: 19px; }
-  .roots__thumbs { margin-top: 36px; grid-template-columns: 1fr; gap: 16px; }
+  .roots__thumbs { margin-top: 40px; grid-template-columns: 1fr; gap: 14px; }
   .roots__thumb { aspect-ratio: 16/10; }
+  .roots__thumb--kueken { aspect-ratio: 4/3; }
 }
 </style>
 
 <section class="roots" id="herkunft">
-  <!-- Banner mit Luftaufnahme + Overlay-Caption -->
+  <!-- Banner: aktuelle Drohne + "Damals"-Polaroid unten rechts -->
   <div class="roots__banner anim" data-anim="scale-in">
-    <img src="img/hof-drohne.jpg?v=1" alt="Familienbetrieb — Luftaufnahme" onerror="this.style.display='none'">
+    <img src="img/hof-drohne.jpg?v=1" alt="Geflügelhof Reinkemeier — Luftaufnahme heute" onerror="this.style.display='none'">
     <div class="roots__banner-overlay"></div>
     <div class="roots__banner-caption">
       <span class="roots__label">Familienbetrieb</span>
-      <h2 class="roots__title">Dritte Generation <em>Hühnerhof.</em></h2>
+      <h2 class="roots__title">Dritte Generation <em>Geflügelhof.</em></h2>
+    </div>
+    <div class="roots__damals" aria-label="Historisches Foto des Hofes">
+      <img src="img/hof-damals.jpg?v=1" alt="Geflügelhof Reinkemeier — damals" onerror="this.parentElement.style.display='none'">
+      <div class="roots__damals-caption">DAMALS</div>
     </div>
   </div>
 
-  <!-- Content-Block: Text + Pull-Quote -->
+  <!-- Content: Fliesstext + Pull-Quote -->
   <div class="roots__content">
     <div class="roots__body anim" data-delay="1">
-      <p>Nebenbei hilf ich im Betrieb meiner Familie mit. <strong>Jungtier-Aufzucht, seit drei Generationen.</strong> Da bin ich aufgewachsen, da kenn ich jeden Handgriff.</p>
-      <p>Hat mit Videos erstmal nix zu tun — ist mir aber wichtig. Da hab ich gelernt dass harte Arbeit kein Spruch ist, sondern <strong>Grundlage</strong>. Wer was erreichen will, kommt da nicht drum rum.</p>
+      <p>Der Betrieb heißt <span class="brand">Geflügelhof Reinkemeier</span>. Meine Familie führt ihn in <strong>dritter Generation</strong> — da bin ich aufgewachsen, da kenn ich jeden Handgriff.</p>
+      <p>Jungtier-Aufzucht, legereife Junghennen, frische Eier. Das Handwerk lebt. Hat mit Videos erstmal nix zu tun — ist mir aber wichtig.</p>
+      <p>Da hab ich gelernt dass harte Arbeit kein Spruch ist, sondern <strong>Grundlage</strong>. Wer was erreichen will, kommt da nicht drum rum.</p>
       <p>Studium, Videos, Hof. <strong>Alles drei ungefiltert.</strong></p>
     </div>
     <aside class="roots__side anim" data-delay="2">
@@ -944,13 +988,16 @@
     </aside>
   </div>
 
-  <!-- Thumbs fuer weitere Bilder (z.B. Kueken, Philipp auf dem Hof) -->
+  <!-- Thumbs: Huehner · Kueken · Schild -->
   <div class="roots__thumbs anim" data-delay="3">
     <figure class="roots__thumb">
-      <img src="img/hof-detail-1.jpg?v=1" alt="" onerror="this.parentElement.innerHTML='<div class=&quot;roots__thumb-empty&quot;>Foto folgt: Jungtiere / Aufzucht</div>'">
+      <img src="img/hof-huehner.jpg?v=1" alt="Hühner im Stall" onerror="this.parentElement.innerHTML='<div class=&quot;roots__thumb-empty&quot;>Foto folgt: Hühner</div>'">
+    </figure>
+    <figure class="roots__thumb roots__thumb--kueken">
+      <img src="img/hof-kueken.jpg?v=1" alt="Küken in der Hand" onerror="this.parentElement.innerHTML='<div class=&quot;roots__thumb-empty&quot;>Foto folgt: Küken</div>'">
     </figure>
     <figure class="roots__thumb">
-      <img src="img/hof-detail-2.jpg?v=1" alt="" onerror="this.parentElement.innerHTML='<div class=&quot;roots__thumb-empty&quot;>Foto folgt: Philipp am Hof</div>'">
+      <img src="img/hof-schild.jpg?v=1" alt="Geflügelhof Reinkemeier" onerror="this.parentElement.innerHTML='<div class=&quot;roots__thumb-empty&quot;>Foto folgt: Hof-Schild</div>'">
     </figure>
   </div>
 </section>
