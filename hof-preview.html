@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Familienbetrieb — 5 Design-Varianten</title>
+<style>
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  body { background: #f0f4f9; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #0d1f35; }
+  img { max-width:100%; height:auto; display:block; }
+
+  /* Top Nav für Varianten */
+  .vnav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(11,24,41,.95); backdrop-filter: blur(10px);
+    padding: 14px 5%;
+    display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+    border-bottom: 1px solid rgba(244,123,32,.2);
+  }
+  .vnav__title { color:#F47B20; font-size:13px; font-weight:800; text-transform:uppercase; letter-spacing:.2em; margin-right: 14px; }
+  .vnav a {
+    padding: 8px 14px; border-radius: 50px;
+    font-size: 13px; font-weight: 700; color: #fff;
+    background: rgba(255,255,255,.08); text-decoration: none;
+    transition: all .2s;
+  }
+  .vnav a:hover { background: #F47B20; }
+
+  /* Variant-Header zwischen Varianten */
+  .vhead {
+    background: #0d1f35; color: #fff;
+    padding: 50px 5% 30px;
+    border-top: 3px solid #F47B20;
+  }
+  .vhead h2 { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
+  .vhead h2 em { color: #F47B20; font-style: normal; }
+  .vhead p { font-size: 15px; color: rgba(255,255,255,.7); max-width: 720px; line-height: 1.6; }
+  .vhead__tag { display:inline-block; background:#F47B20; color:#fff; font-size:11px; font-weight:800; letter-spacing:.15em; padding:4px 10px; border-radius:4px; margin-bottom:12px; }
+
+  /* ════════════════════════════════════════════════════════════
+     V1 — DAMALS / HEUTE SPLIT
+     Zwei Bilder nebeneinander + Text mittig darunter
+     Ton: Transformation, sachlich-reportageartig
+     ════════════════════════════════════════════════════════════ */
+  .hv1 { background: #ede8df; padding: 100px 5% 100px; position: relative; overflow: hidden; }
+  .hv1__split {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+    border-radius: 8px; overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,.18), 0 10px 20px rgba(0,0,0,.08);
+  }
+  .hv1__half { position: relative; aspect-ratio: 4/3; overflow: hidden; }
+  .hv1__half img { width:100%; height:100%; object-fit: cover; }
+  .hv1__half--past img { filter: sepia(.4) saturate(.7) contrast(1.02); }
+  .hv1__halfcap {
+    position: absolute; top: 20px; left: 20px;
+    background: rgba(13,31,53,.88); color:#fff;
+    padding: 8px 14px; border-radius: 4px;
+    font-family: 'Courier New', monospace; font-size: 12px; font-weight: 800; letter-spacing:.15em;
+  }
+  .hv1__halfcap--orange { background: #F47B20; }
+  .hv1__text {
+    max-width: 780px; margin: 60px auto 0; text-align: center;
+  }
+  .hv1__label {
+    display:inline-flex; align-items:center; gap:10px;
+    font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:.24em;
+    color:#F47B20; margin-bottom:14px;
+  }
+  .hv1__label::before, .hv1__label::after {
+    content:''; width:30px; height:2px; background:#F47B20;
+  }
+  .hv1__title {
+    font-size: clamp(32px, 4.5vw, 52px); font-weight:800;
+    line-height: 1.05; letter-spacing:-.03em; margin-bottom:24px;
+  }
+  .hv1__title em { color: #F47B20; font-style: normal; }
+  .hv1__desc { font-size: 17px; line-height: 1.8; color:#3a3a3a; max-width: 640px; margin: 0 auto 14px; }
+  .hv1__desc strong { color: #0d1f35; }
+  .hv1__stat {
+    display: inline-flex; gap: 40px; margin-top: 40px;
+    padding: 24px 40px; background: #fff;
+    border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,.06);
+  }
+  .hv1__stat > div { text-align: center; }
+  .hv1__stat-num { font-size: 36px; font-weight: 900; color: #F47B20; line-height: 1; }
+  .hv1__stat-lbl { font-size: 11px; color: #666; font-weight: 700; letter-spacing:.1em; text-transform: uppercase; margin-top: 6px; }
+  @media (max-width: 900px) {
+    .hv1__split { grid-template-columns: 1fr; }
+    .hv1__stat { flex-direction: column; gap: 20px; padding: 20px; }
+  }
+
+  /* ════════════════════════════════════════════════════════════
+     V2 — BENTO GRID MIT INTEGRIERTEM TEXT
+     5 Kacheln + 1 Text-Panel, unterschiedliche Größen
+     Ton: Reflektiv, persönlich, Tags
+     ════════════════════════════════════════════════════════════ */
+  .hv2 { background: #faf8f3; padding: 100px 5% 100px; position: relative; overflow: hidden; }
+  .hv2__inner { max-width: 1200px; margin: 0 auto; }
+  .hv2__top { margin-bottom: 32px; max-width: 720px; }
+  .hv2__label {
+    display:inline-flex; align-items:center; gap:12px;
+    font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:.22em;
+    color:#F47B20; margin-bottom:14px;
+  }
+  .hv2__label::before { content:''; width:34px; height:2px; background:#F47B20; }
+  .hv2__title {
+    font-size: clamp(30px, 4.5vw, 50px); font-weight:800;
+    line-height: 1.05; letter-spacing:-.03em; margin-bottom:18px;
+  }
+  .hv2__title em { color:#F47B20; font-style: normal; }
+  .hv2__lede { font-size: 18px; line-height: 1.6; color:#3a3a3a; max-width: 600px; }
+  .hv2__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 220px 220px 220px;
+    gap: 16px;
+  }
+  .hv2__tile {
+    position: relative; overflow: hidden;
+    border-radius: 10px;
+    background: #2a2a2a;
+    box-shadow: 0 14px 34px rgba(0,0,0,.1);
+  }
+  .hv2__tile img { width:100%; height:100%; object-fit: cover; transition: transform .6s; }
+  .hv2__tile:hover img { transform: scale(1.05); }
+  .hv2__cap {
+    position: absolute; bottom: 12px; left: 12px;
+    color: #fff; font-size: 11px; font-weight: 800;
+    letter-spacing: .1em; text-transform: uppercase;
+    background: rgba(0,0,0,.55); padding: 6px 10px; border-radius: 4px;
+    backdrop-filter: blur(6px);
+  }
+  /* Tile sizing */
+  .hv2__tile--drone { grid-column: 1 / 3; grid-row: 1 / 3; }
+  .hv2__tile--damals { grid-column: 3 / 5; grid-row: 1 / 2; }
+  .hv2__tile--damals img { filter: sepia(.3) saturate(.8); }
+  .hv2__tile--kueken { grid-column: 3 / 4; grid-row: 2 / 3; }
+  .hv2__tile--huehner { grid-column: 4 / 5; grid-row: 2 / 3; }
+  .hv2__tile--schild { grid-column: 3 / 5; grid-row: 3 / 4; }
+  .hv2__text-tile {
+    grid-column: 1 / 3; grid-row: 3 / 4;
+    background: #0d1f35; color: #fff;
+    padding: 28px; border-radius: 10px;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .hv2__text-tile p { font-size: 15px; line-height: 1.6; color: rgba(255,255,255,.85); }
+  .hv2__text-tile strong { color: #F47B20; font-weight: 700; }
+  .hv2__tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+  .hv2__tag {
+    font-size: 10px; font-weight: 800; letter-spacing:.1em;
+    background: rgba(244,123,32,.15); color:#F47B20;
+    padding: 4px 10px; border-radius: 50px; text-transform: uppercase;
+  }
+  @media (max-width: 900px) {
+    .hv2__grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+    .hv2__tile--drone, .hv2__tile--damals, .hv2__tile--kueken, .hv2__tile--huehner, .hv2__tile--schild, .hv2__text-tile {
+      grid-column: auto; grid-row: auto; min-height: 200px;
+    }
+    .hv2__tile--drone { grid-column: 1 / 3; aspect-ratio: 16/10; }
+    .hv2__text-tile { grid-column: 1 / 3; }
+  }
+
+  /* ════════════════════════════════════════════════════════════
+     V3 — LONG-SCROLL EDITORIAL
+     Full-bleed Bilder im Wechsel mit Textabsätzen, wie Reportage
+     Ton: Story/Anekdote, persönlich, narrativ
+     ════════════════════════════════════════════════════════════ */
+  .hv3 { background: #1a1816; color: #fff; padding: 100px 0 100px; overflow: hidden; }
+  .hv3__opener { max-width: 780px; margin: 0 auto 60px; padding: 0 5%; text-align: center; }
+  .hv3__kicker { font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:.25em; color:#F47B20; margin-bottom:18px; }
+  .hv3__title { font-size: clamp(36px, 5.5vw, 64px); font-weight:800; line-height:1.05; letter-spacing:-.03em; margin-bottom:22px; }
+  .hv3__title em { color:#F47B20; font-style: normal; }
+  .hv3__lede { font-size: 19px; line-height: 1.7; color: rgba(255,255,255,.82); max-width: 620px; margin: 0 auto; }
+  .hv3__bigimg {
+    width: 100%; aspect-ratio: 21/9; max-height: 560px;
+    overflow: hidden; margin-bottom: 0;
+    position: relative;
+  }
+  .hv3__bigimg img { width:100%; height:100%; object-fit: cover; }
+  .hv3__bigimg--sepia img { filter: sepia(.35) saturate(.75) contrast(1.05); }
+  .hv3__imgcap {
+    position: absolute; bottom: 20px; right: 5%;
+    background: rgba(0,0,0,.7); padding: 8px 14px;
+    font-size: 11px; font-weight: 700; color:#fff; letter-spacing:.15em;
+    border-left: 3px solid #F47B20;
+  }
+  .hv3__passage {
+    max-width: 680px; margin: 0 auto; padding: 60px 5%;
+  }
+  .hv3__drop {
+    float: left; font-size: 64px; font-weight: 900;
+    line-height: .9; color: #F47B20; margin: 8px 14px 0 0;
+    font-family: Georgia, serif;
+  }
+  .hv3__passage p { font-size: 18px; line-height: 1.8; color: rgba(255,255,255,.88); margin-bottom: 18px; }
+  .hv3__passage p:last-child { margin-bottom: 0; }
+  .hv3__passage strong { color: #fff; }
+  .hv3__pairs {
+    max-width: 1200px; margin: 0 auto; padding: 0 5%;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  }
+  .hv3__pairs figure { position: relative; aspect-ratio: 4/3; overflow: hidden; border-radius: 4px; }
+  .hv3__pairs img { width:100%; height:100%; object-fit: cover; }
+  .hv3__endquote {
+    max-width: 800px; margin: 80px auto 0; padding: 0 5%;
+    text-align: center;
+  }
+  .hv3__endquote p {
+    font-size: clamp(22px, 3vw, 32px); font-weight: 600;
+    line-height: 1.4; color: #fff; font-style: italic;
+    padding: 30px 0; border-top: 2px solid rgba(244,123,32,.4); border-bottom: 2px solid rgba(244,123,32,.4);
+  }
+  .hv3__endquote em { color: #F47B20; font-style: italic; }
+  @media (max-width: 900px) {
+    .hv3__bigimg { aspect-ratio: 4/3; }
+    .hv3__pairs { grid-template-columns: 1fr; }
+    .hv3__drop { font-size: 48px; }
+  }
+
+  /* ════════════════════════════════════════════════════════════
+     V4 — CARD OVERLAP / FLOATING
+     Hintergrund = Luftbild dunkel, Content-Card schwebt drüber
+     Ton: Direkt, stolz, selbstbewusst
+     ════════════════════════════════════════════════════════════ */
+  .hv4 {
+    position: relative; padding: 140px 5%; overflow: hidden;
+    background: #0d1f35;
+    min-height: 720px;
+  }
+  .hv4__bg {
+    position: absolute; inset: 0;
+    background: url('img/hof-drohne.jpg') center/cover no-repeat;
+    filter: brightness(.4) saturate(.75);
+    z-index: 0;
+  }
+  .hv4__bg::after {
+    content:''; position:absolute; inset:0;
+    background: linear-gradient(135deg, rgba(13,31,53,.7) 0%, rgba(13,31,53,.3) 100%);
+  }
+  .hv4__inner {
+    position: relative; z-index: 1;
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1.3fr 1fr; gap: 48px; align-items: center;
+  }
+  .hv4__card {
+    background: #faf8f3; color: #0d1f35;
+    padding: 56px 48px; border-radius: 12px;
+    box-shadow: 0 40px 80px rgba(0,0,0,.4), 0 12px 24px rgba(0,0,0,.2);
+    position: relative;
+  }
+  .hv4__card::before {
+    content:''; position:absolute;
+    top: -12px; left: 48px;
+    width: 80px; height: 4px;
+    background: #F47B20;
+  }
+  .hv4__brand {
+    font-size: 11px; font-weight: 800; letter-spacing:.28em; text-transform: uppercase;
+    color: #F47B20; margin-bottom: 16px;
+  }
+  .hv4__hd {
+    font-size: clamp(32px, 4.5vw, 52px); font-weight: 900;
+    line-height: 1.02; letter-spacing: -.035em; margin-bottom: 22px;
+  }
+  .hv4__hd em { color: #F47B20; font-style: normal; }
+  .hv4__sub { font-size: 17px; line-height: 1.7; color: #3a3a3a; margin-bottom: 14px; }
+  .hv4__sub strong { color: #0d1f35; }
+  .hv4__meta-row {
+    display: flex; gap: 24px; margin-top: 28px; padding-top: 22px;
+    border-top: 1px solid rgba(13,31,53,.12);
+    flex-wrap: wrap;
+  }
+  .hv4__meta { font-size: 12px; }
+  .hv4__meta-k { color: #888; font-weight: 700; text-transform: uppercase; letter-spacing:.1em; margin-bottom: 4px; }
+  .hv4__meta-v { color: #0d1f35; font-weight: 800; font-size: 14px; }
+  .hv4__stack {
+    position: relative;
+    aspect-ratio: 3/4;
+    max-width: 360px; margin: 0 auto;
+  }
+  .hv4__stack figure { position: absolute; border-radius: 6px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,.35); }
+  .hv4__stack figure img { width:100%; height:100%; object-fit: cover; }
+  .hv4__stack figure:nth-child(1) {
+    top: 0; left: 0; width: 80%; aspect-ratio: 4/5;
+    transform: rotate(-5deg);
+  }
+  .hv4__stack figure:nth-child(2) {
+    top: 30%; right: 0; width: 55%; aspect-ratio: 3/4;
+    transform: rotate(4deg); z-index: 2;
+  }
+  .hv4__stack figure:nth-child(3) {
+    bottom: 0; left: 10%; width: 60%; aspect-ratio: 4/3;
+    transform: rotate(-3deg); z-index: 3;
+  }
+  @media (max-width: 900px) {
+    .hv4 { padding: 80px 5%; }
+    .hv4__inner { grid-template-columns: 1fr; }
+    .hv4__card { padding: 36px 24px; }
+    .hv4__stack { aspect-ratio: 1/1; max-width: 100%; height: 420px; }
+  }
+
+  /* ════════════════════════════════════════════════════════════
+     V5 — HORIZONTAL FILMSTRIP
+     Scroll-Snap Strip mit 5 großen Karten
+     Ton: Verbindung zum Content, "da komm ich her, deshalb mach ich so"
+     ════════════════════════════════════════════════════════════ */
+  .hv5 { background: #fff; padding: 100px 0 100px; }
+  .hv5__intro {
+    max-width: 900px; margin: 0 auto 50px; padding: 0 5%;
+    display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: end;
+  }
+  .hv5__headline { }
+  .hv5__kicker { font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:.22em; color:#F47B20; margin-bottom:14px; }
+  .hv5__headline h2 {
+    font-size: clamp(34px, 5vw, 56px); font-weight: 800;
+    line-height: 1.05; letter-spacing:-.03em; color: #0d1f35;
+  }
+  .hv5__headline h2 em { color: #F47B20; font-style: normal; }
+  .hv5__lede { font-size: 16px; line-height: 1.65; color: #3a3a3a; max-width: 340px; }
+  .hv5__strip {
+    display: flex; gap: 18px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 20px 5% 40px;
+    scrollbar-width: thin;
+  }
+  .hv5__strip::-webkit-scrollbar { height: 6px; }
+  .hv5__strip::-webkit-scrollbar-thumb { background: #F47B20; border-radius: 4px; }
+  .hv5__card {
+    flex: 0 0 clamp(280px, 36vw, 420px);
+    scroll-snap-align: start;
+    display: flex; flex-direction: column;
+    background: #f5f3ef;
+    border-radius: 10px; overflow: hidden;
+    transition: transform .4s cubic-bezier(.22,1,.36,1);
+  }
+  .hv5__card:hover { transform: translateY(-6px); }
+  .hv5__card figure { aspect-ratio: 3/4; overflow: hidden; background: #2a2a2a; }
+  .hv5__card img { width:100%; height:100%; object-fit: cover; }
+  .hv5__card--sepia img { filter: sepia(.35) saturate(.75); }
+  .hv5__card-body { padding: 22px 24px 28px; }
+  .hv5__card-step { font-size: 11px; font-weight: 800; letter-spacing:.2em; color: #F47B20; margin-bottom: 8px; }
+  .hv5__card-hd { font-size: 22px; font-weight: 800; line-height: 1.2; margin-bottom: 10px; color: #0d1f35; }
+  .hv5__card-txt { font-size: 14px; line-height: 1.6; color: #555; }
+  .hv5__outro {
+    max-width: 680px; margin: 60px auto 0; padding: 0 5%;
+    text-align: center;
+    font-size: 18px; line-height: 1.7; color: #3a3a3a; font-weight: 500;
+  }
+  .hv5__outro strong { color: #0d1f35; }
+  @media (max-width: 900px) {
+    .hv5__intro { grid-template-columns: 1fr; gap: 20px; }
+    .hv5__card { flex: 0 0 85vw; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="vnav">
+  <span class="vnav__title">Hof — Design-Varianten</span>
+  <a href="#v1">V1 · Split</a>
+  <a href="#v2">V2 · Bento</a>
+  <a href="#v3">V3 · Editorial</a>
+  <a href="#v4">V4 · Overlay</a>
+  <a href="#v5">V5 · Filmstrip</a>
+  <a href="index.html" style="margin-left:auto; background:#F47B20;">← zurück zur Seite</a>
+</nav>
+
+<!-- ═══════════════ V1 — DAMALS / HEUTE SPLIT ═══════════════ -->
+<header class="vhead" id="v1">
+  <span class="vhead__tag">V1 · DAMALS / HEUTE SPLIT</span>
+  <h2>Zwei Luftbilder, <em>eine Geschichte.</em></h2>
+  <p>Reportage-Ton. Links 60er, rechts heute. Text zentriert darunter. Stat-Panel mit 3 Zahlen. Funktioniert weil die Transformation visuell sofort passiert.</p>
+</header>
+
+<section class="hv1">
+  <div class="hv1__split">
+    <div class="hv1__half hv1__half--past">
+      <img src="img/hof-damals.jpg" alt="Hof in den 60er Jahren">
+      <div class="hv1__halfcap">1960er</div>
+    </div>
+    <div class="hv1__half">
+      <img src="img/hof-drohne.jpg" alt="Hof heute">
+      <div class="hv1__halfcap hv1__halfcap--orange">heute</div>
+    </div>
+  </div>
+  <div class="hv1__text">
+    <span class="hv1__label">Familienbetrieb</span>
+    <h2 class="hv1__title">Drei Generationen, <em>ein Hof.</em></h2>
+    <p class="hv1__desc"><strong>Geflügelhof Reinkemeier.</strong> Angefangen hat der Betrieb in den 60ern — da stand noch ein einzelner Stall im Feld. Heute läuft hier Jungtier-Aufzucht, Junghennen, frische Eier.</p>
+    <p class="hv1__desc">Da bin ich aufgewachsen. Wenn ich grad nicht in der Uni bin oder auf nem Event filme, helf ich hier mit. Nicht weil ich muss, sondern weil's dazugehört.</p>
+    <div class="hv1__stat">
+      <div><div class="hv1__stat-num">3</div><div class="hv1__stat-lbl">Generationen</div></div>
+      <div><div class="hv1__stat-num">60+</div><div class="hv1__stat-lbl">Jahre</div></div>
+      <div><div class="hv1__stat-num">365</div><div class="hv1__stat-lbl">Tage Handwerk</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ V2 — BENTO GRID ═══════════════ -->
+<header class="vhead" id="v2">
+  <span class="vhead__tag">V2 · BENTO GRID</span>
+  <h2>Alles auf einen Blick, <em>kompakt.</em></h2>
+  <p>Alle Bilder in einem asymmetrischen Grid, ein Text-Panel ist selbst eine Kachel. Jedes Bild hat einen Mini-Label. Reiht sich visuell in die „Mein Content"-Bento ein, aber mit eigenen Grid-Proportionen.</p>
+</header>
+
+<section class="hv2">
+  <div class="hv2__inner">
+    <div class="hv2__top">
+      <span class="hv2__label">Woher ich komme</span>
+      <h2 class="hv2__title">Geflügelhof <em>Reinkemeier.</em></h2>
+      <p class="hv2__lede">Dritte Generation, Landwirtschaft, Handwerk. Das Andere neben Uni und Videos. Der Stoff aus dem ich gemacht bin.</p>
+    </div>
+    <div class="hv2__grid">
+      <figure class="hv2__tile hv2__tile--drone">
+        <img src="img/hof-drohne.jpg" alt="Luftbild heute">
+        <span class="hv2__cap">Heute · Luftbild</span>
+      </figure>
+      <figure class="hv2__tile hv2__tile--damals">
+        <img src="img/hof-damals.jpg" alt="Damals">
+        <span class="hv2__cap">60er · Anfänge</span>
+      </figure>
+      <figure class="hv2__tile hv2__tile--kueken">
+        <img src="img/hof-kueken.jpg" alt="Küken in Hand">
+        <span class="hv2__cap">Aufzucht</span>
+      </figure>
+      <figure class="hv2__tile hv2__tile--huehner">
+        <img src="img/hof-huehner.jpg" alt="Hühner">
+        <span class="hv2__cap">Bestand</span>
+      </figure>
+      <figure class="hv2__tile hv2__tile--schild">
+        <img src="img/hof-schild.jpg" alt="Geflügelhof-Schild">
+        <span class="hv2__cap">Der Laden</span>
+      </figure>
+      <div class="hv2__text-tile">
+        <p>Ich hab früh gelernt: <strong>harte Arbeit geht vor.</strong> Kein Spruch. Einfach wie's ist.</p>
+        <div class="hv2__tags">
+          <span class="hv2__tag">3. Generation</span>
+          <span class="hv2__tag">Junghennen</span>
+          <span class="hv2__tag">Eier</span>
+          <span class="hv2__tag">Aufzucht</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ V3 — LONG-SCROLL EDITORIAL ═══════════════ -->
+<header class="vhead" id="v3">
+  <span class="vhead__tag">V3 · LONG-SCROLL EDITORIAL</span>
+  <h2>Magazin-Reportage, <em>dunkle Bühne.</em></h2>
+  <p>Dunkler Hintergrund, cinematic. Full-width Bilder im Wechsel mit Text-Passagen, Drop-Cap am Absatz-Start. Story/Anekdoten-Ton, persönlich. Schluss-Quote als Einrahmung.</p>
+</header>
+
+<section class="hv3">
+  <div class="hv3__opener">
+    <div class="hv3__kicker">Die dritte Generation</div>
+    <h1 class="hv3__title">Bevor ich gefilmt hab,<br><em>war da der Hof.</em></h1>
+    <p class="hv3__lede">Ein paar Tausend Hühner, ein Silo, ein Familien-Name. Das ist nicht glamourös — aber echt.</p>
+  </div>
+
+  <div class="hv3__bigimg hv3__bigimg--sepia">
+    <img src="img/hof-damals.jpg" alt="Hof in den 60ern">
+    <div class="hv3__imgcap">DAMALS · 1960er</div>
+  </div>
+
+  <div class="hv3__passage">
+    <p><span class="hv3__drop">D</span>er <strong>Geflügelhof Reinkemeier</strong> läuft in dritter Generation. Opa hat angefangen, Papa hat übernommen, und ich helf mit wenn ich grade da bin. Morgens in den Stall rüber, wenn ich nicht gerade zwischen Vorlesung und Schnittplatz hänge.</p>
+    <p>Das Tempo ist anders als das auf Instagram. Kein Reel-Algorithmus. Keine Views. Nur Tiere, Arbeit, Jahreszeiten. <strong>Gerade deshalb hält's mich geerdet.</strong></p>
+  </div>
+
+  <div class="hv3__bigimg">
+    <img src="img/hof-drohne.jpg" alt="Hof heute">
+    <div class="hv3__imgcap">HEUTE</div>
+  </div>
+
+  <div class="hv3__passage">
+    <p>Wenn mich jemand fragt warum ich ungefiltert mach, kommt's da her. Ich bin nicht in einer Stadt-WG mit Ringlicht groß geworden, sondern <strong>zwischen Eiern und Futtersäcken.</strong> Das färbt ab.</p>
+  </div>
+
+  <div class="hv3__pairs">
+    <figure><img src="img/hof-kueken.jpg" alt="Küken"></figure>
+    <figure><img src="img/hof-huehner.jpg" alt="Hühner"></figure>
+  </div>
+
+  <div class="hv3__endquote">
+    <p>„Wer <em>was erreichen</em> will, kommt da nicht drum rum."</p>
+  </div>
+</section>
+
+<!-- ═══════════════ V4 — CARD OVERLAP AUF LUFTBILD ═══════════════ -->
+<header class="vhead" id="v4">
+  <span class="vhead__tag">V4 · CARD OVERLAY</span>
+  <h2>Luftbild als Bühne, <em>Content-Card schwebt.</em></h2>
+  <p>Luftbild füllt den Hintergrund (abgedunkelt). Eine helle Content-Card mit Business-Ton schwebt drüber. Rechts ein gestapeltes Polaroid-Deck mit 3 Bildern. Direkt, selbstbewusst, „das ist unser Ding".</p>
+</header>
+
+<section class="hv4">
+  <div class="hv4__bg"></div>
+  <div class="hv4__inner">
+    <div class="hv4__card">
+      <div class="hv4__brand">Geflügelhof Reinkemeier · Seit den 60ern</div>
+      <h2 class="hv4__hd">Handwerk. <em>Ohne Filter.</em></h2>
+      <p class="hv4__sub">Wir züchten <strong>legereife Junghennen</strong>, verkaufen täglich frische Eier, liefern Junggeflügel zur Weitermast. Nichts davon bekommt man beim Scrollen mit — aber es ist das, was hier jeden Tag passiert.</p>
+      <p class="hv4__sub">Ich hab hier gelernt was Arbeit ist. Nicht als Metapher, sondern am Stall um halb sechs.</p>
+      <div class="hv4__meta-row">
+        <div class="hv4__meta"><div class="hv4__meta-k">Gründung</div><div class="hv4__meta-v">1960er</div></div>
+        <div class="hv4__meta"><div class="hv4__meta-k">Standort</div><div class="hv4__meta-v">Anzefahr</div></div>
+        <div class="hv4__meta"><div class="hv4__meta-k">Generation</div><div class="hv4__meta-v">III</div></div>
+        <div class="hv4__meta"><div class="hv4__meta-k">Öffnung</div><div class="hv4__meta-v">Mo–Sa</div></div>
+      </div>
+    </div>
+    <div class="hv4__stack">
+      <figure><img src="img/hof-huehner.jpg" alt=""></figure>
+      <figure><img src="img/hof-kueken.jpg" alt=""></figure>
+      <figure><img src="img/hof-schild.jpg" alt=""></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ V5 — HORIZONTAL FILMSTRIP ═══════════════ -->
+<header class="vhead" id="v5">
+  <span class="vhead__tag">V5 · HORIZONTAL FILMSTRIP</span>
+  <h2>Scroll durch den Hof, <em>wie ein Feed.</em></h2>
+  <p>Horizontal scrollbarer Strip mit 5 großen Karten. Jede Karte Bild + kurze Caption. Nutzer swipet/scrollt durch. Rahmen-Text oben links, Schluss-Text unten. Passt visuell zum Events-Karussell.</p>
+</header>
+
+<section class="hv5">
+  <div class="hv5__intro">
+    <div class="hv5__headline">
+      <div class="hv5__kicker">Scroll durch den Hof</div>
+      <h2>Wenn ich nicht film, <em>bin ich hier.</em></h2>
+    </div>
+    <p class="hv5__lede">Dritte Generation, Geflügelhof Reinkemeier. Kein Content-Set — einfach der Ort, der mich geformt hat.</p>
+  </div>
+
+  <div class="hv5__strip">
+    <article class="hv5__card">
+      <figure><img src="img/hof-drohne.jpg" alt=""></figure>
+      <div class="hv5__card-body">
+        <div class="hv5__card-step">01 · Der Hof</div>
+        <h3 class="hv5__card-hd">Luftaufnahme heute</h3>
+        <p class="hv5__card-txt">Anzefahr. Offener Himmel, paar Ställe, Straße vorbei. Hier läuft das Tagesgeschäft seit drei Generationen.</p>
+      </div>
+    </article>
+    <article class="hv5__card hv5__card--sepia">
+      <figure><img src="img/hof-damals.jpg" alt=""></figure>
+      <div class="hv5__card-body">
+        <div class="hv5__card-step">02 · Damals</div>
+        <h3 class="hv5__card-hd">Wie es angefangen hat</h3>
+        <p class="hv5__card-txt">Opa hat in den 60ern angefangen. Ein Stall, paar Tiere, viel Handarbeit. Grundstein für alles was danach kam.</p>
+      </div>
+    </article>
+    <article class="hv5__card">
+      <figure><img src="img/hof-kueken.jpg" alt=""></figure>
+      <div class="hv5__card-body">
+        <div class="hv5__card-step">03 · Aufzucht</div>
+        <h3 class="hv5__card-hd">Jungtier-Aufzucht</h3>
+        <p class="hv5__card-txt">Hauptgeschäft sind legereife Junghennen. Kleiner Anfang, klare Verantwortung — das bleibt hängen.</p>
+      </div>
+    </article>
+    <article class="hv5__card">
+      <figure><img src="img/hof-huehner.jpg" alt=""></figure>
+      <div class="hv5__card-body">
+        <div class="hv5__card-step">04 · Bestand</div>
+        <h3 class="hv5__card-hd">Ein paar Tausend Hühner</h3>
+        <p class="hv5__card-txt">Strohboden, Licht, Futter. Laut, lebendig, und jeden Tag Routine die keiner im Feed zeigt.</p>
+      </div>
+    </article>
+    <article class="hv5__card">
+      <figure><img src="img/hof-schild.jpg" alt=""></figure>
+      <div class="hv5__card-body">
+        <div class="hv5__card-step">05 · Der Laden</div>
+        <h3 class="hv5__card-hd">Frische Eier, direkt ab Hof</h3>
+        <p class="hv5__card-txt">Täglich frische Eier, Junghennen, Geflügelfutter. Mo–Sa geöffnet. Dienstag geschlossen.</p>
+      </div>
+    </article>
+  </div>
+
+  <p class="hv5__outro">Ohne diesen Hof wär ich nicht der Typ der mit der Kamera auf Events steht. <strong>Das kommt von hier.</strong></p>
+</section>
+
+</body>
+</html>
