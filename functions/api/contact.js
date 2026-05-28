@@ -8,7 +8,7 @@
 //   SENDER_EMAIL → in Brevo verifizierte Absender-Adresse
 //   OWNER_NAME   → "Philipp"
 const OWNER_EMAIL = "rubenpfeiffer.1104@gmail.com";   // TEST: spaeter auf Philipps Mail wechseln
-const SENDER_EMAIL = "beratung@pfeifferdigital.de";  // Brevo-verifiziert
+const SENDER_EMAIL = "media@ungephiltert.de";  // Brevo-verifiziert (Philipp's Mailbox via all-inkl + Gmail)
 const OWNER_NAME = "Philipp";
 const SITE_NAME = "ungephiltert.";
 
@@ -95,6 +95,7 @@ export async function onRequestPost(context) {
     const confirmationEmail = {
       sender: { name: SITE_NAME, email: SENDER_EMAIL },
       to: [{ email: email, name: name }],
+      replyTo: { email: SENDER_EMAIL, name: OWNER_NAME },
       subject: "Hab deine Nachricht — ungephiltert.",
       htmlContent: `
         <!DOCTYPE html>
