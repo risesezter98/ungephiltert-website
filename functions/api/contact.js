@@ -56,38 +56,51 @@ export async function onRequestPost(context) {
       sender: { name: SITE_NAME, email: SENDER_EMAIL },
       to: [{ email: OWNER_EMAIL, name: OWNER_NAME }],
       replyTo: { email: email, name: name },
-      subject: `Neue Nachricht von ${name}`,
+      subject: `Neue Website-Eintragung — ${name}`,
       htmlContent: `
         <!DOCTYPE html>
         <html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
-        <body style="margin:0;padding:0;background:#f4f4f5;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
-          <div style="max-width:560px;margin:40px auto;background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.08);">
+        <body style="margin:0;padding:0;background:#0f0d0b;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#0f0d0b;">
+            <tr><td align="center" style="padding:40px 16px;">
 
-            <div style="background:#0f0d0b;padding:24px 32px;">
-              <table style="width:100%;"><tr>
-                <td style="vertical-align:middle;color:#fff;font-size:18px;font-weight:800;letter-spacing:-.02em;">ungephiltert<span style="color:#E8652B;">.</span></td>
-                <td style="text-align:right;vertical-align:middle;"><span style="color:rgba(255,255,255,.4);font-size:11px;font-family:monospace;letter-spacing:1px;text-transform:uppercase;">Neue Nachricht</span></td>
-              </tr></table>
-            </div>
+              <table role="presentation" width="560" cellpadding="0" cellspacing="0" border="0" style="max-width:560px;width:100%;background:#ffffff;border-radius:14px;overflow:hidden;">
 
-            <div style="padding:28px 32px 12px;">
-              <h2 style="margin:0 0 4px;font-size:20px;color:#111;">${escapeHtml(name)}</h2>
-              <p style="margin:0;color:#666;font-size:14px;"><a href="mailto:${escapeHtml(email)}" style="color:#E8652B;text-decoration:none;">${escapeHtml(email)}</a></p>
-            </div>
+                <tr><td style="background:#0f0d0b;padding:22px 32px;border-bottom:2px solid #E8652B;">
+                  <table role="presentation" width="100%"><tr>
+                    <td style="color:#fff;font-size:18px;font-weight:800;letter-spacing:-.02em;">ungephiltert<span style="color:#E8652B;">.</span></td>
+                    <td align="right" style="color:rgba(255,255,255,.5);font-size:10px;font-family:'SF Mono',Menlo,monospace;letter-spacing:1.5px;text-transform:uppercase;">Website · Eintragung</td>
+                  </tr></table>
+                </td></tr>
 
-            <div style="margin:0 32px 24px;padding:20px;background:#f8f9fa;border-radius:8px;border-left:3px solid #E8652B;">
-              <p style="margin:0 0 6px;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#999;font-weight:600;">Nachricht</p>
-              <p style="margin:0;font-size:14px;line-height:1.7;color:#333;">${escapeHtml(message).replace(/\n/g, "<br>")}</p>
-            </div>
+                <tr><td style="padding:32px 32px 8px;">
+                  <p style="margin:0 0 6px;font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:#999;font-weight:700;">Von</p>
+                  <h1 style="margin:0 0 4px;font-size:24px;color:#111;font-weight:800;letter-spacing:-.02em;">${escapeHtml(name)}</h1>
+                  <p style="margin:0;font-size:14px;"><a href="mailto:${escapeHtml(email)}" style="color:#E8652B;text-decoration:none;font-weight:600;">${escapeHtml(email)}</a></p>
+                </td></tr>
 
-            <div style="padding:0 32px 32px;text-align:center;">
-              <a href="mailto:${escapeHtml(email)}?subject=Re: Deine Nachricht auf ungephiltert" style="display:inline-block;background:#E8652B;color:#fff;padding:12px 32px;border-radius:50px;text-decoration:none;font-weight:700;font-size:14px;">Antworten</a>
-            </div>
+                <tr><td style="padding:24px 32px 8px;">
+                  <p style="margin:0 0 10px;font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:#999;font-weight:700;">Nachricht</p>
+                  <div style="padding:22px 24px;background:#faf8f5;border-left:3px solid #E8652B;border-radius:6px;">
+                    <p style="margin:0;font-size:15px;line-height:1.75;color:#222;">${escapeHtml(message).replace(/\n/g, "<br>")}</p>
+                  </div>
+                </td></tr>
 
-          </div>
+                <tr><td style="padding:28px 32px 36px;" align="center">
+                  <a href="mailto:${escapeHtml(email)}?subject=Re: Deine Nachricht auf ungephiltert" style="display:inline-block;background:#E8652B;color:#fff;padding:14px 38px;border-radius:50px;text-decoration:none;font-weight:700;font-size:14px;letter-spacing:.01em;">Direkt antworten</a>
+                </td></tr>
+
+                <tr><td style="background:#0f0d0b;padding:14px 32px;text-align:center;">
+                  <p style="margin:0;color:rgba(255,255,255,.4);font-size:11px;letter-spacing:.5px;">Gesendet via Kontaktformular auf ungephiltert.de</p>
+                </td></tr>
+
+              </table>
+
+            </td></tr>
+          </table>
         </body></html>
       `,
-      textContent: `Neue Nachricht über ungephiltert.\n\nVon: ${name}\nE-Mail: ${email}\n\nNachricht:\n${message}`,
+      textContent: `Neue Website-Eintragung\n\nVon: ${name}\nE-Mail: ${email}\n\nNachricht:\n${message}`,
     };
 
     // ============ Mail 2 — Bestätigung an Absender ============
@@ -100,34 +113,48 @@ export async function onRequestPost(context) {
       htmlContent: `
         <!DOCTYPE html>
         <html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
-        <body style="margin:0;padding:0;background:#f4f4f5;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
-          <div style="max-width:560px;margin:40px auto;background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.08);">
+        <body style="margin:0;padding:0;background:#0f0d0b;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:#f5f1ea;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#0f0d0b;">
+            <tr><td align="center" style="padding:48px 16px;">
 
-            <div style="background:#0f0d0b;padding:32px;text-align:center;color:#fff;font-size:22px;font-weight:800;letter-spacing:-.02em;">
-              ungephiltert<span style="color:#E8652B;">.</span>
-            </div>
+              <table role="presentation" width="560" cellpadding="0" cellspacing="0" border="0" style="max-width:560px;width:100%;">
 
-            <div style="padding:36px 32px;">
-              <h2 style="margin:0 0 18px;font-size:22px;color:#111;font-weight:800;letter-spacing:-.02em;">Hey ${escapeHtml(firstName)},</h2>
-              <p style="font-size:15px;line-height:1.7;color:#444;margin:0 0 16px;">deine Nachricht ist bei mir gelandet. Ich schau sie mir an und meld mich.</p>
-              <p style="font-size:15px;line-height:1.7;color:#444;margin:0 0 28px;">Bis dahin — guck gern auf Instagram vorbei.</p>
+                <tr><td align="center" style="padding:0 0 40px;">
+                  <span style="font-size:26px;font-weight:800;letter-spacing:-.02em;color:#fff;">ungephiltert<span style="color:#E8652B;">.</span></span>
+                </td></tr>
 
-              <div style="text-align:center;margin-bottom:28px;">
-                <a href="https://www.instagram.com/ungphiltert/" style="display:inline-block;background:#E8652B;color:#fff;padding:12px 32px;border-radius:50px;text-decoration:none;font-weight:700;font-size:14px;">Auf Instagram folgen</a>
-              </div>
+                <tr><td style="background:#15110d;border:1px solid rgba(232,101,43,.18);border-radius:18px;padding:48px 40px 40px;">
 
-              <p style="font-size:15px;line-height:1.7;color:#444;margin:0;">Bis gleich,</p>
-              <p style="font-size:15px;line-height:1.7;color:#111;margin:4px 0 0;font-weight:700;">Philipp</p>
-            </div>
+                  <p style="margin:0 0 18px;font-size:11px;text-transform:uppercase;letter-spacing:2px;color:#E8652B;font-weight:700;">Angekommen</p>
 
-            <div style="padding:18px 32px;border-top:1px solid #f0f0f0;text-align:center;">
-              <p style="margin:0;color:#bbb;font-size:12px;">ungephiltert. — Video Creator</p>
-            </div>
+                  <h1 style="margin:0 0 22px;font-size:30px;color:#fff;font-weight:800;letter-spacing:-.02em;line-height:1.15;">Hey ${escapeHtml(firstName)} —<br>danke für deine Nachricht.</h1>
 
-          </div>
+                  <p style="font-size:16px;line-height:1.75;color:#cfc7bb;margin:0 0 14px;">Ich hab sie gesehen, schau sie mir in Ruhe an und meld mich bei dir. Meistens innerhalb von ein, zwei Tagen — ich bin viel draußen mit Kamera unterwegs.</p>
+
+                  <p style="font-size:16px;line-height:1.75;color:#cfc7bb;margin:0 0 32px;">Bis dahin — wenn du sehen willst, was ich gerade so mache, schau gern auf Instagram vorbei.</p>
+
+                  <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td>
+                    <a href="https://www.instagram.com/ungphiltert/" style="display:inline-block;background:#E8652B;color:#fff;padding:15px 36px;border-radius:50px;text-decoration:none;font-weight:700;font-size:14px;letter-spacing:.01em;">Auf Instagram folgen</a>
+                  </td></tr></table>
+
+                  <div style="margin:36px 0 0;padding:24px 0 0;border-top:1px solid rgba(255,255,255,.08);">
+                    <p style="margin:0;font-size:15px;line-height:1.7;color:#cfc7bb;">Bis gleich,</p>
+                    <p style="margin:4px 0 0;font-size:17px;line-height:1.7;color:#fff;font-weight:700;letter-spacing:-.01em;">Philipp</p>
+                  </div>
+
+                </td></tr>
+
+                <tr><td align="center" style="padding:28px 0 0;">
+                  <p style="margin:0;color:rgba(255,255,255,.35);font-size:11px;letter-spacing:1px;text-transform:uppercase;">ungephiltert · Video Creator</p>
+                </td></tr>
+
+              </table>
+
+            </td></tr>
+          </table>
         </body></html>
       `,
-      textContent: `Hey ${firstName},\n\ndeine Nachricht ist bei mir gelandet. Ich schau sie mir an und meld mich.\n\nBis dahin — guck gern auf Instagram vorbei.\n\nBis gleich,\nPhilipp\nungephiltert.`,
+      textContent: `Hey ${firstName},\n\ndanke für deine Nachricht. Ich hab sie gesehen, schau sie mir in Ruhe an und meld mich bei dir — meistens innerhalb von ein, zwei Tagen.\n\nBis dahin: wenn du sehen willst was ich gerade so mache, schau gern auf Instagram vorbei.\nhttps://www.instagram.com/ungphiltert/\n\nBis gleich,\nPhilipp\nungephiltert.`,
     };
 
     // ============ Beide Mails parallel via Brevo API senden ============
