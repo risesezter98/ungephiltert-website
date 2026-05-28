@@ -143,10 +143,19 @@ export async function onRequestPost(context) {
     ]);
 
     if (!notifResult.ok || !confirmResult.ok) {
-      const errText = !notifResult.ok ? await notifResult.text() : await confirmResult.text();
-      console.error("Brevo API error:", errText);
+      const notifText = await notifResult.text();
+      const confirmText = await confirmResult.text();
+      console.error("Brevo API error:", notifText, confirmText);
       return new Response(
-        JSON.stringify({ error: "Mail-Versand fehlgeschlagen." }),
+        JSON.stringify({
+          error: "Mail-Versand fehlgeschlagen.",
+          debug: {
+            notif_status: notifResult.status,
+            notif_body: notifText,
+            confirm_status: confirmResult.status,
+            confirm_body: confirmText,
+          }
+        }),
         { status: 500, headers }
       );
     }
