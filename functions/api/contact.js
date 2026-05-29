@@ -102,14 +102,13 @@ export async function onRequestPost(context) {
         <html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
         <body style="margin:0;padding:0;background-color:#0f0d0b;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#0f0d0b" style="background-color:#0f0d0b;margin:0;padding:0;">
-
-            <tr><td align="center" bgcolor="#0f0d0b" style="background-color:#0f0d0b;padding:32px 16px;">
-              <span style="color:#fff;font-size:22px;font-weight:800;letter-spacing:-.02em;">ungephiltert<span style="color:#E8652B;">.</span></span>
-            </td></tr>
-
             <tr><td align="center" style="padding:0;">
 
               <table role="presentation" width="560" cellpadding="0" cellspacing="0" border="0" style="max-width:560px;width:100%;background-color:#ffffff;">
+
+                <tr><td bgcolor="#0f0d0b" style="background-color:#0f0d0b;padding:24px 32px;">
+                  <span style="color:#fff;font-size:18px;font-weight:800;letter-spacing:-.02em;">ungephiltert<span style="color:#E8652B;">.</span></span>
+                </td></tr>
 
                 <tr><td style="padding:36px 32px 24px;background-color:#ffffff;">
                   <h1 style="margin:0 0 18px;font-size:24px;color:#111;font-weight:800;letter-spacing:-.02em;line-height:1.2;">Hey ${escapeHtml(firstName)},</h1>
