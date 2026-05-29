@@ -96,7 +96,7 @@ export async function onRequestPost(context) {
       sender: { name: SITE_NAME, email: SENDER_EMAIL },
       to: [{ email: email, name: name }],
       replyTo: { email: SENDER_EMAIL, name: OWNER_NAME },
-      subject: "Hab deine Nachricht bekommen",
+      subject: `Hey ${firstName}, hab dich gelesen`,
       htmlContent: `
         <!DOCTYPE html>
         <html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
@@ -108,9 +108,9 @@ export async function onRequestPost(context) {
             </div>
 
             <div style="padding:36px 32px 24px;">
-              <h1 style="margin:0 0 18px;font-size:24px;color:#111;font-weight:800;letter-spacing:-.02em;line-height:1.2;">Hey ${escapeHtml(firstName)}, danke für deine Nachricht.</h1>
-              <p style="font-size:15px;line-height:1.75;color:#444;margin:0 0 14px;">Ist bei mir angekommen. Ich schau sie mir an und meld mich, normalerweise innerhalb von ein bis zwei Tagen.</p>
-              <p style="font-size:15px;line-height:1.75;color:#444;margin:0 0 28px;">Bis dahin: schau gern auf Instagram vorbei, da läuft am meisten.</p>
+              <h1 style="margin:0 0 18px;font-size:24px;color:#111;font-weight:800;letter-spacing:-.02em;line-height:1.2;">Hey ${escapeHtml(firstName)},</h1>
+              <p style="font-size:15px;line-height:1.75;color:#444;margin:0 0 14px;">kurz von mir: deine Nachricht ist da. Ich schau sie mir in Ruhe an und melde mich bei dir, meistens innerhalb von ein, zwei Tagen.</p>
+              <p style="font-size:15px;line-height:1.75;color:#444;margin:0 0 28px;">Bis dahin guck gern auf Instagram vorbei, da läuft eh am meisten.</p>
 
               <div style="margin:0 0 32px;">
                 <a href="https://www.instagram.com/ungphiltert/" style="display:inline-block;background:#E8652B;color:#fff;padding:13px 32px;border-radius:50px;text-decoration:none;font-weight:700;font-size:14px;">Auf Instagram folgen</a>
@@ -127,7 +127,7 @@ export async function onRequestPost(context) {
           </div>
         </body></html>
       `,
-      textContent: `Hey ${firstName}, danke für deine Nachricht.\n\nIst bei mir angekommen. Ich schau sie mir an und meld mich, normalerweise innerhalb von ein bis zwei Tagen.\n\nBis dahin: schau gern auf Instagram vorbei, da läuft am meisten.\nhttps://www.instagram.com/ungphiltert/\n\nBis gleich,\nPhilipp\nungephiltert.`,
+      textContent: `Hey ${firstName},\n\nkurz von mir: deine Nachricht ist da. Ich schau sie mir in Ruhe an und melde mich bei dir, meistens innerhalb von ein, zwei Tagen.\n\nBis dahin guck gern auf Instagram vorbei, da läuft eh am meisten.\nhttps://www.instagram.com/ungphiltert/\n\nBis gleich,\nPhilipp\nungephiltert.`,
     };
 
     // ============ Beide Mails parallel via Brevo API senden ============
