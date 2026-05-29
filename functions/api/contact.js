@@ -96,12 +96,12 @@ export async function onRequestPost(context) {
       sender: { name: SITE_NAME, email: SENDER_EMAIL },
       to: [{ email: email, name: name }],
       replyTo: { email: SENDER_EMAIL, name: OWNER_NAME },
-      subject: `Hey ${firstName}, hab dich gelesen`,
+      subject: `Hey ${firstName}, danke für deine Nachricht`,
       htmlContent: `
         <!DOCTYPE html>
         <html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
-        <body style="margin:0;padding:0;background-color:#0f0d0b;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
-          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#0f0d0b" style="background-color:#0f0d0b;margin:0;padding:0;">
+        <body style="margin:0;padding:0;background-color:#ffffff;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="background-color:#ffffff;margin:0;padding:0;">
             <tr><td align="center" style="padding:0;">
 
               <table role="presentation" width="560" cellpadding="0" cellspacing="0" border="0" style="max-width:560px;width:100%;background-color:#ffffff;">
