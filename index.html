@@ -109,6 +109,7 @@
     "author": { "@id": "https://ungephiltert.de/#philipp" }
   }
   </script>
+  <script defer src="https://analytics.pfeiffer-digital.de/script.js" data-website-id="b5920211-40d5-439e-ba99-627560691e34"></script>
 </head>
 <body>
 
@@ -1999,52 +2000,5 @@
 
 </style>
 
-<style>
-  .consent{position:fixed;left:16px;right:16px;bottom:16px;z-index:9999;max-width:600px;margin:0 auto;background:#0f0d0b;border:1px solid rgba(232,101,43,.3);border-radius:16px;padding:20px 22px;box-shadow:0 16px 48px rgba(0,0,0,.45);transform:translateY(160%);opacity:0;transition:transform .45s cubic-bezier(.22,1,.36,1),opacity .45s}
-  .consent.active{transform:translateY(0);opacity:1}
-  .consent__text{font-size:13.5px;line-height:1.6;color:rgba(255,255,255,.82);margin:0 0 16px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
-  .consent__text a{color:#E8652B;text-decoration:none;font-weight:600}
-  .consent__text a:hover{text-decoration:underline}
-  .consent__actions{display:flex;gap:10px;justify-content:flex-end}
-  .consent__btn{border:none;cursor:pointer;font-size:13.5px;font-weight:700;padding:10px 22px;border-radius:50px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;transition:transform .2s,background .2s,border-color .2s}
-  .consent__btn--ghost{background:transparent;color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.22)}
-  .consent__btn--ghost:hover{color:#fff;border-color:rgba(255,255,255,.45)}
-  .consent__btn--accept{background:#E8652B;color:#fff}
-  .consent__btn--accept:hover{transform:translateY(-1px)}
-  @media(max-width:520px){.consent__actions{flex-direction:column-reverse}.consent__btn{width:100%}}
-</style>
-<div class="consent" id="consentBanner" hidden>
-  <p class="consent__text">Diese Seite nutzt anonyme Statistik (Umami), um zu verstehen wie sie genutzt wird. Ohne Cookies, ohne Weitergabe an Dritte. Du entscheidest, ob das okay ist. <a href="datenschutz.html">Mehr in der Datenschutzerklärung</a></p>
-  <div class="consent__actions">
-    <button type="button" class="consent__btn consent__btn--ghost" id="consentDecline">Ablehnen</button>
-    <button type="button" class="consent__btn consent__btn--accept" id="consentAccept">Akzeptieren</button>
-  </div>
-</div>
-<script>
-(function(){
-  var KEY='ungephiltert_consent_v1';
-  var banner=document.getElementById('consentBanner');
-  if(!banner)return;
-  function loadUmami(){
-    if(document.getElementById('umami-script'))return;
-    var s=document.createElement('script');
-    s.id='umami-script';s.defer=true;
-    s.src='https://analytics.pfeiffer-digital.de/script.js';
-    s.setAttribute('data-website-id','b5920211-40d5-439e-ba99-627560691e34');
-    document.head.appendChild(s);
-  }
-  var c=localStorage.getItem(KEY);
-  if(c==='accepted'){loadUmami();}
-  else if(c!=='declined'){banner.hidden=false;setTimeout(function(){banner.classList.add('active');},600);}
-  document.getElementById('consentAccept').addEventListener('click',function(){
-    localStorage.setItem(KEY,'accepted');banner.classList.remove('active');
-    setTimeout(function(){banner.hidden=true;},450);loadUmami();
-  });
-  document.getElementById('consentDecline').addEventListener('click',function(){
-    localStorage.setItem(KEY,'declined');banner.classList.remove('active');
-    setTimeout(function(){banner.hidden=true;},450);
-  });
-})();
-</script>
 </body>
 </html>
