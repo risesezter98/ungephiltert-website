@@ -7,7 +7,7 @@
 //   OWNER_EMAIL  → Philipps echte E-Mail (wo Anfragen ankommen)
 //   SENDER_EMAIL → in Brevo verifizierte Absender-Adresse
 //   OWNER_NAME   → "Philipp"
-const OWNER_EMAIL = "rubenpfeiffer.1104@gmail.com";   // TEST: spaeter auf Philipps Mail wechseln
+const OWNER_EMAIL = "media@ungephiltert.de";   // Philipps Postfach (via all-inkl, in Gmail eingebunden)
 const SENDER_EMAIL = "media@ungephiltert.de";  // Brevo-verifiziert (Philipp's Mailbox via all-inkl + Gmail)
 const OWNER_NAME = "Philipp";
 const SITE_NAME = "ungephiltert.";
